@@ -1,10 +1,6 @@
-# plugin-the-events-calendar
-A plugin for The Events Calendar plugin - https://wordpress.org/plugins/the-events-calendar/
-
 <p align="center"><a href="https://paystack.com/"><img src="https://raw.githubusercontent.com/PaystackHQ/wordpress-payment-forms-for-paystack/master/icon.png" alt="Payment Forms for Paystack"></a></p>
 
-The Events Calendar integration with Paystack.
-
+The Events Calendar integration for Paystack.
 
 # The Events Calendar Integration
 
