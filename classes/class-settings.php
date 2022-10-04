@@ -65,7 +65,7 @@ class Settings extends Abstract_Settings {
 
 		$admin_views->add_template_globals( $context );
 
-		return $admin_views->template( 'settings/tickets-commerce/paystack/main', $context, false );
+		return $admin_views->template( 'paystack/admin-views/main', $context, false );
 	}
 
 	/**

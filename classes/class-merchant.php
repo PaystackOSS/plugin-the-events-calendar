@@ -814,20 +814,13 @@ class Merchant extends Abstract_Merchant {
 	 * @return bool
 	 */
 	public function is_connected( $recheck = false ) {
-		$saved_merchant_id = $this->get_merchant_id_in_paystack();
-
-		if ( ! $saved_merchant_id ) {
-			return false;
-		}
-
-		if ( ! $recheck && true === $this->get_account_is_connected() ) {
-			return true;
-		}
-
-		$seller_status = tribe( WhoDat::class )->get_seller_status( $saved_merchant_id );
-		$product_names = wp_list_pluck( Arr::get( $seller_status, [ 'products' ] ), 'name' );
-
-		$is_connected = count( array_intersect( $product_names, [ 'EXPRESS_CHECKOUT', 'PPCP_CUSTOM', 'PPCP_STANDARD' ] ) ) >= 1;
+		$is_connected = true;
+		/**
+		 * TODO
+		 * 
+		 * If mode = test and test keys not entered, then not active.
+		 * if mode = live and keys not entered, then not active.
+		 */
 
 		if ( $is_connected ) {
 			$this->set_account_is_connected( true );

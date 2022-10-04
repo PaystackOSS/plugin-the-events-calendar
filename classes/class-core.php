@@ -23,6 +23,11 @@ class Core {
 	public $setup;
 
 	/**
+	 * @var object \paystack\tec\classes\Provider();
+	 */
+	public $provider;
+
+	/**
 	 * @var object \paystack\tec\classes\Admin();
 	 */
 	public $admin;
@@ -62,9 +67,12 @@ class Core {
 		if ( function_exists( 'tribe' ) ) {
 			$container = tribe();
 
+			require_once( PS_TEC_PATH . '/classes/class-setup.php' );
+			$this->setup = Setup::get_instance();
+
 			require_once( PS_TEC_PATH . '/classes/class-provider.php' );
-			$provider = new Provider( $container );
-			$provider->register();
+			$this->provider = new Provider( $container );
+			$this->provider->register();
 		}
 	}
 
