@@ -14,24 +14,6 @@ use Tribe__Utils__Array as Arr;
 class Signup extends Abstract_Signup {
 
 	/**
-	 * Holds the transient key used to store hash passed to paystack.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var string
-	 */
-	public static $signup_hash_meta_key = 'tec_tc_paystack_signup_hash';
-
-	/**
-	 * Holds the transient key used to link paystack to this site.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var string
-	 */
-	public static $signup_data_meta_key = 'tec_tc_paystack_signup_data';
-
-	/**
 	 * @inheritDoc
 	 */
 	public $template_folder = 'paystack/admin-views';
@@ -60,10 +42,12 @@ class Signup extends Abstract_Signup {
 	 */
 	public function get_link_html() {
 		$country       = tribe( Country::class )->get_setting();
-		$template_vars = [
+		$admin_views   = tribe( 'tickets.admin.views' );
+		$template_vars = array(
 			'url'          => $this->generate_url( $country ),
 			'country_code' => $country,
-		];
+			'admin_views'  => $admin_views,
+		);
 		return $this->get_template()->template( 'paystack/admin-views/signup-link', $template_vars, false );
 	}
 }
