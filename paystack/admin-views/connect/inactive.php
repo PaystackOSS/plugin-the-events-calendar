@@ -22,7 +22,7 @@ if ( ! empty( $is_merchant_connected ) ) {
 ?>
 
 <h2 class="tec-tickets__admin-settings-tickets-commerce-gateway-title">
-	<?php esc_html_e( 'Accept online payments with PayPal!', 'event-tickets' ); ?>
+	<?php esc_html_e( 'Accept online payments!', 'event-tickets' ); ?>
 </h2>
 
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-description">
@@ -34,5 +34,25 @@ if ( ! empty( $is_merchant_connected ) ) {
 		<?php echo $signup->get_link_html(); // phpcs:ignore ?>
 	</div>
 
-	<?php $this->template( 'paystack/admin-views/connect/help-links' ); ?>
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
+		<?php $this->template( 'components/icons/lightbulb' ); ?>
+		<a
+			href="https://www.youtube.com/watch?v=gWfoN_OydHE"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
+		><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+	</div>
+
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
+		<?php $this->template( 'components/icons/lightbulb' ); ?>
+		<a
+			href="https://www.youtube.com/watch?v=gWfoN_OydHE"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
+		><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+	</div>
+
+	
 </div>
