@@ -2,3 +2,8 @@
     float: none;
     max-width: none;
 }
+
+#tribe-field-tickets-commerce-paystack-commerce-configure {
+    padding-left: 0;
+    width: 100%;
+}

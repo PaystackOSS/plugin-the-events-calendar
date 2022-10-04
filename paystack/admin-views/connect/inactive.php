@@ -34,25 +34,25 @@ if ( ! empty( $is_merchant_connected ) ) {
 		<?php echo $signup->get_link_html(); // phpcs:ignore ?>
 	</div>
 
-	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
-		<?php $this->template( 'components/icons/lightbulb' ); ?>
-		<a
-			href="https://www.youtube.com/watch?v=gWfoN_OydHE"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
-		><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
-	</div>
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-links">
+		<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
+			<?php $this->template( 'components/icons/lightbulb' ); ?>
+			<a
+				href="https://www.youtube.com/watch?v=gWfoN_OydHE"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
+			><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+		</div>
 
-	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
-		<?php $this->template( 'components/icons/lightbulb' ); ?>
-		<a
-			href="https://www.youtube.com/watch?v=gWfoN_OydHE"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
-		><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+		<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
+			<?php $this->template( 'components/icons/lightbulb' ); ?>
+			<a
+				href="https://www.youtube.com/watch?v=gWfoN_OydHE"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
+			><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+		</div>
 	</div>
-
-	
 </div>
