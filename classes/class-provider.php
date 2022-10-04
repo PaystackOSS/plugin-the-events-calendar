@@ -21,9 +21,14 @@ class Provider extends \tad_DI52_ServiceProvider {
 		require_once( PS_TEC_PATH . '/classes/class-merchant.php' );
 		$this->container->singleton( Merchant::class, Merchant::class, array( 'init' ) );
 
+		require_once( PS_TEC_PATH . '/classes/class-settings.php' );
+		$this->container->singleton( Settings::class );
+
 		//$this->container->singleton( Refresh_Token::class );
 		////$this->container->singleton( Client::class );
-		//$this->container->singleton( Signup::class );
+
+		require_once( PS_TEC_PATH . '/classes/class-signup.php' );
+		$this->container->singleton( Signup::class );
 		//$this->container->singleton( Status::class );
 
 		//$this->container->singleton( Webhooks::class );
