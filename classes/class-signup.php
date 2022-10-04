@@ -2,7 +2,7 @@
 namespace paystack\tec\classes;
 
 use TEC\Tickets\Commerce\Gateways\Contracts\Abstract_Signup;
-use TEC\Tickets\Commerce\Gateways\paystack\Location\Country;
+use TEC\Tickets\Commerce\Gateways\PayPal\Location\Country;
 use TEC\Tickets\Commerce\Settings;
 use Tribe__Utils__Array as Arr;
 
@@ -91,7 +91,7 @@ class Signup extends Abstract_Signup {
 	}
 
 	/**
-	 * Request the signup link that redirects the seller to paystack.
+	 * Request the signup link
 	 *
 	 * @since 5.1.9
 	 *
@@ -101,26 +101,7 @@ class Signup extends Abstract_Signup {
 	 * @return string|false
 	 */
 	public function generate_url( $country, $force = false ) {
-		// Fetch the cached value for this user.
-		$signup = $this->get_transient_data();
-		if (
-			false === $force
-			&& $signup_url = Arr::get( $signup, [ 'links', 1, 'href' ] )
-		) {
-			return $signup_url;
-		}
-
-		$hash = $this->generate_unique_signup_hash();
-		$this->update_transient_hash( $hash );
-
-		$signup = tribe( WhoDat::class )->get_seller_signup_data( $hash, $country );
-
-		if ( ! $signup_url = Arr::get( $signup, [ 'links', 1, 'href' ] ) ) {
-			return false;
-		}
-
-		$this->update_transient_data( $signup );
-
+		$signup_url = PS_TEC_URL;
 		return $signup_url;
 	}
 

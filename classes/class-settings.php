@@ -55,7 +55,7 @@ class Settings extends Abstract_Settings {
 		$signup      = tribe( Signup::class );
 
 		$context = [
-			'plugin_url'            => Tribe__Tickets__Main::instance()->plugin_url,
+			'plugin_url'            => PS_TEC_URL,
 			'merchant'              => $merchant,
 			'is_merchant_connected' => $merchant->is_connected(),
 			'is_merchant_active'    => $merchant->is_active(),

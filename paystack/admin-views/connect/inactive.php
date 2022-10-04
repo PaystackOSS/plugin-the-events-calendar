@@ -9,8 +9,8 @@
  *
  * @var Tribe__Tickets__Admin__Views                  $this                  [Global] Template object.
  * @var string                                        $plugin_url            [Global] The plugin URL.
- * @var TEC\Tickets\Commerce\Gateways\PayPal\Merchant $merchant              [Global] The merchant class.
- * @var TEC\Tickets\Commerce\Gateways\PayPal\Signup   $signup                [Global] The Signup class.
+ * @var paystack\tec\classes\Merchant $merchant              [Global] The merchant class.
+ * @var paystack\tec\classes\Signup   $signup                [Global] The Signup class.
  * @var bool                                          $is_merchant_active    [Global] Whether the merchant is active or not.
  * @var bool                                          $is_merchant_connected [Global] Whether the merchant is connected or not.
  */
@@ -27,7 +27,7 @@ if ( ! empty( $is_merchant_connected ) ) {
 
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-description">
 	<p>
-		<?php esc_html_e( 'Start selling tickets to your events today with PayPal. Attendees can purchase tickets directly on your site using debit or credit cards with no additional fees.', 'event-tickets' ); ?>
+		<?php esc_html_e( 'Start selling tickets to your events today with Paystack. Attendees can purchase tickets directly on your site using debit or credit cards with no additional fees.', 'event-tickets' ); ?>
 	</p>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-links">

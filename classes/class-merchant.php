@@ -814,7 +814,7 @@ class Merchant extends Abstract_Merchant {
 	 * @return bool
 	 */
 	public function is_connected( $recheck = false ) {
-		$is_connected = true;
+		$is_connected = false;
 		/**
 		 * TODO
 		 * 
