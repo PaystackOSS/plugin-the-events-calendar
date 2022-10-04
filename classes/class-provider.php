@@ -16,7 +16,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Gateway::class );
 
 		$this->register_hooks();
-		//$this->register_assets();
+		$this->register_assets();
 
 		require_once( PS_TEC_PATH . '/classes/class-merchant.php' );
 		$this->container->singleton( Merchant::class, Merchant::class, array( 'init' ) );
@@ -42,6 +42,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Registers the provider handling all the 1st level filters and actions for this Service Provider
 	 */
 	protected function register_assets() {
+		require_once( PS_TEC_PATH . '/classes/class-assets.php' );
 		$assets = new Assets( $this->container );
 		$assets->register();
 

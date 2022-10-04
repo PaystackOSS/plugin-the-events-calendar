@@ -34,5 +34,5 @@ if ( ! empty( $is_merchant_connected ) ) {
 		<?php echo $signup->get_link_html(); // phpcs:ignore ?>
 	</div>
 
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/help-links' ); ?>
+	<?php $this->template( 'paystack/admin-views/connect/help-links' ); ?>
 </div>

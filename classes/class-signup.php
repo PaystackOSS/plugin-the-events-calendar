@@ -168,10 +168,8 @@ class Signup extends Abstract_Signup {
 			'url'          => $this->generate_url( $country ),
 			'country_code' => $country,
 		];
-
-		return $this->get_template()->template( 'signup-link', $template_vars, false );
+		return $this->get_template()->template( 'paystack/admin-views/signup-link', $template_vars, false );
 	}
-
 
 	/**
 	 * Validate seller on Boarding status data.

@@ -30,7 +30,6 @@ $classes = array(
 
 	</div>
 
-
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-logo">
 		<?php $image_src = PS_TEC_URL . 'icon.png'; ?>
 
@@ -43,9 +42,6 @@ $classes = array(
 		<ul>
 			<li>
 				<?php esc_html_e( 'Credit and debit card payments', 'event-tickets' ); ?>
-			</li>
-			<li>
-				<?php esc_html_e( 'Easy no-API key connection', 'event-tickets' ); ?>
 			</li>
 			<li>
 				<?php esc_html_e( 'Accept payments from around the world', 'event-tickets' ); ?>
