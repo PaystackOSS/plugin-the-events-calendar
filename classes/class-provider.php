@@ -18,7 +18,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		//$this->register_assets();
 
-		//$this->container->singleton( Merchant::class, Merchant::class, [ 'init' ] );
+		require_once( PS_TEC_PATH . '/classes/class-merchant.php' );
+		$this->container->singleton( Merchant::class, Merchant::class, array( 'init' ) );
 
 		//$this->container->singleton( Refresh_Token::class );
 		////$this->container->singleton( Client::class );
