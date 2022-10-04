@@ -36,8 +36,8 @@ class Core {
 	 * Contructor
 	 */
 	public function __construct() {
-		$this->load_includes();
-		$this->load_classes();
+		add_action( 'init', array( $this, 'load_classes' ) );
+		//$this->load_includes();
 	}
 
 	/**
@@ -58,7 +58,14 @@ class Core {
 	/**
 	 * Loads the variable classes and the static classes.
 	 */
-	private function load_classes() {
+	public function load_classes() {
+		if ( function_exists( 'tribe' ) ) {
+			$container = tribe();
+
+			require_once( PS_TEC_PATH . '/classes/class-provider.php' );
+			$provider = new Provider( $container );
+			$provider->register();
+		}
 	}
 
 	/**
