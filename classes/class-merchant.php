@@ -19,18 +19,14 @@ class Merchant extends Abstract_Merchant {
 	 *
 	 * @var string[]
 	 */
-	protected $account_props = [
-		'signup_hash',
-		'merchant_id',
-		'client_id',
-		'client_secret',
-		'account_is_ready',
-		'account_is_connected',
-		'supports_custom_payments',
-		'active_custom_payments',
-		'account_country',
-		'access_token',
-	];
+	protected $account_props = array(
+		'country',
+		'mode',
+		'secret_key_test',
+		'public_key_test',
+		'secret_key_live',
+		'public_key_live',
+	);
 
 	/**
 	 * Determines if the data needs to be saved to the Database
@@ -42,22 +38,13 @@ class Merchant extends Abstract_Merchant {
 	protected $needs_save = false;
 
 	/**
-	 * paystack merchant Id  (email address).
+	 * Merchant Country
 	 *
 	 * @since 5.1.9
 	 *
 	 * @var null|string
 	 */
-	protected $merchant_id;
-
-	/**
-	 * A Hash used during signup that should be associated with the merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var null|string
-	 */
-	protected $signup_hash;
+	protected $country;
 
 	/**
 	 * paystack merchant id.
@@ -66,61 +53,43 @@ class Merchant extends Abstract_Merchant {
 	 *
 	 * @var string
 	 */
-	protected $merchant_id_in_paystack;
+	protected $mode;
 
 	/**
-	 * Client id.
+	 * Client Test Secrect Key.
 	 *
 	 * @since 5.1.9
 	 *
 	 * @var string
 	 */
-	protected $client_id;
+	protected $secret_key_test;
 
 	/**
-	 * Client Secret.
+	 * Client Test Public Key.
 	 *
 	 * @since 5.1.9
 	 *
 	 * @var string
 	 */
-	protected $client_secret;
+	protected $public_key_test;
 
 	/**
-	 * Client token.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var array
-	 */
-	protected $client_token;
-
-	/**
-	 * How long till the Client token expires
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var int
-	 */
-	protected $client_token_expires_in;
-
-	/**
-	 * Access token.
+	 * Client Live Secrect Key.
 	 *
 	 * @since 5.1.9
 	 *
 	 * @var string
 	 */
-	protected $access_token;
+	protected $secret_key_live;
 
 	/**
-	 * Whether or not the connected account is ready to process payments.
+	 * Client Live Public Key.
 	 *
 	 * @since 5.1.9
 	 *
-	 * @var bool
+	 * @var string
 	 */
-	protected $account_is_ready = false;
+	protected $public_key_live;
 
 	/**
 	 * Whether or not an account is connected.
@@ -132,65 +101,14 @@ class Merchant extends Abstract_Merchant {
 	protected $account_is_connected = false;
 
 	/**
-	 * Whether or not the account is setup make custom payments (i.e Advanced Fields & PPCP), doesn't necessarily mean
-	 * that the account can accept payments yet.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var bool
-	 */
-	protected $supports_custom_payments = false;
-
-	/**
-	 * Whether or not the account is ready to take custom payments (i.e Advanced Fields & PPCP).
-	 *
-	 * @since 5.2.0
-	 *
-	 * @var bool
-	 */
-	protected $active_custom_payments = false;
-
-	/**
-	 * paystack account account country.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var string
-	 */
-	protected $account_country;
-
-	/**
-	 * Fetches the current signup hash.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string|null
-	 */
-	public function get_signup_hash() {
-		return $this->signup_hash;
-	}
-
-	/**
-	 * Sets the value for signup hash locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the signup hash.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_signup_hash( $value, $needs_save = true ) {
-		$this->set_value( 'signup_hash', $value, $needs_save );
-	}
-
-	/**
 	 * Fetches the current Merchant ID.
 	 *
 	 * @since 5.1.9
 	 *
 	 * @return string|null
 	 */
-	public function get_merchant_id() {
-		return $this->merchant_id;
+	public function get_prop( $key ) {
+		return $this->$key;
 	}
 
 	/**
@@ -198,207 +116,12 @@ class Merchant extends Abstract_Merchant {
 	 *
 	 * @since 5.1.9
 	 *
+	 * @param string   $key        The id of the key
 	 * @param mixed   $value      Value used for the Merchant ID.
 	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
 	 */
-	public function set_merchant_id( $value, $needs_save = true ) {
-		$this->set_value( 'merchant_id', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for the Merchant ID in paystack.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_merchant_id_in_paystack() {
-		return $this->merchant_id_in_paystack;
-	}
-
-	/**
-	 * Sets the value for Merchant ID in paystack locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Merchant ID in paystack.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_merchant_id_in_paystack( $value, $needs_save = true ) {
-		$this->set_value( 'merchant_id_in_paystack', $value, $needs_save );
-	}
-
-	/**
-	 * Sets the value for Merchant ID locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Merchant ID.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_client_id( $value, $needs_save = true ) {
-		$this->client_id = $value;
-	}
-
-	/**
-	 * Gets the value stored for the Client Secret.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_client_secret() {
-		return $this->client_secret;
-	}
-
-	/**
-	 * Sets the value for Client Secret locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Client Secret.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_client_secret( $value, $needs_save = true ) {
-		$this->set_value( 'client_secret', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for the Access Token.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_access_token() {
-		return $this->access_token;
-	}
-
-	/**
-	 * Sets the value for Access Token locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Access Token.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_access_token( $value, $needs_save = true ) {
-		$this->set_value( 'access_token', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for if the account is ready for usage.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_account_is_ready() {
-		return $this->account_is_ready;
-	}
-
-	/**
-	 * Sets the value for if this account is ready for usage locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Account is Ready.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_account_is_ready( $value, $needs_save = true ) {
-		$this->set_value( 'account_is_ready', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for if the account is ready for usage.
-	 *
-	 * @since 5.2.0
-	 *
-	 * @return string
-	 */
-	public function get_account_is_connected() {
-		return $this->account_is_connected;
-	}
-
-	/**
-	 * Sets the value for if this account is connected for usage locally, in this instance of the Merchant.
-	 *
-	 * @since 5.2.0
-	 *
-	 * @param mixed   $value      Value used for the Account is Connect.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_account_is_connected( $value, $needs_save = true ) {
-		$this->set_value( 'account_is_connected', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for if this account supports custom payments.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return bool
-	 */
-	public function get_supports_custom_payments() {
-		return tribe_is_truthy( $this->supports_custom_payments );
-	}
-
-	/**
-	 * Sets the value determining if this supports custom payments locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Support for Custom Payments.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_supports_custom_payments( $value, $needs_save = true ) {
-		$this->set_value( 'supports_custom_payments', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for if this account supports custom payments.
-	 *
-	 * @since 5.2.0
-	 *
-	 * @return bool
-	 */
-	public function get_active_custom_payments() {
-		return tribe_is_truthy( $this->active_custom_payments );
-	}
-
-	/**
-	 * Sets the value determining if this supports custom payments locally, in this instance of the Merchant.
-	 *
-	 * @since 5.2.0
-	 *
-	 * @param mixed   $value      Value used for the Support for Custom Payments.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_active_custom_payments( $value, $needs_save = true ) {
-		$this->set_value( 'active_custom_payments', $value, $needs_save );
-	}
-
-	/**
-	 * Gets the value stored for the Country Code.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_account_country() {
-		return $this->account_country;
-	}
-
-	/**
-	 * Sets the value for Account Country locally, in this instance of the Merchant.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @param mixed   $value      Value used for the Account Country.
-	 * @param boolean $needs_save Determines if the proprieties saved need to save to the DB.
-	 */
-	public function set_account_country( $value, $needs_save = true ) {
-		$this->set_value( 'account_country', $value, $needs_save );
+	public function set_prop( $key, $value, $needs_save = true ) {
+		$this->set_value( $key, $value, $needs_save );
 	}
 
 	/**
@@ -412,6 +135,20 @@ class Merchant extends Abstract_Merchant {
 		return tribe_is_truthy( $this->needs_save );
 	}
 
+	/**
+	 * Return array of merchant details.
+	 *
+	 * @since 5.1.9
+	 *
+	 * @return array
+	 */
+	public function to_array() {
+		$to_array = array();
+		foreach ( $this->account_props as $key ) {
+			$to_array[ $key ] = $this->get_prop( $key );
+		}
+		return $to_array;
+	}
 
 	/**
 	 * Returns the options key for the account in the merchant mode.
@@ -426,89 +163,6 @@ class Merchant extends Abstract_Merchant {
 
 		return "tec_tickets_commerce_{$gateway_key}_{$merchant_mode}_account";
 	}
-
-	/**
-	 * Returns the data retrieved from the access token refreshing process.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_access_token_data_key() {
-		$gateway_key   = Gateway::get_key();
-		$merchant_mode = $this->get_mode();
-
-		return "tec_tickets_commerce_{$gateway_key}_{$merchant_mode}_access_token_data";
-	}
-
-	/**
-	 * Returns the data retrieved from the signup process.
-	 *
-	 * Uses normal WP options to be saved, instead of the normal tribe_update_option.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_signup_data_key() {
-		$gateway_key   = Gateway::get_key();
-		$merchant_mode = $this->get_mode();
-
-		return "tec_tickets_commerce_{$gateway_key}_{$merchant_mode}_signup_data";
-	}
-
-	/**
-	 * Returns the options key for the account errors in the merchant mode.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_account_errors_key() {
-		$gateway_key   = Gateway::get_key();
-		$merchant_mode = $this->get_mode();
-
-		return "tec_tickets_commerce_{$gateway_key}_{$merchant_mode}_account_errors";
-	}
-
-	/**
-	 * Returns the options key for the account account information.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return string
-	 */
-	public function get_user_info_key() {
-		$gateway_key   = Gateway::get_key();
-		$merchant_mode = $this->get_mode();
-
-		return "tec_tickets_commerce_{$gateway_key}_{$merchant_mode}_user_info";
-	}
-
-
-	/**
-	 * Return array of merchant details.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return array
-	 */
-	public function to_array() {
-		return [
-			'signup_hash'              => $this->get_signup_hash(),
-			'merchant_id'              => $this->get_merchant_id(),
-			'merchant_id_in_paystack'    => $this->get_merchant_id_in_paystack(),
-			'client_id'                => $this->get_client_id(),
-			'client_secret'            => $this->get_client_secret(),
-			'account_is_ready'         => $this->get_account_is_ready(),
-			'account_is_connected'     => $this->get_account_is_connected(),
-			'supports_custom_payments' => $this->get_supports_custom_payments(),
-			'active_custom_payments'   => $this->get_active_custom_payments(),
-			'account_country'          => $this->get_account_country(),
-			'access_token'             => $this->get_access_token(),
-		];
-	}
-
 
 	/**
 	 * Saves a given base value into the class props.
@@ -621,17 +275,6 @@ class Merchant extends Abstract_Merchant {
 	}
 
 	/**
-	 * Returns whether or not the account has been connected
-	 *
-	 * @since 5.1.9
-	 *
-	 * @return bool
-	 */
-	public function account_is_connected() {
-		return tribe_is_truthy( $this->merchant_id_in_paystack );
-	}
-
-	/**
 	 * Disconnects the merchant completely.
 	 *
 	 * @since 5.1.9
@@ -662,9 +305,18 @@ class Merchant extends Abstract_Merchant {
 		 * if mode = live and keys not entered, then not active.
 		 */
 
+		if ( 'test' === $this->mode ) {
+			if ( '' !== $this->secret_key_test && '' !== $this->public_key_test ) {
+				$is_connected = true;
+			}
+		} else if ( 'live' === $this->mode ) {
+			if ( '' !== $this->public_key_live && '' !== $this->public_key_live ) {
+				$is_connected = true;
+			}
+		}
+
 		if ( $is_connected ) {
-			$this->set_account_is_connected( true );
-			$this->save();
+			//$this->save();
 		}
 
 		return $is_connected;
@@ -678,49 +330,7 @@ class Merchant extends Abstract_Merchant {
 	 * @return bool
 	 */
 	public function is_active( $recheck = false ) {
-		$saved_merchant_id = $this->get_merchant_id_in_paystack();
-
-		if ( ! $saved_merchant_id ) {
-			return false;
-		}
-
-		if ( ! $this->is_connected( $recheck ) ) {
-			return false;
-		}
-
-		if ( ! $recheck && true === $this->get_account_is_ready() ) {
-			return true;
-		}
-
-		$seller_status           = tribe( WhoDat::class )->get_seller_status( $saved_merchant_id );
-		$payments_receivable     = tribe_is_truthy( Arr::get( $seller_status, 'payments_receivable' ) );
-		$primary_email_confirmed = tribe_is_truthy( Arr::get( $seller_status, 'primary_email_confirmed' ) );
-
-		$is_active = ( $payments_receivable && $primary_email_confirmed );
-
-		if ( $is_active && $this->get_supports_custom_payments() ) {
-			// Grab the PPCP_CUSTOM product from the status data
-			$custom_product         = current(
-				array_filter(
-					$seller_status['products'],
-					static function ( $product ) {
-						return 'PPCP_CUSTOM' === $product['name'];
-					}
-				)
-			);
-			$active_custom_payments = 'SUBSCRIBED' === Arr::get( $custom_product, 'vetting_status' );
-
-			// For custom payments we save here.
-			$this->set_active_custom_payments( $active_custom_payments );
-			$this->save();
-		}
-
-		if ( $is_active ) {
-			$this->set_account_is_ready( true );
-			$this->save();
-		}
-
-		return $is_active;
+		return $this->is_connected( $recheck );
 	}
 
 	/**

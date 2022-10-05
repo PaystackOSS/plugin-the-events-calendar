@@ -240,18 +240,6 @@ class Settings extends Abstract_Settings {
 	}
 
 	/**
-	 * Returns the country for the account
-	 *
-	 * @since 5.1.6
-	 *
-	 * @return string
-	 */
-	public function get_account_country() {
-		// @todo Replace this with a constant default value or a filtered value for setting the default country.
-		return tribe_get_option( $this->option_account_country, '' );
-	}
-
-	/**
 	 * Updates the country account
 	 *
 	 * @since 5.1.6
@@ -262,23 +250,15 @@ class Settings extends Abstract_Settings {
 	 */
 	public static function update_settings() {
 		$section = tribe_get_request_var( 'tc-section', false );
-
 		if ( 'paystack' === $section ) {
-
 			$merchant = tribe( Merchant::class );
 
 			foreach ( self::$fields as $key => $value ) {
 				$to_save = tribe_get_request_var( self::$field_prefix . $key, $value );
+				$merchant->set_prop( $key, $to_save );
 			}
+
+			$merchant->save();
 		}
-
-		//page=tec-tickets-settings&tab=payments&saved=1&tc-section=paystack
-
-		//$country = tribe_get_request_var( 'country_code', 'US' );
-
-		// Save to the DB.
-		//tribe( Country::class )->save_setting( $country );
-
-		//return tribe_update_option( $this->option_account_country, $country );
 	}
 }
