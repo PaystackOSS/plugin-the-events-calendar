@@ -16,9 +16,7 @@
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
 		<a
 			target="_blank"
-			data-paystack-onboard-complete="tecTicketsCommerceGatewayPayPalSignupCallback"
-			href="<?php echo esc_url( $url ) ?>&displayMode=minibrowser"
-			data-paystack-button="true"
+			href="<?php echo esc_url( $url ) ?>"
 			id="connect_to_paystack"
 			class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link"
 		>

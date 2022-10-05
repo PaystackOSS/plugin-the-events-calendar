@@ -21,7 +21,7 @@ if ( empty( $selected_country_code ) ) {
 		data-dropdown-css-width="false"
 		style="width: 100%; max-width: 340px;"
 	>
-		<option value="0"><?php esc_attr_e( 'Select your country of operation', 'event-tickets' ); ?></option>
+		<option value=""><?php esc_attr_e( 'Select your country of operation', 'event-tickets' ); ?></option>
 
 		<?php foreach ( $countries as $country_code => $country_label ) : ?>
 			<option

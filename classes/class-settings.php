@@ -20,18 +20,26 @@ class Settings extends Abstract_Settings {
 	public static $option_sandbox = 'tickets-commerce-paystack-sandbox';
 
 	/**
+	 * The prefix for the fields.
+	 *
+	 * @var string
+	 */
+	public static $field_prefix = 'tec-tickets-commerce-gateway-paystack-merchant-';
+
+	/**
+	 * The fields for the settings page, used to save the Data.
+	 *
+	 * @var array
+	 */
+	public static $fields = array(
+		'country' => '',
+		'mode'    => 'test',
+	);
+
+	/**
 	 * @inheritDoc
 	 */
 	public function get_settings() {
-		$home_url = home_url();
-
-		/** @var Tribe__Languages__Locations $locations */
-		$locations = tribe( 'languages.locations' );
-		$countries = $locations->get_countries();
-
-		// Add an initial empty selection to the start.
-		$countries = [ '' => __( '-- Please select a country --', 'event-tickets' ) ] + $countries;
-
 		return [
 			'tickets-commerce-paystack-commerce-configure' => [
 				'type'            => 'wrapped_html',
@@ -252,7 +260,25 @@ class Settings extends Abstract_Settings {
 	 *
 	 * @return bool
 	 */
-	public function update_account_country( $country ) {
-		return tribe_update_option( $this->option_account_country, $country );
+	public static function update_settings() {
+		$section = tribe_get_request_var( 'tc-section', false );
+
+		if ( 'paystack' === $section ) {
+
+			$merchant = tribe( Merchant::class );
+
+			foreach ( self::$fields as $key => $value ) {
+				$to_save = tribe_get_request_var( self::$field_prefix . $key, $value );
+			}
+		}
+
+		//page=tec-tickets-settings&tab=payments&saved=1&tc-section=paystack
+
+		//$country = tribe_get_request_var( 'country_code', 'US' );
+
+		// Save to the DB.
+		//tribe( Country::class )->save_setting( $country );
+
+		//return tribe_update_option( $this->option_account_country, $country );
 	}
 }

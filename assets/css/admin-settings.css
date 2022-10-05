@@ -1,9 +1,14 @@
+#tribe-field-tickets-commerce-paystack-commerce-configure {
+    padding-left: 0;
+    width: 100%;
+}
+
 #tribe-field-tickets-commerce-paystack-commerce-configure .tribe-field-wrap {
     float: none;
     max-width: none;
 }
 
-#tribe-field-tickets-commerce-paystack-commerce-configure {
-    padding-left: 0;
-    width: 100%;
+#tribe-field-tickets-commerce-paystack-commerce-configure .tec-tickets__admin-settings-tickets-commerce-gateway-signup-links {
+    flex-grow: 1;
+    margin-top: var(--tec-spacer-8);
 }

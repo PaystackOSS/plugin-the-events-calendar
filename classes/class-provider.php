@@ -3,8 +3,6 @@ namespace paystack\tec\classes;
 
 /**
  * Service provider for the Paystack Tickets Commerce Integration.
- *
- * @package TEC\Tickets\Commerce\Gateways\PayPal
  */
 class Provider extends \tad_DI52_ServiceProvider {
 
@@ -23,6 +21,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 		require_once( PS_TEC_PATH . '/classes/class-settings.php' );
 		$this->container->singleton( Settings::class );
+		add_action( 'tribe_settings_save_tab_payments', '\paystack\tec\classes\Settings::update_settings', 10, 1 );
 
 		//$this->container->singleton( Refresh_Token::class );
 		////$this->container->singleton( Client::class );
