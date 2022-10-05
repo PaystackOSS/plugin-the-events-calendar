@@ -22,15 +22,5 @@ if ( empty( $is_merchant_connected ) ) {
 ?>
 
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-connected">
-
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/active/paypal-status' ); ?>
-
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/active/connection' ); ?>
-
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/active/webhooks' ); ?>
-
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/active/actions' ); ?>
-
-	<?php $this->template( 'settings/tickets-commerce/paypal/connect/help-links' ); ?>
-
+	This is where the rest of the global settings will go.
 </div>

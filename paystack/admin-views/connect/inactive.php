@@ -43,8 +43,3 @@
 		</div>
 	</div>
 </div>
-<?php
-print_r('<pre>');
-print_r($merchant);
-print_r('</pre>');
-?>

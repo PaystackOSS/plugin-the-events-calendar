@@ -63,13 +63,20 @@
 		?>
 	</div>
 
-	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
-		<input 
-			id="connect_to_paystack" 
-			class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link" 
-			type="submit" 
-			name="tribeSaveSettings" 
-			value="<?php echo wp_kses( __( 'Start transacting with Paystack', 'event-tickets' ), 'post' ); ?>"
-		/>
-	</div>
+	<?php
+		if ( empty( $is_merchant_connected ) ) {
+			?>
+			<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
+				<input 
+					id="connect_to_paystack" 
+					class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link" 
+					type="submit" 
+					name="tribeSaveSettings" 
+					value="<?php echo wp_kses( __( 'Start transacting with Paystack', 'event-tickets' ), 'post' ); ?>"
+				/>
+			</div>
+			<?php
+		}
+	?>
+
 </div>
