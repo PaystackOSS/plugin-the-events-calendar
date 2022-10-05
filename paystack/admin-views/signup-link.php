@@ -1,6 +1,4 @@
-<div
-	class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-settings"
->
+<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-settings">
 	<?php
 		$country_vars = array(
 			'country_code' => $merchant->get_prop( 'country' ),
@@ -13,14 +11,53 @@
 		$this->template( 'paystack/admin-views/fields/mode-select', $mode_vars );
 	?>
 
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-test-keys">
+		<?php
+			$secret_test_args = array(
+				'name'        => 'secret_key_test',
+				'value'       => $merchant->get_prop( 'secret_key_test' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Secret Key', 'event-tickets' ),
+			);
+			$this->template( 'paystack/admin-views/fields/input', $secret_test_args );
+
+			$public_test_args = array(
+				'name'        => 'public_key_test',
+				'value'       => $merchant->get_prop( 'public_key_test' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Public Key', 'event-tickets' ),
+			);
+			$this->template( 'paystack/admin-views/fields/input', $public_test_args );
+		?>
+	</div>
+
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-live-keys">
+		<?php
+			$secret_live_args = array(
+				'name'        => 'secret_key_live',
+				'value'       => $merchant->get_prop( 'secret_key_live' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Secret Key', 'event-tickets' ),
+			);
+			$this->template( 'paystack/admin-views/fields/input', $secret_live_args );
+
+			$public_live_args = array(
+				'name'        => 'public_key_live',
+				'value'       => $merchant->get_prop( 'public_key_live' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Public Key', 'event-tickets' ),
+			);
+			$this->template( 'paystack/admin-views/fields/input', $public_live_args );
+		?>
+	</div>
+
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
-		<a
-			target="_blank"
-			href="<?php echo esc_url( $url ) ?>"
-			id="connect_to_paystack"
-			class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link"
-		>
-			<?php echo wp_kses( __( 'Start transacting with <i>Paystack</i>', 'event-tickets' ), 'post' ); ?>
-		</a>
+		<input 
+			id="connect_to_paystack" 
+			class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link" 
+			type="submit" 
+			name="tribeSaveSettings" 
+			value="<?php echo wp_kses( __( 'Start transacting with Paystack', 'event-tickets' ), 'post' ); ?>"
+		/>
 	</div>
 </div>

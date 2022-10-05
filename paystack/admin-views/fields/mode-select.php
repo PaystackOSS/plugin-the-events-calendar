@@ -12,7 +12,7 @@ if ( null !== $selected_mode && '' !== $selected_mode ) {
 	class="tec-tickets__admin-settings-tickets-commerce-gateway-merchant-country-container"
 >
 	<select
-		name='tec-tickets-commerce-gateway-paystack-merchant-mode'
+		name='tec-tickets-commerce-gateway-paystack-merchant-paystack_mode'
 		class="tribe-dropdown"
 		data-prevent-clear
 		data-dropdown-css-width="false"
