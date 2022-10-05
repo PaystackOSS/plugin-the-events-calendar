@@ -17,8 +17,6 @@ if ( ! empty( $is_merchant_connected ) ) {
 print_r('<pre>');
 print_r($merchant);
 print_r('</pre>');
-
-var_dump( $merchant->get_prop( 'country' ) );
 ?>
 
 <h2 class="tec-tickets__admin-settings-tickets-commerce-gateway-title">

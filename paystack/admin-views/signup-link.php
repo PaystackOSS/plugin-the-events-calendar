@@ -3,7 +3,7 @@
 >
 	<?php
 		$country_vars = array(
-			'country_code' => $country_code,
+			'country_code' => $merchant->get_prop( 'country' ),
 		);
 		$this->template( 'paystack/admin-views/fields/country-select', $country_vars );
 

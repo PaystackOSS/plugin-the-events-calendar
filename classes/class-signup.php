@@ -41,12 +41,11 @@ class Signup extends Abstract_Signup {
 	 * @return false|string
 	 */
 	public function get_link_html() {
-		$country       = tribe( Country::class )->get_setting();
+		$merchant      = tribe( Merchant::class );
 		$admin_views   = tribe( 'tickets.admin.views' );
 		$template_vars = array(
-			'url'          => $this->generate_url( $country ),
-			'country_code' => $country,
-			'admin_views'  => $admin_views,
+			'admin_views' => $admin_views,
+			'merchant'    => $merchant,
 		);
 		return $this->get_template()->template( 'paystack/admin-views/signup-link', $template_vars, false );
 	}
