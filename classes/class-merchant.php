@@ -287,7 +287,6 @@ class Merchant extends Abstract_Merchant {
 				$is_connected = true;
 			}
 		}
-
 		return $is_connected;
 	}
 
@@ -299,7 +298,12 @@ class Merchant extends Abstract_Merchant {
 	 * @return bool
 	 */
 	public function is_active( $recheck = false ) {
-		return $this->is_connected( $recheck );
+
+		if ( ! $this->is_connected() ) {
+			return false;
+		}
+
+		return tribe( Gateway::class )->is_enabled();
 	}
 
 	/**

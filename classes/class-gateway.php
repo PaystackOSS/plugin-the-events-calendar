@@ -126,7 +126,6 @@ class Gateway extends Abstract_Gateway {
 		if ( ! static::should_show() ) {
 			return false;
 		}
-
 		$option_value = tribe_get_option( static::get_enabled_option_key() );
 		if ( '' !== $option_value ) {
 			return (bool) $option_value;
