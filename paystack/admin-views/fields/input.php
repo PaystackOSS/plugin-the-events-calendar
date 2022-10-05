@@ -5,7 +5,7 @@ if ( null !== $value && '' !== $value ) {
 }
 ?>
 <p
-	class="tec-tickets__admin-settings-tickets-commerce-gateway-merchant-country-container"
+	class="tec-tickets__admin-settings-tickets-commerce-gateway-merchant-<?php echo esc_attr( $name ); ?>-container"
 >
 	<input
 		name='tec-tickets-commerce-gateway-paystack-merchant-<?php echo esc_attr( $name ); ?>'

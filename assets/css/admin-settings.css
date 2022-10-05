@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+#tribe-field-tickets-commerce-paystack-commerce-configure .hidden {
+	display: none;
+}
+
 #tribe-field-tickets-commerce-paystack-commerce-configure .tribe-field-wrap {
     float: none;
     max-width: none;
@@ -28,5 +32,13 @@
 	text-decoration: none;
 	width: 100%;
 	border: 0;
+}
+
+
+@media (min-width: 768px) {
+	#tribe-field-tickets-commerce-paystack-commerce-configure .tribe-input  {
+		line-height: 42px;
+		padding-left: 16px;
+	}
 }
 

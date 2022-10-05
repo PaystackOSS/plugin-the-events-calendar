@@ -194,6 +194,8 @@ class Merchant extends Abstract_Merchant {
 		foreach ( $this->account_props as $key ) {
 			if ( array_key_exists( $key, $data ) ) {
 				$this->set_prop( $key, $data[ $key ], $needs_save );
+			} else {
+				$this->set_prop( $key, '', $needs_save );
 			}
 		}
 	}
