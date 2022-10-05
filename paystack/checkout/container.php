@@ -28,7 +28,7 @@ if ( $must_login ) {
 
 ?>
 <div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paypal">
-	<?php $this->template( 'paystack/checkout/buttons' ); ?>
+	<?php //$this->template( 'paystack/checkout/buttons' ); ?>
 	<?php $this->template( 'paystack/checkout/advanced-payments' ); ?>
-	<?php $this->template( 'paystack/checkout/checkout-script' ); ?>
+	<?php //$this->template( 'paystack/checkout/checkout-script' ); ?>
 </div>

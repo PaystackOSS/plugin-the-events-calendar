@@ -194,12 +194,18 @@ class Gateway extends Abstract_Gateway {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Renders the paystack checkout template.
+	 *
+	 * @param \Tribe__Template $template
+	 * @return string
 	 */
 	public function render_checkout_template( \Tribe__Template $template ): string {
 		$gateway_key   = static::get_key();
-		$template_path = "gateway/{$gateway_key}/container";
+		$template_path = "{$gateway_key}/checkout/container";
 
-		return $template->template( $template_path, tribe( Buttons::class )->get_checkout_template_vars() );
+		//$args = tribe( Buttons::class )->get_checkout_template_vars();
+		$args = array();
+
+		return $template->template( $template_path, $args );
 	}
 }
