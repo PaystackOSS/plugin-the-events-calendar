@@ -192,4 +192,14 @@ class Gateway extends Abstract_Gateway {
 			$notice_text
 		);
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function render_checkout_template( \Tribe__Template $template ): string {
+		$gateway_key   = static::get_key();
+		$template_path = "gateway/{$gateway_key}/container";
+
+		return $template->template( $template_path, tribe( Buttons::class )->get_checkout_template_vars() );
+	}
 }
