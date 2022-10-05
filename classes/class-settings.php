@@ -32,8 +32,12 @@ class Settings extends Abstract_Settings {
 	 * @var array
 	 */
 	public static $fields = array(
-		'country' => '',
-		'mode'    => 'test',
+		'country'         => '',
+		'paystack_mode'   => 'test',
+		'secret_key_test' => '',
+		'public_key_test' => '',
+		'secret_key_live' => '',
+		'public_key_live' => '',
 	);
 
 	/**

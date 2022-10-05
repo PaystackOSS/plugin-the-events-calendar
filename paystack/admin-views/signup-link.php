@@ -6,7 +6,7 @@
 		$this->template( 'paystack/admin-views/fields/country-select', $country_vars );
 
 		$mode_vars = array(
-			'selected_mode' => 'test',
+			'selected_mode' => $merchant->get_prop( 'country' ),
 		);
 		$this->template( 'paystack/admin-views/fields/mode-select', $mode_vars );
 	?>
