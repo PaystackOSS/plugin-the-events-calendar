@@ -33,11 +33,11 @@ if ( ! empty( $is_merchant_connected ) ) {
 		<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
 			<?php $this->template( 'components/icons/lightbulb' ); ?>
 			<a
-				href="https://www.youtube.com/watch?v=gWfoN_OydHE"
+				href="https://dashboard.paystack.co/#/settings/developer"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
-			><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+			><?php esc_html_e( 'Get your API Keys here', 'event-tickets' ); ?></a>
 		</div>
 
 		<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">

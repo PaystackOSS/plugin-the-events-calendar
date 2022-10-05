@@ -39,17 +39,6 @@ class Gateway extends Abstract_Gateway {
 	];
 
 	/**
-	 * PayPal tracking ID version.
-	 *
-	 * This shouldn't be updated unless we are modifying something on the PayPal user level.
-	 *
-	 * @since 5.1.9
-	 *
-	 * @var string
-	 */
-	const VERSION = '1.0.0';
-
-	/**
 	 * @inheritDoc
 	 */
 	public static function get_label() {

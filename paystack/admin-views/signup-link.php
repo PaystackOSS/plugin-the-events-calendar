@@ -2,10 +2,15 @@
 	class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-settings"
 >
 	<?php
-		$template_vars = array(
+		$country_vars = array(
 			'country_code' => $country_code,
 		);
-		$this->template( 'paystack/admin-views/fields/country-select', $template_vars );
+		$this->template( 'paystack/admin-views/fields/country-select', $country_vars );
+
+		$mode_vars = array(
+			'selected_mode' => 'test',
+		);
+		$this->template( 'paystack/admin-views/fields/mode-select', $mode_vars );
 	?>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
