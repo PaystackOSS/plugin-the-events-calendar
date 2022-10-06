@@ -8,6 +8,8 @@
  */
 namespace paystack\tec\classes;
 
+use TEC\Tickets\Commerce\Checkout;
+
 /**
  * Class Assets
  *
