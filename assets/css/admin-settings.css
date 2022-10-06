@@ -7,7 +7,7 @@
 	display: none;
 }
 
-#tribe-field-tickets-commerce-paystack-commerce-configure .tribe-field-wrap {
+#tribe-field-tickets-commerce-paystack-commerce-configure > .tribe-field-wrap {
     float: none;
     max-width: none;
 }
@@ -32,6 +32,10 @@
 	text-decoration: none;
 	width: 100%;
 	border: 0;
+}
+
+.tribe-settings-form .tribe-settings-form-wrap .tec-tickets__admin-settings-tickets-commerce-gateway-connected h3 {
+	width: calc(100% - 12px);
 }
 
 

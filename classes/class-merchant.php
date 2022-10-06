@@ -26,6 +26,8 @@ class Merchant extends Abstract_Merchant {
 		'public_key_test',
 		'secret_key_live',
 		'public_key_live',
+		'checkout_mode',
+		'transaction_type',
 	);
 
 	/**

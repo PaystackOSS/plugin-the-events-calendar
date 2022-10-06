@@ -9,8 +9,8 @@
  *
  * @var Tribe__Tickets__Admin__Views                  $this                  [Global] Template object.
  * @var string                                        $plugin_url            [Global] The plugin URL.
- * @var TEC\Tickets\Commerce\Gateways\PayPal\Merchant $merchant              [Global] The merchant class.
- * @var TEC\Tickets\Commerce\Gateways\PayPal\Signup   $signup                [Global] The Signup class.
+ * @var \paystack\tec\classes\Merchant $merchant              [Global] The merchant class.
+ * @var \paystack\tec\classes\Signup   $signup                [Global] The Signup class.
  * @var bool                                          $is_merchant_active    [Global] Whether the merchant is active or not.
  * @var bool                                          $is_merchant_connected [Global] Whether the merchant is connected or not.
  */
@@ -18,9 +18,18 @@
 if ( empty( $is_merchant_connected ) ) {
 	return;
 }
-
 ?>
-
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-connected">
-	This is where the rest of the global settings will go.
+	<h3><?php esc_html_e( 'Additional Settings', 'event-tickets' ); ?></h3>
+	<?php
+		$checkout_mode_args = array(
+			'selected_mode' => $merchant->get_prop( 'checkout_mode' ),
+		);
+		$this->template( 'paystack/admin-views/fields/checkout-mode', $checkout_mode_args );
+
+		$transaction_type_args = array(
+			'selected_mode' => $merchant->get_prop( 'transaction_type' ),
+		);
+		$this->template( 'paystack/admin-views/fields/transaction-type', $transaction_type_args );
+	?>
 </div>

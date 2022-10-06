@@ -23,11 +23,7 @@ $classes = array(
 
 <div <?php tribe_classes( $classes ); ?>>
 	<div id="tec-tickets__admin-settings-tickets-commerce-gateway-connect" class="tec-tickets__admin-settings-tickets-commerce-gateway-connect">
-
 		<?php $this->template( 'paystack/admin-views/connect/inactive' ); ?>
-
-		<?php $this->template( 'paystack/admin-views/connect/active' ); ?>
-
 	</div>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-logo">
@@ -53,5 +49,7 @@ $classes = array(
 	</div>
 
 </div>
+
+<?php $this->template( 'paystack/admin-views/connect/active' ); ?>
 
 <?php $this->template( 'paystack/admin-views/modal/signup-complete' ); ?>
