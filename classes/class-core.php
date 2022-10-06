@@ -28,21 +28,10 @@ class Core {
 	public $provider;
 
 	/**
-	 * @var object \paystack\tec\classes\Admin();
-	 */
-	public $admin;
-
-	/**
-	 * @var object \paystack\tec\classes\Frontend();
-	 */
-	public $frontend;
-
-	/**
 	 * Contructor
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'load_classes' ) );
-		//$this->load_includes();
 	}
 
 	/**
@@ -74,11 +63,5 @@ class Core {
 			$this->provider = new Provider( $container );
 			$this->provider->register();
 		}
-	}
-
-	/**
-	 * Loads the plugin functions.
-	 */
-	private function load_includes() {
 	}
 }

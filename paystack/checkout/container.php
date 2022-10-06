@@ -27,8 +27,47 @@ if ( $must_login ) {
 }
 
 ?>
-<div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paypal">
-	<?php //$this->template( 'paystack/checkout/buttons' ); ?>
+<div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paystack">
+
+	<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
+
+	</div>
+
+	<div class="tec-tc-gateway-paystack-payment-selection">
+		<div class="tec-tc-gateway-paystack-payment-logos">
+			<img 
+				src="<?php echo esc_html( PS_TEC_URL . 'assets/images/payment-logos.png' ); ?>"
+				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
+				/>
+		</div>
+		<button id="tec-tc-gateway-stripe-checkout-button" class="tribe-common-c-btn tribe-tickets__commerce-checkout-form-submit-button">
+			<div class="spinner hidden" id="spinner"></div>
+			<span id="button-text">
+				<?php
+				printf(
+					// Translators: %1$s: Plural `Tickets` label.
+					esc_html__( 'Purchase %1$s', 'event-tickets' ),
+					tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) // phpcs:ignore
+				);
+				?>
+			</span>
+		</button>
+	</div>
+
+	
+
+	<div id="tec-tc-gateway-paystack-payment-message" class="hidden"></div>
+
+	<div
+	id="tec-tc-gateway-payment-errors"
+	class="tribe-common-b2"
+	role="alert"></div>
+
 	<?php $this->template( 'paystack/checkout/advanced-payments' ); ?>
 	<?php //$this->template( 'paystack/checkout/checkout-script' ); ?>
 </div>
+
+
+
+
+

@@ -34,6 +34,43 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'admin_enqueue_scripts',
 			[]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tec-tickets-commerce-gateway-paystack-checkout',
+			PS_TEC_URL . 'assets/js/checkout.js',
+			array(
+				'jquery',
+				'tribe-common',
+				'tribe-tickets-loader',
+				'tribe-tickets-commerce-js',
+				'tribe-tickets-commerce-notice-js',
+				'tribe-tickets-commerce-base-gateway-checkout-toggler',
+			),
+			'tec-tickets-commerce-checkout-shortcode-assets',
+			array(
+				'groups'       => array(
+					'tec-tickets-commerce-gateway-paystack',
+				),
+				'conditionals' => array( $this, 'should_enqueue_assets' ),
+				'localize'     => array(
+					'name' => 'tecTicketsCommerceGatewayPayPalCheckout',
+					'data' => static function () {
+						return array(
+							//'orderEndpoint' => tribe( Order_Endpoint::class )->get_route_url(),
+							'advancedPayments' => array(
+								'fieldPlaceholders' => array(
+									'cvv' => esc_html__( 'E.g.: 123', 'event-tickets' ),
+									'expirationDate' => esc_html__( 'E.g.: 03/26', 'event-tickets' ),
+									'number' => esc_html__( 'E.g.: 4111 1111 1111 1111', 'event-tickets' ),
+									'zipCode' => esc_html__( 'E.g.: 01020', 'event-tickets' ),
+								),
+							),
+						);
+					},
+				),
+			)
+		);
 	}
 
 	/**
