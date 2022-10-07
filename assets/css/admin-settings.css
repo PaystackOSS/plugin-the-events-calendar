@@ -15,6 +15,7 @@
 #tribe-field-tickets-commerce-paystack-commerce-configure .tec-tickets__admin-settings-tickets-commerce-gateway-signup-links {
     flex-grow: 1;
     margin-top: 0;
+	width: 100%;
 }
 
 #tribe-field-tickets-commerce-paystack-commerce-configure input.tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link {

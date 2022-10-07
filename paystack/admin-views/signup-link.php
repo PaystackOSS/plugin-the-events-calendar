@@ -64,7 +64,7 @@
 	</div>
 
 	<?php
-		if ( empty( $is_merchant_connected ) ) {
+		if ( ! $merchant->is_connected() ) {
 			?>
 			<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
 				<input 
