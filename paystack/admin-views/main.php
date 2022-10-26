@@ -40,10 +40,13 @@ $classes = array(
 				<?php esc_html_e( 'Credit and debit card payments', 'event-tickets' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Accept payments from around the world', 'event-tickets' ); ?>
+				<?php esc_html_e( 'Alternative payment methods e.g Apple Pay, Mobile money, EFT, and more', 'event-tickets' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Supports 3D Secure payments', 'event-tickets' ); ?>
+				<?php esc_html_e( 'Delight customers with a seamless payments experience', 'event-tickets' ); ?>
+			</li>
+			<li>
+				<?php esc_html_e( 'Enjoy phenomenal transaction success rates', 'event-tickets' ); ?>
 			</li>
 		</ul>
 	</div>

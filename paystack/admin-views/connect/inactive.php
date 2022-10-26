@@ -9,12 +9,12 @@
 ?>
 
 <h2 class="tec-tickets__admin-settings-tickets-commerce-gateway-title">
-	<?php esc_html_e( 'Accept online payments!', 'event-tickets' ); ?>
+	<?php esc_html_e( 'Accept online payments!', 'ps-tec-gateway' ); ?>
 </h2>
 
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-description">
 	<p>
-		<?php esc_html_e( 'Enter the details below, to start transacting with Paystack.', 'event-tickets' ); ?>
+		<?php esc_html_e( 'Start selling tickets to your events today with Paystack and let your customers pay you with their choice of payment methods.', 'ps-tec-gateway' ); ?>
 	</p>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-links">
@@ -29,7 +29,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
-			><?php esc_html_e( 'Get your API Keys here', 'event-tickets' ); ?></a>
+			><?php esc_html_e( 'Get your API Keys here', 'ps-tec-gateway' ); ?></a>
 		</div>
 
 		<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link">
