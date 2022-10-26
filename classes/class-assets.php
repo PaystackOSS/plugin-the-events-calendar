@@ -32,9 +32,27 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tec-tickets-commerce-gateway-paystack-global-admin-styles',
 			PS_TEC_URL . 'assets/css/admin-settings.css',
-			[],
+			array(),
 			'admin_enqueue_scripts',
-			[]
+			array()
+		);
+
+		// Paystack Inline JS
+		tribe_asset(
+			$plugin,
+			'tec-tickets-commerce-gateway-paystack-inline',
+			'https://js.paystack.co/v1/inline.js',
+			array(
+				'jquery',
+				'tribe-common',
+			),
+			'tec-tickets-commerce-checkout-shortcode-assets',
+			array(
+				'groups' => array(
+					'tec-tickets-commerce-gateway-paystack',
+				),
+				'conditionals' => array( $this, 'should_enqueue_assets' ),
+			)
 		);
 
 		tribe_asset(
@@ -48,10 +66,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-tickets-commerce-js',
 				'tribe-tickets-commerce-notice-js',
 				'tribe-tickets-commerce-base-gateway-checkout-toggler',
+				'tec-tickets-commerce-gateway-paystack-inline',
+				'jquery-ui-datepicker',
 			),
 			'tec-tickets-commerce-checkout-shortcode-assets',
 			array(
-				'groups'       => array(
+				'groups' => array(
 					'tec-tickets-commerce-gateway-paystack',
 				),
 				'conditionals' => array( $this, 'should_enqueue_assets' ),
