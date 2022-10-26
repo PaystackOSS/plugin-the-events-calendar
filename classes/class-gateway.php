@@ -116,7 +116,7 @@ class Gateway extends Abstract_Gateway {
 	 * @inheritDoc
 	 */
 	public function get_subtitle(): string {
-		return __( 'Enable payments through paystack.', 'ps-tec-gateway' );
+		return __( 'Accept credit/debit card, Apple pay,mobile money, bank transfer, EFT, USSD, and QR payments.', 'ps-tec-gateway' );
 	}
 
 	/**
