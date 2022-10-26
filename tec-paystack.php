@@ -2,7 +2,7 @@
 /*
  * Plugin Name:	Paystack Gateway for The Events Calendar
  * Plugin URI:	https://github.com/PaystackOSS/plugin-the-events-calendar
- * Description:	Allow users to pay for events via Paystack
+ * Description:	Add-on for The Event Calendar that allows you to accept payments for event tickets via Paystack
  * Author:		LightSpeed
  * Version: 	1.0.0
  * Author URI: 	https://www.lsdev.biz/
