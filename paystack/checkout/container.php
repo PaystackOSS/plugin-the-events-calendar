@@ -28,34 +28,6 @@ if ( $must_login ) {
 
 ?>
 <div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paystack">
-
-	<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
-
-		<?php 
-			$email_address = '';
-			$first_name    = '';
-			$last_name     = '';
-
-			if ( is_user_logged_in() ) {
-
-			}
-		?>
-
-		<div class="form-group">
-			<label for="email">Email Address</label>
-			<input type="email" id="email-address" required />
-		</div>
-		<div class="form-group">
-			<label for="first-name">First Name</label>
-			<input type="text" id="first-name" />
-		</div>
-		<div class="form-group">
-			<label for="last-name">Last Name</label>
-			<input type="text" id="last-name" />
-		</div>
-		
-	</div>
-
 	<div class="tec-tc-gateway-paystack-payment-selection">
 		<div class="tec-tc-gateway-paystack-payment-logos">
 			<img 
@@ -63,6 +35,15 @@ if ( $must_login ) {
 				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
 				/>
 		</div>
+
+		<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
+			<?php
+				$this->template( 'paystack/checkout/fields/first-name' );
+				$this->template( 'paystack/checkout/fields/last-name' );
+				$this->template( 'paystack/checkout/fields/email' );
+			?>
+		</div>
+
 		<button id="tec-tc-gateway-stripe-checkout-button" class="tribe-common-c-btn tribe-tickets__commerce-checkout-form-submit-button">
 			<div class="spinner hidden" id="spinner"></div>
 			<span id="button-text">
@@ -85,9 +66,6 @@ if ( $must_login ) {
 	id="tec-tc-gateway-payment-errors"
 	class="tribe-common-b2"
 	role="alert"></div>
-
-	<?php $this->template( 'paystack/checkout/advanced-payments' ); ?>
-	<?php //$this->template( 'paystack/checkout/checkout-script' ); ?>
 </div>
 
 
