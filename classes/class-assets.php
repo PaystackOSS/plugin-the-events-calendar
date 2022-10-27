@@ -23,9 +23,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @since 5.1.6
 	 */
 	public function register() {
-		$plugin  = \Tribe__Tickets__Main::instance();
-		$gateway = tribe( Gateway::class );
+		$plugin        = \Tribe__Tickets__Main::instance();
+		$gateway       = tribe( Gateway::class );
 		$currency_code = \TEC\Tickets\Commerce\Utils\Currency::get_currency_code();
+		$total         = \TEC\Tickets\Commerce\Utils\Value::create();
 
 		/**
 		 * This file is intentionally enqueued on every page of the administration.
