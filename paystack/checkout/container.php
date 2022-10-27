@@ -35,7 +35,7 @@ if ( $must_login ) {
 			$email_address = '';
 			$first_name    = '';
 			$last_name     = '';
-			
+
 			if ( is_user_logged_in() ) {
 
 			}
@@ -63,7 +63,7 @@ if ( $must_login ) {
 				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
 				/>
 		</div>
-		<button onclick="payWithPaystack()" id="tec-tc-gateway-stripe-checkout-button" class="tribe-common-c-btn tribe-tickets__commerce-checkout-form-submit-button">
+		<button id="tec-tc-gateway-stripe-checkout-button" class="tribe-common-c-btn tribe-tickets__commerce-checkout-form-submit-button">
 			<div class="spinner hidden" id="spinner"></div>
 			<span id="button-text">
 				<?php
