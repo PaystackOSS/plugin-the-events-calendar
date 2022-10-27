@@ -26,6 +26,7 @@ if ( $must_login ) {
 	return;
 }
 
+//	$sub_totals = \TEC\Tickets\Commerce\Utils\Value::build_list( array_filter( wp_list_pluck( $items, 'sub_total' ) ) );
 ?>
 <div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paystack">
 	<div class="tec-tc-gateway-paystack-payment-selection">
@@ -41,6 +42,8 @@ if ( $must_login ) {
 				$this->template( 'paystack/checkout/fields/first-name' );
 				$this->template( 'paystack/checkout/fields/last-name' );
 				$this->template( 'paystack/checkout/fields/email' );
+
+				$this->template( 'paystack/checkout/fields/hidden' );
 			?>
 		</div>
 

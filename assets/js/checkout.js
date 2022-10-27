@@ -4,14 +4,16 @@
 	var paystackCheckout = {
 		init: function( ) {
 			if ( 0 < $( "#tec-tc-gateway-stripe-checkout-button" ).length ) {
-				this.errors = [];
-				this.first_name = $( '#tec-paystack-first-name' );
-				this.last_name = $( '#tec-paystack-last-name' );
-				this.email_address = $( '#tec-paystack-email-address' );
+				this.setVariables();
 				this.watchSubmit();
-
-				console.log(tecTicketsPaystackCheckout);
 			}
+		},
+		setVariables: function () {
+			this.errors = [];
+			this.first_name = $( '#tec-paystack-first-name' );
+			this.last_name = $( '#tec-paystack-last-name' );
+			this.email_address = $( '#tec-paystack-email-address' );
+			this.total = $( '#tec-paystack-total' );
 		},
 		watchSubmit: function( ) {
 			let $this   = this;
@@ -48,16 +50,15 @@
 				firstname: $this.first_name.val(),
 				lastname: $this.last_name.val(),
 				email: $this.email_address.val(),
-
-				amount: 10 * 100,
+				amount: $this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
-
 				ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
 				// label: "Optional string that replaces customer email"
 				onClose: function(){
 				  alert('Window closed.');
 				},
 				callback: function(response){
+					console.log(response);	
 				  let message = 'Payment complete! Reference: ' + response.reference;
 				  alert(message);
 				}
