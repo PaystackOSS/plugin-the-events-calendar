@@ -23,11 +23,13 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @since 5.1.6
 	 */
 	public function register() {
-		$plugin = \Tribe__Tickets__Main::instance();
+		$plugin  = \Tribe__Tickets__Main::instance();
+		$gateway = tribe( Gateway::class );
+		$currency_code = \TEC\Tickets\Commerce\Utils\Currency::get_currency_code();
+
 		/**
 		 * This file is intentionally enqueued on every page of the administration.
 		 */
-
 		tribe_asset(
 			$plugin,
 			'tec-tickets-commerce-gateway-paystack-global-admin-styles',
@@ -55,6 +57,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 			)
 		);
 
+		// Get the correct Public key
+		$mode = $gateway->get_option( 'paystack_mode' );
+		if ( 'test' === $mode ) {
+			$public_key = $gateway->get_option( 'public_key_test' );
+		} else {
+			$public_key = $gateway->get_option( 'public_key_live' );
+		}
+
 		tribe_asset(
 			$plugin,
 			'tec-tickets-commerce-gateway-paystack-checkout',
@@ -76,20 +86,18 @@ class Assets extends \tad_DI52_ServiceProvider {
 				),
 				'conditionals' => array( $this, 'should_enqueue_assets' ),
 				'localize'     => array(
-					'name' => 'tecTicketsCommerceGatewayPayPalCheckout',
-					'data' => static function () {
-						return array(
-							//'orderEndpoint' => tribe( Order_Endpoint::class )->get_route_url(),
-							'advancedPayments' => array(
-								'fieldPlaceholders' => array(
-									'cvv' => esc_html__( 'E.g.: 123', 'event-tickets' ),
-									'expirationDate' => esc_html__( 'E.g.: 03/26', 'event-tickets' ),
-									'number' => esc_html__( 'E.g.: 4111 1111 1111 1111', 'event-tickets' ),
-									'zipCode' => esc_html__( 'E.g.: 01020', 'event-tickets' ),
-								),
-							),
-						);
-					},
+					'name' => 'tecTicketsPaystackCheckout',
+					'data' => array(
+						//'orderEndpoint' => tribe( Order_Endpoint::class )->get_route_url(),
+						'publicKey'     => $public_key,
+						'currency_code' => $currency_code,
+						'errorMessages' => array(
+							'first_name'    => esc_html__( 'First name is required', 'event-tickets' ),
+							'last_name'     => esc_html__( 'Last name is required', 'event-tickets' ),
+							'email_address' => esc_html__( 'A valid email address is required', 'event-tickets' ),
+							'connection'    => esc_html__( 'An error has occured, please refresh the page and try again.', 'event-tickets' ),
+						),
+					),
 				),
 			)
 		);

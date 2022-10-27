@@ -1,16 +1,57 @@
 (function ($) {
 	"use strict";
-	$( document ).ready(function ($) {
-		$( "#tec-tc-gateway-stripe-checkout-button" ).on( 'click', function( event ){
-			alert('hello');
 
+	var paystackCheckout = {
+		init: function( ) {
+			if ( 0 < $( "#tec-tc-gateway-stripe-checkout-button" ).length ) {
+				this.errors = [];
+				this.first_name = $( '#tec-paystack-first-name' );
+				this.last_name = $( '#tec-paystack-last-name' );
+				this.email_address = $( '#tec-paystack-email-address' );
+				this.watchSubmit();
+
+				console.log(tecTicketsPaystackCheckout);
+			}
+		},
+		watchSubmit: function( ) {
+			let $this   = this;
+			$( "#tec-tc-gateway-stripe-checkout-button" ).on( 'click', function( event ){
+				$this.validateFields(),
+				$this.maybeHandover();
+			});
+		},
+		validateFields: function () {
+			let $this    = this;
+			$this.errors = [];
+
+			if ( '' === $this.first_name.val() ) {
+				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.first_name);
+			}
+			if ( '' === $this.last_name.val() ) {
+				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.last_name);
+			}
+			if ( '' === $this.email_address.val() ) {
+				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.email_address);
+			}
+		},
+		maybeHandover: function () {
+			if ( 0 < this.errors.length ) {
+				console.log(this.errors);
+			} else {
+				this.handoverToPopup();
+			}
+		},
+		handoverToPopup: function() {
+			let $this   = this;
 			let handler = PaystackPop.setup({
-				key: 'pk_test_b6e89172925df640fee4b52251eb91cc77e3d96c', // Replace with your public key
-				firstname: 'Warwick',
-				lastname: 'Booth',
-				email: 'warwick@lsdev.biz',
+				key: tecTicketsPaystackCheckout.publicKey,
+				firstname: $this.first_name.val(),
+				lastname: $this.last_name.val(),
+				email: $this.email_address.val(),
+
 				amount: 10 * 100,
-				currency: 'ZAR',
+				currency: tecTicketsPaystackCheckout.currency_code,
+
 				ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
 				// label: "Optional string that replaces customer email"
 				onClose: function(){
@@ -22,7 +63,12 @@
 				}
 			  });
 			  handler.openIframe();
-		} );
+		}
+	}
+
+
+	$( document ).ready(function ($) {
+		paystackCheckout.init();
 	});
 
 })( jQuery );

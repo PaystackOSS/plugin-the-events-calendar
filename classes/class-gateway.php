@@ -208,4 +208,16 @@ class Gateway extends Abstract_Gateway {
 
 		return $template->template( $template_path, $args );
 	}
+
+	public static function get_option( $key = '' ) {
+		if ( '' === $key ) {
+			return false;
+		}
+		$options = get_option( 'tec_tickets_commerce_paystack_account' );
+		if ( isset( $options[ $key ] ) && '' !== $options[ $key ] ) {
+			return $options[ $key ];
+		}
+		// If option is not explicitly set, the default will be if PayPal is connected.
+		return false;
+	}
 }
