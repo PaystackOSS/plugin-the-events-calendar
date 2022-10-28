@@ -109,7 +109,15 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return $purchaser;
 		}
 
+		print_r('<pre>');
+		print_r($purchaser);
+		print_r('</pre>');
+
 		$order = tribe( Order::class )->create_from_cart( tribe( Gateway::class ), $purchaser );
+
+		print_r('<pre>');
+		print_r($order);
+		print_r('</pre>');
 
 		$unit = [
 			'reference_id' => $order->ID,
