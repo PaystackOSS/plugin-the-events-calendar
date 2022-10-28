@@ -31,7 +31,8 @@ class Core {
 	 * Contructor
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_classes' ) );
+		$this->load_classes();
+		//add_action( 'init', array( $this, 'load_classes' ) );
 	}
 
 	/**

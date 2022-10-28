@@ -56,9 +56,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tec_tickets_commerce_gateways', array( $this, 'filter_add_gateway' ), 10, 2 );
 		//add_filter( 'tec_tickets_commerce_success_shortcode_checkout_page_paypal_template_vars', [ $this, 'include_checkout_page_vars' ], 10, 2 );
 		//add_filter( 'tec_tickets_commerce_success_shortcode_success_page_paypal_template_vars', [ $this, 'include_success_page_vars' ], 10, 2 );
-		add_filter( 'tec_tickets_commerce_notice_messages', array( $this, 'include_admin_notices' ) );
+		add_filter( 'tec_tickets_commerce_notice_messages', array( $this, 'include_admin_notices' ), 10, 1 );
 		//add_filter( 'tribe-events-save-options', [ $this, 'flush_transients_when_toggling_sandbox_mode' ] );
-		add_filter( 'tec_tickets_commerce_admin_notices', array( $this, 'filter_admin_notices' ) );
+		add_filter( 'tec_tickets_commerce_admin_notices', array( $this, 'filter_admin_notices' ), 10, 1 );
 	}
 
 	/**
