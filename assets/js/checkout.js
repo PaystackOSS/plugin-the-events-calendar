@@ -74,7 +74,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 						purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
 					} ),
 					headers: {
-						'X-WP-Nonce': $this.container.find( tribe.tickets.commerce.selectors.nonce ).val(),
+						//'X-WP-Nonce': $this.container.find( tribe.tickets.commerce.selectors.nonce ).val(),
 						'Content-Type': 'application/json',
 					}
 				}
@@ -96,8 +96,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let $this   = this;
 			let handler = PaystackPop.setup({
 				key: tecTicketsPaystackCheckout.publicKey,
-				firstname: $this.first_name.val(),
-				lastname: $this.last_name.val(),
+				firstname: $this.name.val(),
+				lastname: $this.name.val(),
 				email: $this.email_address.val(),
 				amount: $this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
