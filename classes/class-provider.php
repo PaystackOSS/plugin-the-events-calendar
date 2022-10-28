@@ -34,7 +34,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		//$this->container->singleton( Webhooks\Events::class );
 		//$this->container->singleton( Webhooks\Handler::class );
 
-		$this->register_endpoints();
+		//$this->register_endpoints();
 	}
 
 	/**

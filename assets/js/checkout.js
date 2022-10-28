@@ -1,7 +1,25 @@
-(function ($) {
+/**
+ * Path to this script in the global tribe Object.
+ *
+ * @since 5.1.9
+ *
+ * @type   {Object}
+ */
+ tribe.tickets.commerce.gateway.paystack = tribe.tickets.commerce.gateway.paystack || {};
+
+/**
+ * This script Object for public usage of the methods.
+ *
+ * @since 5.1.9
+ *
+ * @type   {Object}
+ */
+tribe.tickets.commerce.gateway.paystack = {};
+
+(function ( $, paystackCheckout ) {
 	"use strict";
 
-	var paystackCheckout = {
+	paystackCheckout = {
 		init: function( ) {
 			if ( 0 < $( "#tec-tc-gateway-stripe-checkout-button" ).length ) {
 				this.setVariables();
@@ -58,13 +76,32 @@
 				  alert('Window closed.');
 				},
 				callback: function(response){
+					
+					if ( undefined === response ) {
+ 
+					} else if ( 'success' == response.status ) {
+						$this.handlePaymmentSuccess();
+					}
+					
 					console.log(response);	
-				  let message = 'Payment complete! Reference: ' + response.reference;
-				  alert(message);
+
+
+				  	let message = 'Payment complete! Reference: ' + response.reference;
+				  	alert(message);
 				}
 			  });
 			  handler.openIframe();
-		}
+		},
+
+		/**
+		 * When we receive a payment complete from Paystack
+		 */
+		handlePaymmentSuccess: function () {
+
+		},
+		handlePaymmentFailure: function () {
+
+		},
 	}
 
 
@@ -72,4 +109,4 @@
 		paystackCheckout.init();
 	});
 
-})( jQuery );
+})( jQuery, tribe.tickets.commerce.gateway.paystack );
