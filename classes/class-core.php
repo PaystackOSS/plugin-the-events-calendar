@@ -31,7 +31,9 @@ class Core {
 	 * Contructor
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_classes' ) );
+		if ( class_exists( 'Tribe__Tickets__Main' ) ) {
+			add_action( 'init', array( $this, 'load_classes' ) );
+		}
 	}
 
 	/**
