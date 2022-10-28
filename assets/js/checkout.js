@@ -32,6 +32,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 			this.last_name = $( '#tec-paystack-last-name' );
 			this.email_address = $( '#tec-paystack-email-address' );
 			this.total = $( '#tec-paystack-total' );
+			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
 		watchSubmit: function( ) {
 			let $this   = this;
@@ -60,8 +61,38 @@ tribe.tickets.commerce.gateway.paystack = {};
 			if ( 0 < this.errors.length ) {
 				console.log(this.errors);
 			} else {
-				this.handoverToPopup();
+				this.createOrder();
 			}
+		},
+		createOrder: function () {
+			let $this = this;
+			tribe.tickets.debug.log( 'handleCreateOrder', arguments );
+
+			return fetch(
+				tecTicketsPaystackCheckout.orderEndpoint,
+				{
+					method: 'POST',
+					body: JSON.stringify( {
+						purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
+					} ),
+					headers: {
+						'X-WP-Nonce': $this.container.find( tribe.tickets.commerce.selectors.nonce ).val(),
+						'Content-Type': 'application/json',
+					}
+				}
+			)
+			.then( response => response.json() )
+			.then( data => {
+				tribe.tickets.debug.log( data );
+				if ( data.success ) {
+					return $this.handoverToPopup();
+				} else {
+					alert('There was an error creating your order, please try again');
+				}
+			} )
+			.catch( () => {
+				alert('There was an error creating your order, please try again');
+			} );
 		},
 		handoverToPopup: function() {
 			let $this   = this;

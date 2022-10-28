@@ -30,7 +30,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.1.6
 	 */
 	public function register() {
-		//$this->add_actions();
+		$this->add_actions();
 		$this->add_filters();
 	}
 
@@ -41,10 +41,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions() {
 		// REST API Endpoint registration.
-		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
-		add_action( 'admin_init', [ $this, 'render_ssl_notice' ] );
-
-		add_action( 'tribe_template_after_include:tickets/v2/commerce/order/details/order-number', [ $this, 'include_capture_id_success_page' ], 10, 3 );
+		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
+		//add_action( 'admin_init', array( $this, 'render_ssl_notice' ) );
+		//add_action( 'tribe_template_after_include:tickets/v2/commerce/order/details/order-number', array( $this, 'include_capture_id_success_page' ), 10, 3 );
 	}
 
 	/**

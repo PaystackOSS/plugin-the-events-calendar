@@ -54,34 +54,34 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		register_rest_route(
 			$namespace,
 			$this->get_endpoint_path(),
-			[
+			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'args'                => $this->create_order_args(),
-				'callback'            => [ $this, 'handle_create_order' ],
+				'callback'            => array( $this, 'handle_create_order' ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 
 		register_rest_route(
 			$namespace,
 			$this->get_endpoint_path() . '/(?P<order_id>[0-9a-zA-Z]+)',
-			[
+			array(
 				'methods'             => WP_REST_Server::CREATABLE,
 				'args'                => $this->update_order_args(),
-				'callback'            => [ $this, 'handle_update_order' ],
+				'callback'            => array( $this, 'handle_update_order' ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 
 		register_rest_route(
 			$namespace,
 			$this->get_endpoint_path() . '/(?P<order_id>[0-9a-zA-Z]+)',
-			[
+			array(
 				'methods'             => WP_REST_Server::DELETABLE,
 				'args'                => $this->fail_order_args(),
-				'callback'            => [ $this, 'handle_fail_order' ],
+				'callback'            => array( $this, 'handle_fail_order' ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 
 		$documentation->register_documentation_provider( $this->get_endpoint_path(), $this );

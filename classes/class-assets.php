@@ -28,6 +28,8 @@ class Assets extends \tad_DI52_ServiceProvider {
 		$currency_code = \TEC\Tickets\Commerce\Utils\Currency::get_currency_code();
 		$total         = \TEC\Tickets\Commerce\Utils\Value::create();
 
+		require_once( PS_TEC_PATH . '/classes/REST/Order_Endpoint.php' );
+
 		/**
 		 * This file is intentionally enqueued on every page of the administration.
 		 */
@@ -89,7 +91,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'localize'     => array(
 					'name' => 'tecTicketsPaystackCheckout',
 					'data' => array(
-						//'orderEndpoint' => tribe( Order_Endpoint::class )->get_route_url(),
+						'orderEndpoint' => tribe( \paystack\tec\classes\REST\Order_Endpoint::class )->get_route_url(),
 						'publicKey'     => $public_key,
 						'currency_code' => $currency_code,
 						'errorMessages' => array(
