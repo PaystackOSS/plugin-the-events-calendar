@@ -34,7 +34,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		//$this->container->singleton( Webhooks\Events::class );
 		//$this->container->singleton( Webhooks\Handler::class );
 
-		//$this->register_endpoints();
+		$this->register_endpoints();
 	}
 
 	/**
@@ -64,6 +64,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Register REST API endpoints.
 	 */
 	public function register_endpoints() {
+		require_once( PS_TEC_PATH . '/classes/class-rest.php' );
+		require_once( PS_TEC_PATH . '/classes/REST/Order_Endpoint.php' );
+
 		$hooks = new REST( $this->container );
 		$hooks->register();
 
