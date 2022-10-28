@@ -95,8 +95,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 						'publicKey'     => $public_key,
 						'currency_code' => $currency_code,
 						'errorMessages' => array(
-							'first_name'    => esc_html__( 'First name is required', 'event-tickets' ),
-							'last_name'     => esc_html__( 'Last name is required', 'event-tickets' ),
+							'name'    => esc_html__( 'Name is required', 'event-tickets' ),
 							'email_address' => esc_html__( 'A valid email address is required', 'event-tickets' ),
 							'connection'    => esc_html__( 'An error has occured, please refresh the page and try again.', 'event-tickets' ),
 						),

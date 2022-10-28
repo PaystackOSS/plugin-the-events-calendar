@@ -4,14 +4,16 @@
  */
 
 $label_classes = [
-	'tribe-common-b3',
-	'tribe-tickets__commerce-checkout-paystack-advanced-payments-form-field-label',
+	'tribe-tickets__form-field-label',
+	'tribe-tickets__commerce-checkout-purchaser-info-email-field-label',
 ];
 
 $field_classes = [
-	'email_address_field',
-	'tribe-tickets__commerce-checkout-paystack-advanced-payments-form-field',
-	'tribe-tickets__commerce-checkout-paystack-advanced-payments-form-field--email-address',
+	'tribe-common-b2',
+	'tribe-tickets__commerce-checkout-purchaser-info-form-field',
+	'tribe-tickets__commerce-checkout-purchaser-info-form-field-email',
+	'tribe-common-form-control-text__input',
+	'tribe-tickets__form-field-input',
 ];
 
 $email_address = '';
@@ -22,18 +24,16 @@ if ( is_user_logged_in() ) {
 	}
 }
 ?>
-<div class="tribe-tickets__commerce-checkout-paystack-form-field-wrapper">
-	<label for="tec-paystack-email-address" <?php tribe_classes( $label_classes ); ?>>
-		<?php esc_html_e( 'Email Address', 'event-tickets' ); ?>
-	</label>
-	<input
-		type="text"
-		id="tec-paystack-email-address"
-		name="paystack-email-address"
-		autocomplete="off"
-		<?php tribe_classes( $field_classes ); ?>
-		placeholder="<?php esc_attr_e( 'Email Address', 'event-tickets' ); ?>"
-		required
-		value="<?php echo esc_attr( $email_address ); ?>"
-	/>
+<div class="tribe-tickets__commerce-checkout-purchaser-info-field tribe-tickets__form-field tribe-tickets__form-field--email">
+	<div class="tribe-tickets__form-field-input-wrapper">
+		<input
+			type="email"
+			id="tec-tc-purchaser-email"
+			name="purchaser-email"
+			autocomplete="off"
+			<?php tribe_classes( $field_classes ); ?>
+			required
+			value="<?php echo esc_attr( $email_address ); ?>"
+		/>
+	</div>
 </div>

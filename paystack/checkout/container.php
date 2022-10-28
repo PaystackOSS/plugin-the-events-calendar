@@ -39,11 +39,11 @@ if ( $must_login ) {
 
 		<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
 			<?php
-				$this->template( 'paystack/checkout/fields/first-name' );
-				$this->template( 'paystack/checkout/fields/last-name' );
+			if ( is_user_logged_in() || $must_login || empty( $items ) ) {
+				$this->template( 'paystack/checkout/fields/name' );
 				$this->template( 'paystack/checkout/fields/email' );
-
-				$this->template( 'paystack/checkout/fields/hidden' );
+			}
+			$this->template( 'paystack/checkout/fields/hidden' );
 			?>
 		</div>
 

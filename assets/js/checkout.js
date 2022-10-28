@@ -28,9 +28,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 		},
 		setVariables: function () {
 			this.errors = [];
-			this.first_name = $( '#tec-paystack-first-name' );
-			this.last_name = $( '#tec-paystack-last-name' );
-			this.email_address = $( '#tec-paystack-email-address' );
+			this.name = $( '#tec-tc-purchaser-name' );
+			this.email_address = $( '#tec-tc-purchaser-email' );
 			this.total = $( '#tec-paystack-total' );
 			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
@@ -45,11 +44,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let $this    = this;
 			$this.errors = [];
 
-			if ( '' === $this.first_name.val() ) {
-				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.first_name);
-			}
-			if ( '' === $this.last_name.val() ) {
-				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.last_name);
+			if ( '' === $this.name.val() ) {
+				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.name);
 			}
 			if ( '' === $this.email_address.val() ) {
 				$this.errors.push(tecTicketsPaystackCheckout.errorMessages.email_address);
@@ -68,6 +64,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let $this = this;
 			tribe.tickets.debug.log( 'handleCreateOrder', arguments );
 
+			console.log(tribe.tickets.commerce.getPurchaserData( $this.container ));
+
 			return fetch(
 				tecTicketsPaystackCheckout.orderEndpoint,
 				{
@@ -85,7 +83,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 			.then( data => {
 				tribe.tickets.debug.log( data );
 				if ( data.success ) {
-					return $this.handoverToPopup();
+					return $this.handoverToPopup( data );
 				} else {
 					alert('There was an error creating your order, please try again');
 				}
@@ -94,7 +92,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				alert('There was an error creating your order, please try again');
 			} );
 		},
-		handoverToPopup: function() {
+		handoverToPopup: function( order ) {
 			let $this   = this;
 			let handler = PaystackPop.setup({
 				key: tecTicketsPaystackCheckout.publicKey,

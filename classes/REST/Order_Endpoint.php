@@ -101,8 +101,8 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			'success' => false,
 		];
 
-		$messages = $this->get_error_messages();
-		$data = $request->get_json_params();
+		$messages  = $this->get_error_messages();
+		$data      = $request->get_json_params();
 		$purchaser = tribe( Order::class )->get_purchaser_data( $data );
 
 		if ( is_wp_error( $purchaser ) ) {
