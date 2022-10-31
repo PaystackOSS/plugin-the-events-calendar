@@ -58,6 +58,9 @@ class Core {
 		if ( function_exists( 'tribe' ) ) {
 			$container = tribe();
 
+			require_once( PS_TEC_PATH . '/classes/class-admin.php' );
+			$this->admin = Admin::get_instance();
+
 			require_once( PS_TEC_PATH . '/classes/class-setup.php' );
 			$this->setup = Setup::get_instance();
 
