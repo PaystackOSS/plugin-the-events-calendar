@@ -62,7 +62,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 		},
 		createOrder: function () {
 			let $this = this;
-			tribe.tickets.debug.log( 'handleCreateOrder', arguments );
+			tribe.tickets.debug.log( 'handleCreateOrder', tribe.tickets.commerce.getPurchaserData( $this.container ) );
 
 			console.log(tribe.tickets.commerce.getPurchaserData( $this.container ));
 
@@ -81,7 +81,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 			)
 			.then( response => response.json() )
 			.then( data => {
-				tribe.tickets.debug.log( data );
+				tribe.tickets.debug.log( 'handleCreateOrderResponse', data );
+
 				if ( data.success ) {
 					return $this.handoverToPopup( data );
 				} else {
@@ -101,15 +102,15 @@ tribe.tickets.commerce.gateway.paystack = {};
 				email: $this.email_address.val(),
 				amount: $this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
-				ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-				// label: "Optional string that replaces customer email"
+				ref: order.id, // Uses the Order ID
 				onClose: function(){
 
 				  alert('Window closed.');
 
 				},
 				callback: function(response){
-					
+					tribe.tickets.debug.log( 'paystackPopUpResponse', response );
+
 					if ( undefined === response ) {
  
 					} else if ( 'success' == response.status ) {
@@ -127,7 +128,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 		 * When we receive a payment complete from Paystack
 		 */
 		handlePaymmentSuccess: function () {
-
+			
 		},
 		handlePaymmentFailure: function () {
 
