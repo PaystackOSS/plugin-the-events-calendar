@@ -44,8 +44,13 @@ class Admin {
 	 * Displays the Sub account and the Split payment boxes on the event.
 	 */
 	public function display_paystack_fields() {
-		$subaccount = get_post_meta( $_GET['post'], 'paystack_sub_account', true );
-		$splittrans = get_post_meta( $_GET['post'], 'paystack_split_transaction', true );
+		$subaccount = '';
+		$splittrans = '';
+
+		if ( isset( $_GET['post'] ) ) {
+			$subaccount = get_post_meta( $_GET['post'], 'paystack_sub_account', true );
+			$splittrans = get_post_meta( $_GET['post'], 'paystack_split_transaction', true );
+		}
 
 		wp_nonce_field( 'edit_fields', '_paystack_nonce' );
 		?>
