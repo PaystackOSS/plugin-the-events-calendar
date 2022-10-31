@@ -194,82 +194,26 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 			$response['success']  = true;
 			$response['order_id'] = $order_id;
+
+			// When we have success we clear the cart.
+			tribe( Cart::class )->clear_cart();
+
+			$response['redirect_url'] = add_query_arg( array( 'tc-order-id' => $order_id ), tribe( Success::class )->get_url() );
+		} else if ( 'failed' === $transaction_status ) {
+
+			// Flag the order as Completed.
+			tribe( Order::class )->modify_status(
+				$order->ID,
+				Denied::SLUG,
+				array(
+					'gateway_transaction_id' => $transaction_id,
+					'gateway_failed_reason'  => __( 'User abandoned', 'event-tickets' ),
+				)
+			);
+
 		} else {
 			return new WP_Error( 'tec-tc-gateway-paystack-error-order-id', __( 'There was a problem updating your order.', 'event-tickets' ), $order );
 		}
-
-		return new WP_REST_Response( $response );
-	}
-
-	/**
-	 * Gets the Order object again, in another request, to check for purchases possibly denied after creation.
-	 *
-	 * @since 5.4.0.2
-	 *
-	 * @param string   $order_id The PayPal order ID.
-	 * @param \WP_Post $order    The TC Order object.
-	 *
-	 * @return bool|WP_Error|WP_REST_Response
-	 */
-	public function handle_recheck_order( $order_id, $order ) {
-
-		$paypal_order_response       = tribe( Client::class )->get_order( $order_id );
-		$paypal_order_status         = Arr::get( $paypal_order_response, [ 'status' ] );
-		$paypal_order_purchase_units = Arr::get( $paypal_order_response, [ 'purchase_units' ], [] );
-		$paypal_order_captures       = [];
-		$messages                    = $this->get_error_messages();
-
-		foreach( $paypal_order_purchase_units as $unit ) {
-			if ( ! empty( $unit['payments']['captures'] ) ) {
-				$paypal_order_captures[] = $unit['payments']['captures'];
-			}
-		}
-
-		if ( Status::CREATED === $paypal_order_status && ! empty( $paypal_order_captures ) ) {
-			$paypal_order_captures = array_shift( $paypal_order_captures );
-			if ( count( $paypal_order_captures ) > 1 ) {
-				// Sort the captures array by the update timestamp
-				usort( $paypal_order_captures, function( $a, $b ) {
-					return strtotime( $a['update_time'] ) <=> strtotime( $b['update_time'] );
-				} );
-			}
-
-			foreach( $paypal_order_captures as $capture ) {
-				$paypal_order_status = $capture['status'];
-				$final = $capture['final_capture'] ?? false;
-
-				if ( $final ) {
-					break;
-				}
-			}
-		}
-
-		$status = tribe( Status::class )->convert_to_commerce_status( $paypal_order_status );
-
-		if ( ! $status ) {
-			return new WP_Error( 'tec-tc-gateway-paypal-invalid-capture-status', $messages['invalid-capture-status'], $paypal_order_response );
-		}
-
-		$updated = tribe( Order::class )->modify_status( $order->ID, Completed::SLUG, [
-			'gateway_payload' => $paypal_order_response,
-		] );
-
-		if ( is_wp_error( $updated ) ) {
-			return $updated;
-		}
-
-		if ( in_array( $paypal_order_status, [ Status::FAILED, Status::DECLINED ], true ) ) {
-			return new WP_Error( 'tec-tc-gateway-paypal-capture-declined', $messages['capture-declined'], $paypal_order_response );
-		}
-
-		$response['success']  = true;
-		$response['status']   = $status->get_slug();
-		$response['order_id'] = $order->ID;
-
-		// When we have success we clear the cart.
-		tribe( Cart::class )->clear_cart();
-
-		$response['redirect_url'] = add_query_arg( [ 'tc-order-id' => $order_id ], tribe( Success::class )->get_url() );
 
 		return new WP_REST_Response( $response );
 	}
@@ -353,7 +297,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	public function update_order_args() {
 		return [
 			'order_id' => [
-				'description'       => __( 'Order ID in PayPal', 'event-tickets' ),
+				'description'       => __( 'Order ID in Paystack', 'event-tickets' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => static function ( $value ) {

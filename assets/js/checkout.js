@@ -103,22 +103,26 @@ tribe.tickets.commerce.gateway.paystack = {};
 				amount: $this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
 				ref: order.id, // Uses the Order ID
-				onClose: function(){
-
-				  alert('Window closed.');
-
+				onClose: function( response ){
+					response = {
+						'status': 'failed',
+						'transaction': order.id,
+						'reference': order.id,
+					}
+					$this.handlePaymmentFail( response );
 				},
 				callback: function(response){
 					tribe.tickets.debug.log( 'paystackPopUpResponse', response );
-
 					if ( undefined === response ) {
- 
+						response = {
+							'status': 'failed',
+							'transaction': order.id,
+							'reference': order.id,
+						}
+						$this.handlePaymmentFail( response );
 					} else if ( 'success' == response.status ) {
-						//$this.handlePaymmentSuccess( response );
+						$this.handlePaymmentSuccess( response );
 					}
-
-				  	let message = 'Payment complete! Reference: ' + response.reference;
-				  	alert(message);
 				}
 			  });
 			  handler.openIframe();
@@ -131,11 +135,12 @@ tribe.tickets.commerce.gateway.paystack = {};
 			tribe.tickets.debug.log( 'handlePaymmentSuccess', arguments );
 	
 			const body = {
-				'payer_id': data.payerID ?? '',
+				'reference': response.reference ?? '',
+				'status': response.status ?? 'pending',
+				'transaction': response.transaction ?? '',
 			};
-	
 			return fetch(
-				obj.orderEndpointUrl + '/' + data.orderID,
+				tecTicketsPaystackCheckout.orderEndpoint + '/' + response.reference,
 				{
 					method: 'POST',
 					headers: {
@@ -145,21 +150,46 @@ tribe.tickets.commerce.gateway.paystack = {};
 					body: JSON.stringify( body ),
 				}
 			)
-				.then( response => response.json() )
-				.then( data => {
-					if ( data.success ) {
-						//return obj.handleCheckSuccess( data, actions, $container );
-					} else {
-						//return obj.handleApproveFail( data, actions, $container );
-					}
-				} )
-				.catch( obj.handleApproveError );
+			.then( response => response.json() )
+			.then( data => {
+				if ( data.success ) {
+					//return obj.handleCheckSuccess( data, actions, $container );
+				} else {
+					//return obj.handleApproveFail( data, actions, $container );
+				}
+			} )
+			.catch( obj.handleApproveError );
 		},
-		handlePaymmentFailure: function () {
-
+		handlePaymmentFailure: function ( response ) {
+			tribe.tickets.debug.log( 'handlePaymmentFailure', arguments );
+	
+			const body = {
+				'reference': response.reference ?? '',
+				'status': response.status ?? 'failed',
+				'transaction': response.transaction ?? '',
+			};
+			return fetch(
+				tecTicketsPaystackCheckout.orderEndpoint + '/' + response.reference,
+				{
+					method: 'POST',
+					headers: {
+						//'X-WP-Nonce': $container.find( tribe.tickets.commerce.selectors.nonce ).val(),
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify( body ),
+				}
+			)
+			.then( response => response.json() )
+			.then( data => {
+				if ( data.success ) {
+					//return obj.handleCheckSuccess( data, actions, $container );
+				} else {
+					//return obj.handleApproveFail( data, actions, $container );
+				}
+			} )
+			.catch( obj.handleApproveError );
 		},
 	}
-
 
 	$( document ).ready(function ($) {
 		paystackCheckout.init();
