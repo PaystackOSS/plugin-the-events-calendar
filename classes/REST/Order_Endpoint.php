@@ -12,6 +12,7 @@ use TEC\Tickets\Commerce\Order;
 
 //use paystack\tec\classes\Client;
 
+use TEC\Tickets\Commerce\Status\Completed;
 use TEC\Tickets\Commerce\Status\Denied;
 use TEC\Tickets\Commerce\Status\Pending;
 use TEC\Tickets\Commerce\Status\Status_Handler;
@@ -167,45 +168,35 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 		$messages = $this->get_error_messages();
 
-		$paypal_order_id = $request->get_param( 'order_id' );
+		$order_id = $request->get_param( 'reference' );
 
 		$order = tec_tc_orders()->by_args( array(
 			'status'           => tribe( Pending::class )->get_wp_slug(),
-			'gateway_order_id' => $paypal_order_id,
+			'gateway_order_id' => $order_id,
 		) )->first();
 
 		if ( ! $order ) {
 			return new WP_Error( 'tec-tc-gateway-paystack-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
 		}
 
-		$recheck = $request->get_param( 'recheck' );
+		$transaction_status = $request->get_param( 'status' );
+		$transaction_id     = $request->get_param( 'transaction' );
 
-		if ( $recheck ) {
-			return $this->handle_recheck_order( $paypal_order_id, $order );
+		if ( 'success' === $transaction_status ) {
+			// Flag the order as Completed.
+			tribe( Order::class )->modify_status(
+				$order->ID,
+				Completed::SLUG,
+				array(
+					'gateway_transaction_id' => $transaction_id,
+				)
+			);
+
+			$response['success']  = true;
+			$response['order_id'] = $order_id;
+		} else {
+			return new WP_Error( 'tec-tc-gateway-paystack-error-order-id', __( 'There was a problem updating your order.', 'event-tickets' ), $order );
 		}
-
-		$payer_id = $request->get_param( 'payer_id' );
-
-		$paypal_capture_response = tribe( Client::class )->capture_order( $paypal_order_id, $payer_id );
-
-		$debug_header = tribe( Client::class )->get_debug_header();
-		if ( ! empty( $debug_header ) ) {
-			$paypal_capture_response['debug_id'] = $debug_header;
-		}
-
-		if (
-			'UNPROCESSABLE_ENTITY' === Arr::get( $paypal_capture_response, 'name' )
-		) {
-			// Flag the order as Denied.
-			tribe( Order::class )->modify_status( $order->ID, Denied::SLUG, [
-				'gateway_payload' => $paypal_capture_response,
-			] );
-
-			return new WP_Error( 'tec-tc-gateway-paypal-failed-capture', $messages['failed-capture'], $paypal_capture_response );
-		}
-
-		$response['success']  = true;
-		$response['order_id'] = $paypal_order_id;
 
 		return new WP_REST_Response( $response );
 	}
@@ -259,7 +250,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return new WP_Error( 'tec-tc-gateway-paypal-invalid-capture-status', $messages['invalid-capture-status'], $paypal_order_response );
 		}
 
-		$updated = tribe( Order::class )->modify_status( $order->ID, $status->get_slug(), [
+		$updated = tribe( Order::class )->modify_status( $order->ID, Completed::SLUG, [
 			'gateway_payload' => $paypal_order_response,
 		] );
 
@@ -368,19 +359,6 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'validate_callback' => static function ( $value ) {
 					if ( ! is_string( $value ) ) {
 						return new WP_Error( 'rest_invalid_param', 'The order ID argument must be a string.', [ 'status' => 400 ] );
-					}
-
-					return $value;
-				},
-				'sanitize_callback' => [ $this, 'sanitize_callback' ],
-			],
-			'payer_id' => [
-				'description'       => __( 'Payer ID token from PayPal', 'event-tickets' ),
-				'required'          => false,
-				'type'              => 'string',
-				'validate_callback' => static function ( $value ) {
-					if ( ! is_string( $value ) ) {
-						return new WP_Error( 'rest_invalid_param', 'The payer ID argument must be a string.', [ 'status' => 400 ] );
 					}
 
 					return $value;
