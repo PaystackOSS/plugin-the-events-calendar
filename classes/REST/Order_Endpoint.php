@@ -5,12 +5,12 @@ namespace paystack\tec\classes\REST;
 use TEC\Tickets\Commerce\Cart;
 use TEC\Tickets\Commerce\Gateways\Contracts\Abstract_REST_Endpoint;
 
-//use TEC\Tickets\Commerce\Gateways\PayPal\Gateway;
+use paystack\tec\classes\Gateway;
 //use TEC\Tickets\Commerce\Gateways\PayPal\Status;
 
 use TEC\Tickets\Commerce\Order;
 
-//use TEC\Tickets\Commerce\Gateways\PayPal\Client;
+//use paystack\tec\classes\Client;
 
 use TEC\Tickets\Commerce\Status\Denied;
 use TEC\Tickets\Commerce\Status\Pending;
@@ -97,9 +97,9 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function handle_create_order( WP_REST_Request $request ) {
-		$response = [
+		$response = array(
 			'success' => false,
-		];
+		);
 
 		$messages  = $this->get_error_messages();
 		$data      = $request->get_json_params();
@@ -109,51 +109,36 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return $purchaser;
 		}
 
-		print_r('<pre>');
-		print_r($purchaser);
-		print_r('</pre>');
+		$order = tribe( Order::class )->create_from_cart( tribe( \paystack\tec\classes\Gateway::class ), $purchaser );
 
-		$order = tribe( Order::class )->create_from_cart( tribe( Gateway::class ), $purchaser );
-
-		print_r('<pre>');
-		print_r($order);
-		print_r('</pre>');
-
-		$unit = [
+		$unit = array(
 			'reference_id' => $order->ID,
 			'value'        => (string) $order->total_value->get_decimal(),
 			'currency'     => $order->currency,
 			'first_name'   => $order->purchaser['first_name'],
 			'last_name'    => $order->purchaser['last_name'],
 			'email'        => $order->purchaser['email'],
-		];
+		);
 
 		foreach ( $order->items as $item ) {
 			$ticket          = \Tribe__Tickets__Tickets::load_ticket_object( $item['ticket_id'] );
-			$unit['items'][] = [
+			$unit['items'][] = array(
 				'name'        => $ticket->name,
 				'unit_amount' => [ 'value' => (string) $item['price'], 'currency_code' => $order->currency ],
 				'quantity'    => $item['quantity'],
 				'item_total'  => [ 'value' => (string) $item['sub_total'], 'currency_code' => $order->currency ],
 				'sku'         => $ticket->sku,
-			];
+			);
 		}
 
-		$paypal_order = tribe( Client::class )->create_order( $unit );
-
-		if ( empty( $paypal_order['id'] ) || empty( $paypal_order['create_time'] ) ) {
-			return new WP_Error( 'tec-tc-gateway-paypal-failed-creating-order', $messages['failed-creating-order'], $order );
-		}
-
-		$debug_header = tribe( Client::class )->get_debug_header();
-		if ( ! empty( $debug_header ) ) {
-			$paypal_order['debug_id'] = $debug_header;
-		}
-
-		$updated = tribe( Order::class )->modify_status( $order->ID, Pending::SLUG, [
-			'gateway_payload'  => $paypal_order,
-			'gateway_order_id' => $paypal_order['id'],
-		] );
+		$updated = tribe( Order::class )->modify_status(
+			$order->ID,
+			Pending::SLUG,
+			array(
+				//'gateway_payload'  => $paystack_order,
+				'gateway_order_id' => $order->ID,
+			)
+		);
 
 		if ( is_wp_error( $updated ) ) {
 			return $updated;
@@ -161,7 +146,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 		// Respond with the ID for Paypal Usage.
 		$response['success'] = true;
-		$response['id']      = $paypal_order['id'];
+		$response['id']      = $order->ID;
 
 		return new WP_REST_Response( $response );
 	}
