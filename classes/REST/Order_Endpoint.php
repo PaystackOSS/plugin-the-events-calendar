@@ -161,21 +161,21 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function handle_update_order( WP_REST_Request $request ) {
-		$response = [
+		$response = array(
 			'success' => false,
-		];
+		);
 
 		$messages = $this->get_error_messages();
 
 		$paypal_order_id = $request->get_param( 'order_id' );
 
-		$order = tec_tc_orders()->by_args( [
+		$order = tec_tc_orders()->by_args( array(
 			'status'           => tribe( Pending::class )->get_wp_slug(),
 			'gateway_order_id' => $paypal_order_id,
-		] )->first();
+		) )->first();
 
 		if ( ! $order ) {
-			return new WP_Error( 'tec-tc-gateway-paypal-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
+			return new WP_Error( 'tec-tc-gateway-paystack-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
 		}
 
 		$recheck = $request->get_param( 'recheck' );

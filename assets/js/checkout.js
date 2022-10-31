@@ -114,7 +114,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 					if ( undefined === response ) {
  
 					} else if ( 'success' == response.status ) {
-						$this.handlePaymmentSuccess();
+						//$this.handlePaymmentSuccess( response );
 					}
 
 				  	let message = 'Payment complete! Reference: ' + response.reference;
@@ -127,8 +127,33 @@ tribe.tickets.commerce.gateway.paystack = {};
 		/**
 		 * When we receive a payment complete from Paystack
 		 */
-		handlePaymmentSuccess: function () {
-			
+		handlePaymmentSuccess: function ( response ) {
+			tribe.tickets.debug.log( 'handlePaymmentSuccess', arguments );
+	
+			const body = {
+				'payer_id': data.payerID ?? '',
+			};
+	
+			return fetch(
+				obj.orderEndpointUrl + '/' + data.orderID,
+				{
+					method: 'POST',
+					headers: {
+						//'X-WP-Nonce': $container.find( tribe.tickets.commerce.selectors.nonce ).val(),
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify( body ),
+				}
+			)
+				.then( response => response.json() )
+				.then( data => {
+					if ( data.success ) {
+						//return obj.handleCheckSuccess( data, actions, $container );
+					} else {
+						//return obj.handleApproveFail( data, actions, $container );
+					}
+				} )
+				.catch( obj.handleApproveError );
 		},
 		handlePaymmentFailure: function () {
 
