@@ -111,6 +111,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 
 			if ( 0 < $this.sub_account.length && '' !== $this.sub_account.val() ) {
 				settings.subaccount = $this.sub_account.val();
+			} else if ( 0 < $this.split_trans.length && '' !== $this.split_trans.val() ) {
+				settings.split_code = $this.split_trans.val();
 			}
 
 			settings.onClose = function( response ){
