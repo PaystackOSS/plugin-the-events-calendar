@@ -31,6 +31,9 @@ tribe.tickets.commerce.gateway.paystack = {};
 			this.name = $( '#tec-tc-purchaser-name' );
 			this.email_address = $( '#tec-tc-purchaser-email' );
 			this.total = $( '#tec-paystack-total' );
+			this.sub_account = $( '#tec-paystack-sub-account' );
+			this.split_trans = $( '#tec-paystack-split-transaction' );
+			
 			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
 		watchSubmit: function( ) {
@@ -94,8 +97,9 @@ tribe.tickets.commerce.gateway.paystack = {};
 			} );
 		},
 		handoverToPopup: function( order ) {
-			let $this   = this;
-			let handler = PaystackPop.setup({
+			let $this = this;
+
+			let settings = {
 				key: tecTicketsPaystackCheckout.publicKey,
 				firstname: $this.name.val(),
 				lastname: $this.name.val(),
@@ -103,29 +107,37 @@ tribe.tickets.commerce.gateway.paystack = {};
 				amount: $this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
 				ref: order.id, // Uses the Order ID
-				onClose: function( response ){
+			}
+
+			if ( 0 < $this.sub_account.length && '' !== $this.sub_account.val() ) {
+				settings.subaccount = $this.sub_account.val();
+			}
+
+			settings.onClose = function( response ){
+				response = {
+					'status': 'failed',
+					'transaction': order.id,
+					'reference': order.id,
+				}
+				$this.handlePaymmentFail( response );
+			};
+
+			settings.callback = function(response){
+				tribe.tickets.debug.log( 'paystackPopUpResponse', response );
+				if ( undefined === response ) {
 					response = {
 						'status': 'failed',
 						'transaction': order.id,
 						'reference': order.id,
 					}
 					$this.handlePaymmentFail( response );
-				},
-				callback: function(response){
-					tribe.tickets.debug.log( 'paystackPopUpResponse', response );
-					if ( undefined === response ) {
-						response = {
-							'status': 'failed',
-							'transaction': order.id,
-							'reference': order.id,
-						}
-						$this.handlePaymmentFail( response );
-					} else if ( 'success' == response.status ) {
-						$this.handlePaymmentSuccess( response );
-					}
+				} else if ( 'success' == response.status ) {
+					$this.handlePaymmentSuccess( response );
 				}
-			  });
-			  handler.openIframe();
+			};
+
+			let handler = PaystackPop.setup( settings );
+			handler.openIframe();
 		},
 
 		/**
