@@ -26,10 +26,5 @@ if ( empty( $is_merchant_connected ) ) {
 			'selected_mode' => $merchant->get_prop( 'checkout_mode' ),
 		);
 		$this->template( 'paystack/admin-views/fields/checkout-mode', $checkout_mode_args );
-
-		$transaction_type_args = array(
-			'selected_mode' => $merchant->get_prop( 'transaction_type' ),
-		);
-		$this->template( 'paystack/admin-views/fields/transaction-type', $transaction_type_args );
 	?>
 </div>
