@@ -167,6 +167,10 @@ tribe.tickets.commerce.gateway.paystack = {};
 			.then( response => response.json() )
 			.then( data => {
 				if ( data.success ) {
+					console.log(data);
+					if( data.redirect_url ) {
+						window.location.href = data.redirect_url;
+					}
 					//return obj.handleCheckSuccess( data, actions, $container );
 				} else {
 					//return obj.handleApproveFail( data, actions, $container );
