@@ -38,6 +38,22 @@ tribe.tickets.commerce.gateway.paystack = {};
 			
 			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
+		getSettings: function () {
+			let settings = {
+				key: tecTicketsPaystackCheckout.publicKey,
+				firstname: this.name.val(),
+				lastname: this.name.val(),
+				email: this.email_address.val(),
+				amount: this.total.val() * 100,
+				currency: tecTicketsPaystackCheckout.currency_code,
+			}
+			if ( 0 < this.sub_account.length && '' !== $his.sub_account.val() ) {
+				settings.subaccount = this.sub_account.val();
+			} else if ( 0 < this.split_trans.length && '' !== this.split_trans.val() ) {
+				settings.split_code = this.split_trans.val();
+			}
+			return settings;
+		},
 		watchSubmit: function( ) {
 			let $this   = this;
 			$( "#tec-tc-gateway-stripe-checkout-button" ).on( 'click', function( event ){
@@ -75,6 +91,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 
 			if ( 'redirect' == tecTicketsPaystackCheckout.gatewayMode ) {
 				bodyArgs.redirect_url = window.location.href;
+				bodyArgs.cart         = $this.getSettings();
 			}
 
 			return fetch(
@@ -110,21 +127,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 		handoverToPopup: function( order ) {
 			let $this = this;
 
-			let settings = {
-				key: tecTicketsPaystackCheckout.publicKey,
-				firstname: $this.name.val(),
-				lastname: $this.name.val(),
-				email: $this.email_address.val(),
-				amount: $this.total.val() * 100,
-				currency: tecTicketsPaystackCheckout.currency_code,
-				ref: order.id, // Uses the Order ID
-			}
-
-			if ( 0 < $this.sub_account.length && '' !== $this.sub_account.val() ) {
-				settings.subaccount = $this.sub_account.val();
-			} else if ( 0 < $this.split_trans.length && '' !== $this.split_trans.val() ) {
-				settings.split_code = $this.split_trans.val();
-			}
+			let settings = this.getSettings();
+			settings.ref = order.id; // Uses the Order ID
 
 			settings.onClose = function( response ){
 				response = {

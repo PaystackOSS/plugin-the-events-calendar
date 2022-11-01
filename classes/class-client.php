@@ -34,19 +34,29 @@ class Client {
 
 	public function initialize_transaction( $fields = array() ) {
 		$defaults = array(
-			'email' => 'customer@email.com',
-			'amount' => '20000',
+			'email' => '',
+			'amount' => '',
 		);
-		$fields     = wp_parse_args( $fields, $defaults );
+		//$fields     = wp_parse_args( $fields, $defaults );
 		$secret_key = $this->get_barer_key();
 
-		print_r('<pre>');
-		print_r($fields);
-		print_r($secret_key);
-		print_r('</pre>');
+		$return = array(
+			'success' => false,
+		);
+		/*
+		(
+			[status] => 1
+			[message] => Authorization URL created
+			[data] => stdClass Object
+				(
+					[authorization_url] => https://checkout.paystack.com/ozbm3m9fedms1um
+					[access_code] => ozbm3m9fedms1um
+					[reference] => c5yso6fqr2
+				)
 
+		)
+		*/
 		if ( ! empty( $fields ) && '' !== $secret_key ) {
-
 			$response = wp_remote_post(
 				'https://api.paystack.co/transaction/initialize',
 				array(
@@ -59,14 +69,27 @@ class Client {
 				)
 			);
 			if ( ( ! is_wp_error( $response ) ) && ( 200 === wp_remote_retrieve_response_code( $response ) ) ) {
-				$responseBody = json_decode( $response['body'] );
-				if ( json_last_error() === JSON_ERROR_NONE ) {
-					print_r('<pre>');
-					print_r($responseBody);
-					print_r('</pre>');
+				$data = json_decode( $response['body'] );
+				if ( json_last_error() === JSON_ERROR_NONE && isset( $data->status ) ) {
+					if ( 1 === $data->status || '1' === $data->status || true === $data->status ) {
+						$return['authorization_url'] = $data->data->authorization_url;
+						$return['access_code']       = $data->data->access_code;
+						$return['reference']         = $data->data->reference;
+						$return['success']           = true;
+					} else {
+						$return['message'] = __( 'Return status is not true.', 'event-tickets' );	
+					}
+				} else {
+					$return['message'] = __( 'JSON error with the transaction response.', 'event-tickets' );
 				}
+			} else {
+				$return['message'] = __( 'There was an error while initilizing the transaction.', 'event-tickets' );
 			}
+		} else {
+			$return['message'] = __( 'Payment fields are empty.', 'event-tickets' );
 		}
+
+		return $return;
 	}
 }
 ?>
