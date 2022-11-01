@@ -24,7 +24,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_settings_save_tab_payments', '\paystack\tec\classes\Settings::update_settings', 10, 1 );
 
 		//$this->container->singleton( Refresh_Token::class );
-		////$this->container->singleton( Client::class );
+
+		require_once( PS_TEC_PATH . '/classes/class-client.php' );
+		$this->container->singleton( Client::class );
 
 		require_once( PS_TEC_PATH . '/classes/class-signup.php' );
 		$this->container->singleton( Signup::class );

@@ -24,6 +24,8 @@ tribe.tickets.commerce.gateway.paystack = {};
 			if ( 0 < $( "#tec-tc-gateway-stripe-checkout-button" ).length ) {
 				this.setVariables();
 				this.watchSubmit();
+
+				tribe.tickets.debug.log( 'paystackInit', this, tecTicketsPaystackCheckout );
 			}
 		},
 		setVariables: function () {
@@ -67,15 +69,19 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let $this = this;
 			tribe.tickets.debug.log( 'handleCreateOrder', tribe.tickets.commerce.getPurchaserData( $this.container ) );
 
-			console.log(tribe.tickets.commerce.getPurchaserData( $this.container ));
+			let bodyArgs = {
+				purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
+			}
+
+			if ( 'redirect' == tecTicketsPaystackCheckout.gatewayMode ) {
+				bodyArgs.redirect_url = window.location.href;
+			}
 
 			return fetch(
 				tecTicketsPaystackCheckout.orderEndpoint,
 				{
 					method: 'POST',
-					body: JSON.stringify( {
-						purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
-					} ),
+					body: JSON.stringify( bodyArgs ),
 					headers: {
 						//'X-WP-Nonce': $this.container.find( tribe.tickets.commerce.selectors.nonce ).val(),
 						'Content-Type': 'application/json',
@@ -85,15 +91,20 @@ tribe.tickets.commerce.gateway.paystack = {};
 			.then( response => response.json() )
 			.then( data => {
 				tribe.tickets.debug.log( 'handleCreateOrderResponse', data );
-
 				if ( data.success ) {
-					return $this.handoverToPopup( data );
+					if ( 'popup' == tecTicketsPaystackCheckout.gatewayMode ) {
+						$this.handoverToPopup( data );
+					} else if ( 'redirect' == tecTicketsPaystackCheckout.gatewayMode && undefined != data.redirect_url ) {
+						window.location.href = data.redirect_url;
+					} else {
+						alert( tecTicketsPaystackCheckout.errorMessages.createOrder );
+					}
 				} else {
-					alert('There was an error creating your order, please try again');
+					alert( tecTicketsPaystackCheckout.errorMessages.createOrder );
 				}
 			} )
 			.catch( () => {
-				alert('There was an error creating your order, please try again');
+				alert( tecTicketsPaystackCheckout.errorMessages.createOrder );
 			} );
 		},
 		handoverToPopup: function( order ) {

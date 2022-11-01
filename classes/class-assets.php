@@ -2,9 +2,7 @@
 /**
  * Handles registering and setup for assets on Ticket Commerce.
  *
- * @since   5.1.6
- *
- * @package TEC\Tickets\Commerce\Gateways\PayPal
+ * @package paystack\tec\classes
  */
 namespace paystack\tec\classes;
 
@@ -62,10 +60,19 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		// Get the correct Public key
 		$mode = $gateway->get_option( 'paystack_mode' );
+		if ( '' === $mode || false === $mode ) {
+			$mode = 'test';
+		}
 		if ( 'test' === $mode ) {
 			$public_key = $gateway->get_option( 'public_key_test' );
 		} else {
 			$public_key = $gateway->get_option( 'public_key_live' );
+		}
+
+		// Get the checkout mode
+		$checkout_mode = $gateway->get_option( 'checkout_mode' );
+		if ( '' === $mode || false === $mode ) {
+			$checkout_mode = 'popup';
 		}
 
 		tribe_asset(
@@ -94,10 +101,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 						'orderEndpoint' => tribe( \paystack\tec\classes\REST\Order_Endpoint::class )->get_route_url(),
 						'publicKey'     => $public_key,
 						'currency_code' => $currency_code,
+						'gatewayMode'   => $checkout_mode,
 						'errorMessages' => array(
 							'name'    => esc_html__( 'Name is required', 'event-tickets' ),
 							'email_address' => esc_html__( 'A valid email address is required', 'event-tickets' ),
 							'connection'    => esc_html__( 'An error has occured, please refresh the page and try again.', 'event-tickets' ),
+							'createOrder'   => esc_html__( 'There was an error creating your order, please try again or contact the website administrator for assistance.', 'event-tickets' ),
 						),
 					),
 				),

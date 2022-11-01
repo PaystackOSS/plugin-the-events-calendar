@@ -145,6 +145,11 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return $updated;
 		}
 
+		// If the gate is set to redirect, then initialize the transaction.
+		if ( isset( $data['redirect_url'] ) ) {
+			$response['redirect_url'] = $data['redirect_url'];
+		}
+
 		// Respond with the ID for Paypal Usage.
 		$response['success'] = true;
 		$response['id']      = $order->ID;
