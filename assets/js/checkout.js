@@ -121,7 +121,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 					'transaction': order.id,
 					'reference': order.id,
 				}
-				$this.handlePaymmentFail( response );
+				$this.handlePaymmentFailure( response );
 			};
 
 			settings.callback = function(response){
@@ -132,7 +132,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 						'transaction': order.id,
 						'reference': order.id,
 					}
-					$this.handlePaymmentFail( response );
+					$this.handlePaymmentFailure( response );
 				} else if ( 'success' == response.status ) {
 					$this.handlePaymmentSuccess( response );
 				}
@@ -166,20 +166,20 @@ tribe.tickets.commerce.gateway.paystack = {};
 			)
 			.then( response => response.json() )
 			.then( data => {
+				tribe.tickets.debug.log( 'handlePaymmentSuccessResponse', data );
 				if ( data.success ) {
 					console.log(data);
 					if( data.redirect_url ) {
 						window.location.href = data.redirect_url;
 					}
-					//return obj.handleCheckSuccess( data, actions, $container );
 				} else {
-					//return obj.handleApproveFail( data, actions, $container );
+					$this.handlePaymmentFailure( response );
 				}
 			} )
 			.catch( obj.handleApproveError );
 		},
 		handlePaymmentFailure: function ( response ) {
-			tribe.tickets.debug.log( 'handlePaymmentFailure', arguments );
+			tribe.tickets.debug.log( 'handlePaymmentFailure', response );
 	
 			const body = {
 				'reference': response.reference ?? '',
@@ -199,10 +199,11 @@ tribe.tickets.commerce.gateway.paystack = {};
 			)
 			.then( response => response.json() )
 			.then( data => {
+				tribe.tickets.debug.log( 'handlePaymmentSuccessResponse', data );
 				if ( data.success ) {
-					//return obj.handleCheckSuccess( data, actions, $container );
-				} else {
-					//return obj.handleApproveFail( data, actions, $container );
+					if( data.redirect_url ) {
+						window.location.href = data.redirect_url;
+					}
 				}
 			} )
 			.catch( obj.handleApproveError );

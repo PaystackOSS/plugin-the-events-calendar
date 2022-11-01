@@ -210,6 +210,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 					'gateway_failed_reason'  => __( 'User abandoned', 'event-tickets' ),
 				)
 			);
+			$response['success'] = true;
 
 		} else {
 			return new WP_Error( 'tec-tc-gateway-paystack-error-order-id', __( 'There was a problem updating your order.', 'event-tickets' ), $order );
