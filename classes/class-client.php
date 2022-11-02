@@ -15,7 +15,7 @@ use TEC\Tickets\Commerce\Checkout;
  */
 class Client {
 
-	protected function get_barer_key() {
+	public function get_barer_key() {
 		$key     = '';
 		$gateway = tribe( Gateway::class );
 

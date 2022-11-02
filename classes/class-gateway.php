@@ -97,6 +97,8 @@ class Gateway extends Abstract_Gateway {
 	 */
 	public function filter_admin_notices( $notices ) {
 		// Check for unsupported currency.
+
+		die('hello');
 		$selected_currency = tribe_get_option( TC_Settings::$option_currency_code );
 		if ( $this->is_enabled() && ! $this->is_currency_supported( $selected_currency ) ){
 			$notices[] = array(

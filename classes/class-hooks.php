@@ -40,10 +40,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.1.6
 	 */
 	protected function add_actions() {
-		// REST API Endpoint registration.
 		add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
-		//add_action( 'admin_init', array( $this, 'render_ssl_notice' ) );
-		//add_action( 'tribe_template_after_include:tickets/v2/commerce/order/details/order-number', array( $this, 'include_capture_id_success_page' ), 10, 3 );
 	}
 
 	/**
@@ -53,8 +50,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_filters() {
 		add_filter( 'tec_tickets_commerce_gateways', array( $this, 'filter_add_gateway' ), 10, 2 );
-		//add_filter( 'tec_tickets_commerce_success_shortcode_checkout_page_paypal_template_vars', [ $this, 'include_checkout_page_vars' ], 10, 2 );
-		//add_filter( 'tec_tickets_commerce_success_shortcode_success_page_paypal_template_vars', [ $this, 'include_success_page_vars' ], 10, 2 );
 		add_filter( 'tec_tickets_commerce_notice_messages', array( $this, 'include_admin_notices' ), 10, 1 );
 		//add_filter( 'tribe-events-save-options', [ $this, 'flush_transients_when_toggling_sandbox_mode' ] );
 		add_filter( 'tec_tickets_commerce_admin_notices', array( $this, 'filter_admin_notices' ), 10, 1 );
@@ -319,6 +314,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array
 	 */
 	public function filter_admin_notices( $notices ) {
+		die('test');
 		return $this->container->make( Gateway::class )->filter_admin_notices( $notices );
 	}
 }

@@ -71,6 +71,17 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			)
 		);
 
+		register_rest_route(
+			$namespace,
+			$this->get_endpoint_path() . '/webhook',
+			array(
+				'methods'             => WP_REST_Server::CREATABLE,
+				'args'                => $this->create_order_args(),
+				'callback'            => array( $this, 'handle_webhook' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
 		$documentation->register_documentation_provider( $this->get_endpoint_path(), $this );
 	}
 
@@ -240,6 +251,72 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		return new WP_REST_Response( $response );
 	}
 
+	public function handle_webhook( WP_REST_Request $request ) {
+		// only a post with paystack signature header gets our attention
+		if ( ( strtoupper( $_SERVER['REQUEST_METHOD']) != 'POST' ) || ! array_key_exists( 'x-paystack-signature', $_SERVER ) ) {
+			exit();
+		}
+
+		// Retrieve the request's body
+		$input  = @file_get_contents( "php://input" );
+		$client = tribe( Client::class );
+
+		// validate event do all at once to avoid timing attack
+		if( $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] !== hash_hmac( 'sha512', $input, $client->get_barer_key() ) ) {
+			exit();
+		}
+
+		http_response_code( 200 );
+
+		// parse event (which is json string) as object
+		// Do something - that will not take long - with $event
+		$event = json_decode( $input );
+
+		if ( isset( $event->event ) && in_array( $event->event, array( 'transfer.success', 'charge.success' ) ) ) {
+			if ( isset( $event->data ) && isset( $event->data->reference ) && isset( $event->data->status ) && '' !== $event->data->reference ) {
+
+				$order = tec_tc_orders()->by_args( array(
+					'status'           => tribe( Pending::class )->get_wp_slug(),
+					'gateway_order_id' => $event->data->reference,
+				) )->first();
+
+				if ( ! $order ) {
+					return new WP_Error( 'tec-tc-gateway-paystack-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
+				}
+
+				$gateway_repsone = '';
+				if ( isset( $event->data->gateway_response ) ) {
+					$gateway_repsone = $event->data->gateway_response;
+				}
+
+				if ( 'success' === $event->data->status ) {
+					// Flag the order as Completed.
+					tribe( Order::class )->modify_status(
+						$order->ID,
+						Completed::SLUG,
+						array(
+							'gateway_transaction_id' => $event->data->reference,
+							'gateway_response' => $gateway_repsone,
+						)
+					);
+				} else if ( 'failed' === $event->data->status ) {
+
+
+					// Flag the order as Completed.
+					tribe( Order::class )->modify_status(
+						$order->ID,
+						Denied::SLUG,
+						array(
+							'gateway_transaction_id' => $event->data->reference,
+							'gateway_response'  => $gateway_repsone,
+						)
+					);
+				}
+			}
+		}
+		exit();
+	}
+
 	/**
 	 * Arguments used for the signup redirect.
 	 *
@@ -248,6 +325,10 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	 * @return array
 	 */
 	public function create_order_args() {
+		return [];
+	}
+
+	public function webhook_order_args() {
 		return [];
 	}
 
