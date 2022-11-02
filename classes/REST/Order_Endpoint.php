@@ -188,6 +188,21 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		$transaction_status = $request->get_param( 'status' );
 		$transaction_id     = $request->get_param( 'transaction' );
 
+		// If we need to check the transaction, then do so.
+		$recheck = $request->get_param( 'recheck' );
+		if ( ! empty( $recheck ) && null !== $recheck ) {
+			$client        = tribe( Client::class );
+			$transaction   = $client->check_transaction( $order_id );
+
+			if ( true === $transaction['success'] ) {
+				$update_values['gateway_order_id']    = $transaction['reference'];
+				$update_values['gateway_access_code'] = $transaction['access_code'];
+			} else {
+				$response['message'] = $transaction['message'];
+				return new WP_REST_Response( $response );
+			}
+		}
+
 		if ( 'success' === $transaction_status ) {
 			// Flag the order as Completed.
 			tribe( Order::class )->modify_status(

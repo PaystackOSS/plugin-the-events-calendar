@@ -91,5 +91,45 @@ class Client {
 
 		return $return;
 	}
+
+	public function check_transaction( $reference = '' ) {
+		$secret_key = $this->get_barer_key();
+
+		$return = array(
+			'success' => false,
+		);
+		if ( '' !== $reference && '' !== $secret_key ) {
+			$response = wp_remote_get(
+				'https://api.paystack.co/transaction/verify/' . $reference,
+				array(
+					'headers' => array(
+						'Authorization' => 'Bearer ' . $secret_key,
+						'Cache-Control' => 'no-cache',
+						'Accept'        => 'application/json',
+					),
+				)
+			);
+			if ( ( ! is_wp_error( $response ) ) && ( 200 === wp_remote_retrieve_response_code( $response ) ) ) {
+				$data = json_decode( $response['body'] );
+				if ( json_last_error() === JSON_ERROR_NONE && isset( $data->status ) ) {
+					if ( 1 === $data->status || '1' === $data->status || true === $data->status ) {
+						$return['access_code']       = $data->data->authorization->authorization_code;
+						$return['reference']         = $reference;
+						$return['success']           = true;
+					} else {
+						$return['message'] = __( 'Return status is not true.', 'event-tickets' );	
+					}
+				} else {
+					$return['message'] = __( 'JSON error with the check transaction response.', 'event-tickets' );
+				}
+			} else {
+				$return['message'] = __( 'There was an error while checking the transaction.', 'event-tickets' );
+			}
+		} else {
+			$return['message'] = __( 'The reference field is empty', 'event-tickets' );
+		}
+
+		return $return;
+	}
 }
 ?>

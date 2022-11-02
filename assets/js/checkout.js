@@ -48,7 +48,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				amount: this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
 			}
-			if ( 0 < this.sub_account.length && '' !== $his.sub_account.val() ) {
+			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
 				settings.subaccount = this.sub_account.val();
 			} else if ( 0 < this.split_trans.length && '' !== this.split_trans.val() ) {
 				settings.split_code = this.split_trans.val();
@@ -169,6 +169,9 @@ tribe.tickets.commerce.gateway.paystack = {};
 				'status': response.status ?? 'pending',
 				'transaction': response.transaction ?? '',
 			};
+			if ( null !== response.recheck ) {
+				body.recheck = true;
+			}
 			return fetch(
 				tecTicketsPaystackCheckout.orderEndpoint + '/' + response.reference,
 				{
@@ -185,7 +188,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				tribe.tickets.debug.log( 'handlePaymmentSuccessResponse', data );
 				if ( data.success ) {
 					if( data.redirect_url ) {
-						window.location.href = data.redirect_url;
+						//window.location.href = data.redirect_url;
 					}
 				} else {
 					$this.handlePaymmentFailure( response );
@@ -230,11 +233,16 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let cookie = urlParams.get( 'reference' );
 			let reference = urlParams.get( 'reference' );
 
-			if ( undefined !== reference ) {
+			console.log(reference);
+
+			tribe.tickets.debug.log( 'checkForReturn', urlParams );
+
+			if ( undefined !== reference && null !== reference ) {
 				let body = {
 					'reference': reference,
 					'status': 'success',
 					'transaction': reference,
+					'recheck': true,
 				};
 				$this.handlePaymmentSuccess( body );
 			}
