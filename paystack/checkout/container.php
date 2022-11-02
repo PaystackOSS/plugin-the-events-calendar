@@ -32,6 +32,7 @@ if ( $must_login ) {
 		</div>
 
 		<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
+			<br />
 			<?php
 			if ( is_user_logged_in() || $must_login || empty( $items ) ) {
 				$this->template( 'paystack/checkout/fields/name' );
