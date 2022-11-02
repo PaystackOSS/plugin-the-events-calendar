@@ -95,23 +95,16 @@ class Gateway extends Abstract_Gateway {
 	 *
 	 * @return array
 	 */
-	public function filter_admin_notices( $notices ) {
+	public function filter_admin_notices() {
 		// Check for unsupported currency.
-
-		die('hello');
 		$selected_currency = tribe_get_option( TC_Settings::$option_currency_code );
 		if ( $this->is_enabled() && ! $this->is_currency_supported( $selected_currency ) ){
-			$notices[] = array(
-				'tc-paystack-currency-not-supported',
-				array( $this, 'render_unsupported_currency_notice' ),
-				array(
-					'dismiss' => false,
-					'type' => 'error',
-				),
-			);
+			?>
+			<div class="notice notice-error">
+				<?php echo $this->render_unsupported_currency_notice(); ?>
+			</div>
+			<?php
 		}
-
-		return $notices;
 	}
 
 	/**
@@ -123,7 +116,7 @@ class Gateway extends Abstract_Gateway {
 	 */
 	public function render_unsupported_currency_notice() {
 		$notice_header = esc_html__( 'Paystack doesn\'t support your selected currency', 'event-tickets' );
-		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), or XOF (CFA)', 'event-tickets' );
+		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358;), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), or XOF (CFA)', 'event-tickets' );
 
 		return sprintf(
 			'<p><strong>%1$s</strong></p><p>%2$s</p>',
