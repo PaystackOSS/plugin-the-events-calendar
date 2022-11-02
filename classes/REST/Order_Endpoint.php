@@ -174,8 +174,6 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			'success' => false,
 		);
 
-		$messages = $this->get_error_messages();
-
 		$order_id = $request->get_param( 'reference' );
 
 		$order = tec_tc_orders()->by_args( array(

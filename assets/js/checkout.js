@@ -24,6 +24,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 			if ( 0 < $( "#tec-tc-gateway-stripe-checkout-button" ).length ) {
 				this.setVariables();
 				this.watchSubmit();
+				this.checkForReturn();
 
 				tribe.tickets.debug.log( 'paystackInit', this, tecTicketsPaystackCheckout );
 			}
@@ -183,7 +184,6 @@ tribe.tickets.commerce.gateway.paystack = {};
 			.then( data => {
 				tribe.tickets.debug.log( 'handlePaymmentSuccessResponse', data );
 				if ( data.success ) {
-					console.log(data);
 					if( data.redirect_url ) {
 						window.location.href = data.redirect_url;
 					}
@@ -223,6 +223,22 @@ tribe.tickets.commerce.gateway.paystack = {};
 			} )
 			.catch( obj.handleApproveError );
 		},
+		checkForReturn: function () {
+			let $this = this;
+
+			let urlParams = new URLSearchParams( window.location.search );
+			let cookie = urlParams.get( 'reference' );
+			let reference = urlParams.get( 'reference' );
+
+			if ( undefined !== reference ) {
+				let body = {
+					'reference': reference,
+					'status': 'success',
+					'transaction': reference,
+				};
+				$this.handlePaymmentSuccess( body );
+			}
+		}
 	}
 
 	$( document ).ready(function ($) {
