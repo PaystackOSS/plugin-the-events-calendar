@@ -188,7 +188,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				tribe.tickets.debug.log( 'handlePaymmentSuccessResponse', data );
 				if ( data.success ) {
 					if( data.redirect_url ) {
-						//window.location.href = data.redirect_url;
+						window.location.href = data.redirect_url;
 					}
 				} else {
 					$this.handlePaymmentFailure( response );
