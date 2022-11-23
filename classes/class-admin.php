@@ -46,8 +46,10 @@ class Admin {
 	public function display_paystack_fields() {
 		$subaccount = '';
 		$splittrans = '';
+		$split_type = '';
 
 		if ( isset( $_GET['post'] ) ) {
+			$split_type = get_post_meta( $_GET['post'], 'paystack_split_type', true );
 			$subaccount = get_post_meta( $_GET['post'], 'paystack_sub_account', true );
 			$splittrans = get_post_meta( $_GET['post'], 'paystack_split_transaction', true );
 		}
@@ -57,16 +59,67 @@ class Admin {
 		<table id="paystack_details" class="eventtable">
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php echo esc_html__( 'Paystack', 'the-events-calendar' ); ?></h4></td>
+					<h4><?php echo esc_html__( 'Paystack Additional Settings', 'the-events-calendar' ); ?></h4></td>
 			</tr>
+
 			<tr>
+				<td style="width:172px;"><?php esc_html_e( 'Split Transaction with:', 'the-events-calendar' ); ?></td>
+				<td>
+					<select name='PaytsackSplitType' id='PaytsackSplitType'>
+						<?php
+						if ( '' === $split_type || false === $split_type ) {
+							$selected = 'selected="selected"';
+						} else {
+							$selected = '';
+						}
+						?>
+						<option <?php echo esc_html( $selected ); ?> value=""><?php esc_html_e( 'None', 'the-events-calendar' ); ?></option>
+
+						<?php
+						if ( 'sub-account' === $split_type ) {
+							$selected = 'selected="selected"';
+						} else {
+							$selected = '';
+						}
+						?>
+						<option <?php echo esc_html( $selected ); ?> value="sub-account"><?php esc_html_e( 'Sub Account', 'the-events-calendar' ); ?></option>
+
+						<?php
+						if ( 'split-code' === $split_type ) {
+							$selected = 'selected="selected"';
+						} else {
+							$selected = '';
+						}
+						?>
+						<option <?php echo esc_html( $selected ); ?> value="split-code"><?php esc_html_e( 'Split Transaction:', 'the-events-calendar' ); ?></option>
+					</select>
+				</td>
+			</tr>			
+
+			<?php
+			if ( 'sub-account' === $split_type ) {
+				$style = '';
+			} else {
+				$style = 'style="display:none;"';
+			}
+			?>
+			<tr <?php echo esc_html( $style ); ?>>
 				<td style="width:172px;"><?php esc_html_e( 'Sub Account:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSubAccount' name='PaytsackSubAccount' value='<?php echo esc_attr( $subaccount ); ?>' />
 				</td>
 			</tr>
+
+			<?php
+			if ( 'split-code' === $split_type ) {
+				$style = '';
+			} else {
+				$style = 'style="display:none;"';
+			}
+			?>
+			<tr <?php echo esc_html( $style ); ?>>
 			<tr>
-				<td style="width:172px;"><?php esc_html_e( 'Split Transaction:', 'the-events-calendar' ); ?></td>
+				<td style="width:172px;"><?php esc_html_e( 'Split Code:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSplitTransaction' name='PaytsackSplitTransaction' value='<?php echo esc_attr( $splittrans ); ?>' />
 				</td>
