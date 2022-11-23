@@ -73,7 +73,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo esc_html( $selected ); ?> value=""><?php esc_html_e( 'None', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value=""><?php esc_html_e( 'None', 'the-events-calendar' ); ?></option>
 
 						<?php
 						if ( 'sub-account' === $split_type ) {
@@ -82,7 +82,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo esc_html( $selected ); ?> value="sub-account"><?php esc_html_e( 'Sub Account', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value="sub-account"><?php esc_html_e( 'Sub Account', 'the-events-calendar' ); ?></option>
 
 						<?php
 						if ( 'split-code' === $split_type ) {
@@ -91,7 +91,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo esc_html( $selected ); ?> value="split-code"><?php esc_html_e( 'Split Transaction:', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value="split-code"><?php esc_html_e( 'Split Transaction:', 'the-events-calendar' ); ?></option>
 					</select>
 				</td>
 			</tr>			
@@ -103,7 +103,7 @@ class Admin {
 				$style = 'style="display:none;"';
 			}
 			?>
-			<tr <?php echo esc_html( $style ); ?>>
+			<tr class="paystack-type-sub-account" <?php echo wp_kses_post( $style ); ?>>
 				<td style="width:172px;"><?php esc_html_e( 'Sub Account:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSubAccount' name='PaytsackSubAccount' value='<?php echo esc_attr( $subaccount ); ?>' />
@@ -117,14 +117,37 @@ class Admin {
 				$style = 'style="display:none;"';
 			}
 			?>
-			<tr <?php echo esc_html( $style ); ?>>
-			<tr>
+			<tr class="paystack-type-split-code" <?php echo wp_kses_post( $style ); ?>>
 				<td style="width:172px;"><?php esc_html_e( 'Split Code:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSplitTransaction' name='PaytsackSplitTransaction' value='<?php echo esc_attr( $splittrans ); ?>' />
 				</td>
 			</tr>
 		</table>
+
+		<script type="text/javascript">
+
+			(function ( $ ) {
+				"use strict";
+				$( document ).ready(function ($) {
+
+					$('#PaytsackSplitType').on('change', function( event ) {
+						let selected = $(this).val();
+						if ( 'split-code' === selected ) {
+							$('.paystack-type-sub-account').hide();
+							$('.paystack-type-split-code').show();
+						} else if ( 'sub-account' === selected ) {
+							$('.paystack-type-sub-account').show();
+							$('.paystack-type-split-code').hide();
+						} else {
+							$('.paystack-type-sub-account').hide();
+							$('.paystack-type-split-code').hide();
+						}
+					});
+				});
+			})( jQuery );
+		</script>
+
 		<?php
 	}
 
@@ -157,6 +180,12 @@ class Admin {
 		// define your own post type here
 		if ( 'tribe_events' !== $post->post_type ) {
 			return $post_id;
+		}
+
+		if ( isset( $_POST['PaytsackSplitType'] ) && ! empty( $_POST['PaytsackSplitType'] ) ) {
+			update_post_meta( $post_id, 'paystack_split_type', sanitize_text_field( $_POST['PaytsackSplitType'] ) );
+		} else {
+			delete_post_meta( $post_id, 'paystack_split_type' );
 		}
 
 		if ( isset( $_POST['PaytsackSubAccount'] ) && ! empty( $_POST['PaytsackSubAccount'] ) ) {
