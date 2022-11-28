@@ -101,7 +101,6 @@ tribe.tickets.commerce.gateway.paystack = {};
 					method: 'POST',
 					body: JSON.stringify( bodyArgs ),
 					headers: {
-						//'X-WP-Nonce': $this.container.find( tribe.tickets.commerce.selectors.nonce ).val(),
 						'Content-Type': 'application/json',
 					}
 				}

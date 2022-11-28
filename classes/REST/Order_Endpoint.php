@@ -140,8 +140,15 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'callback_url' => $data['redirect_url'],
 				'reference'    => $order->ID,
 			);
-			$client        = tribe( Client::class );
-			$transaction   = $client->initialize_transaction( $redirect_data );
+
+			if ( isset( $data['cart']['subaccount'] ) ) {
+				$redirect_data['subaccount'] = $data['cart']['subaccount'];
+			} else if ( isset( $data['cart']['subaccount'] ) ) {
+				$redirect_data['split_code'] = $data['cart']['split_code'];
+			}
+
+			$client      = tribe( Client::class );
+			$transaction = $client->initialize_transaction( $redirect_data );
 
 			if ( true === $transaction['success'] ) {
 				$update_values['gateway_order_id']    = $transaction['reference'];
