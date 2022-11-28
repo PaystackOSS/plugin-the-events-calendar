@@ -73,7 +73,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo wp_kses_post( $selected ); ?> value=""><?php esc_html_e( 'None', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value=""><?php esc_html_e( 'No one', 'the-events-calendar' ); ?></option>
 
 						<?php
 						if ( 'sub-account' === $split_type ) {
@@ -82,7 +82,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo wp_kses_post( $selected ); ?> value="sub-account"><?php esc_html_e( 'Sub Account', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value="sub-account"><?php esc_html_e( 'One partner', 'the-events-calendar' ); ?></option>
 
 						<?php
 						if ( 'split-code' === $split_type ) {
@@ -91,7 +91,7 @@ class Admin {
 							$selected = '';
 						}
 						?>
-						<option <?php echo wp_kses_post( $selected ); ?> value="split-code"><?php esc_html_e( 'Split Transaction:', 'the-events-calendar' ); ?></option>
+						<option <?php echo wp_kses_post( $selected ); ?> value="split-code"><?php esc_html_e( 'Multiple partners', 'the-events-calendar' ); ?></option>
 					</select>
 				</td>
 			</tr>			
@@ -104,9 +104,11 @@ class Admin {
 			}
 			?>
 			<tr class="paystack-type-sub-account" <?php echo wp_kses_post( $style ); ?>>
-				<td style="width:172px;"><?php esc_html_e( 'Sub Account:', 'the-events-calendar' ); ?></td>
+				<td style="width:172px;vertical-align:top;padding-top:7px;"><?php esc_html_e( 'Sub Account:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSubAccount' name='PaytsackSubAccount' value='<?php echo esc_attr( $subaccount ); ?>' />
+					<br />
+					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack subaccount code e.g. SUB_386FW3Eb3', 'event-tickets' ); ?></div>
 				</td>
 			</tr>
 
@@ -118,9 +120,11 @@ class Admin {
 			}
 			?>
 			<tr class="paystack-type-split-code" <?php echo wp_kses_post( $style ); ?>>
-				<td style="width:172px;"><?php esc_html_e( 'Split Code:', 'the-events-calendar' ); ?></td>
+				<td style="width:172px;vertical-align:top;padding-top:7px;"><?php esc_html_e( 'Split Code:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSplitTransaction' name='PaytsackSplitTransaction' value='<?php echo esc_attr( $splittrans ); ?>' />
+					<br />
+					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack split code here. e.g. SPL_98WF13Eb3w', 'event-tickets' ); ?></div>
 				</td>
 			</tr>
 		</table>

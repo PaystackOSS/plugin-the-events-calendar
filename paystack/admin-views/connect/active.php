@@ -31,7 +31,8 @@ if ( empty( $is_merchant_connected ) ) {
 <fieldset id="tribe-field-ticket-display-tickets-left-threshold" class="tribe-field tribe-field-text tribe-size-small">
 	<legend class="tribe-field-label"><?php echo esc_html_e( 'Webhooks', 'event-tickets' ); ?></legend>
 	<div class="tribe-field-wrap">
-		<p><?php echo home_url(); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</p>
-		<p class="tooltip description"><?php echo esc_html_e( 'Remeber to add the webhook url to the developer settings in your ', 'event-tickets' ); ?><a target="_blank" href="https://dashboard.paystack.com/#/settings/developer"><?php echo esc_html_e( 'Paystack Dashboard', 'event-tickets' ); ?></a></p>
+		<p><strong><?php echo home_url(); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</strong></p>
+
+		<p class="tooltip description"><?php echo esc_html_e( 'To avoid situations where bad network makes it impossible to verify transactions, copy this URL and add it to the ', 'event-tickets' ); ?><a target="_blank" href="https://dashboard.paystack.com/#/settings/developer"><?php echo esc_html_e( 'developer settings', 'event-tickets' ); ?></a><?php echo esc_html_e( ' on your Paystack Dashboard', 'event-tickets' ); ?></p>
 	</div>
 </fieldset>
