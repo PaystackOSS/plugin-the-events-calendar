@@ -56,3 +56,48 @@ $classes = array(
 <?php $this->template( 'paystack/admin-views/connect/active' ); ?>
 
 <?php $this->template( 'paystack/admin-views/modal/signup-complete' ); ?>
+
+<script type="text/javascript">
+	(function ( $ ) {
+		"use strict";
+
+		let paystackAdmin = {
+			init: function() {
+				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-secret_key_test-container' );
+				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-secret_key_live-container' );
+			},
+			switchPassword : function( selector ) {
+
+				$( '.' + selector + ' span' ).on('click',function(){
+
+
+					const type = $(this).parent('p').find('input').attr('type');
+					console.log(type);
+					$(this).removeClass( 'dashicons-visibility' ).removeClass('dashicons-hidden');
+
+					let newType  = 'password';
+					let classCSS = 'visibility';
+					if ( 'password' === type ) {
+						newType = 'text';
+						classCSS = 'hidden';
+					}
+					console.log(newType);
+					$(this).parent('p').find('input').attr( 'type', newType );
+					$(this).addClass( 'dashicons-' + classCSS );
+				});
+
+				/*togglePassword.addEventListener('click', function (e) {
+				// toggle the type attribute
+				const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+				password.setAttribute('type', type);
+				// toggle the eye slash icon
+				this.classList.toggle('fa-eye-slash');
+				});*/
+			}
+		}
+
+		$( document ).ready(function ($) {
+			paystackAdmin.init();
+		});
+	})( jQuery );
+</script>

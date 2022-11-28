@@ -24,6 +24,7 @@
 				'value'       => $merchant->get_prop( 'secret_key_test' ),
 				'css_class'   => '',
 				'placeholder' => __( 'Test Secret Key', 'event-tickets' ),
+				'type'        => 'password',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $secret_test_args );
 
@@ -32,6 +33,7 @@
 				'value'       => $merchant->get_prop( 'public_key_test' ),
 				'css_class'   => '',
 				'placeholder' => __( 'Test Public Key', 'event-tickets' ),
+				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_test_args );
 		?>
@@ -50,6 +52,7 @@
 				'value'       => $merchant->get_prop( 'secret_key_live' ),
 				'css_class'   => '',
 				'placeholder' => __( 'Live Secret Key', 'event-tickets' ),
+				'type'        => 'password',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $secret_live_args );
 
@@ -58,6 +61,7 @@
 				'value'       => $merchant->get_prop( 'public_key_live' ),
 				'css_class'   => '',
 				'placeholder' => __( 'Live Public Key', 'event-tickets' ),
+				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_live_args );
 		?>
