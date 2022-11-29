@@ -24,12 +24,6 @@ if ( $must_login ) {
 ?>
 <div class="tribe-tickets__commerce-checkout-gateway tribe-tickets__commerce-checkout-paystack">
 	<div class="tec-tc-gateway-paystack-payment-selection">
-		<div class="tec-tc-gateway-paystack-payment-logos">
-			<img 
-				src="<?php echo esc_html( PS_TEC_URL . 'assets/images/payment-logos.png' ); ?>"
-				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
-				/>
-		</div>
 
 		<div id="tec-tc-gateway-paystack-payment-element" class="tribe-tickets__commerce-checkout-paytack-payment-element">
 			<br />
@@ -54,6 +48,14 @@ if ( $must_login ) {
 				?>
 			</span>
 		</button>
+
+		<div class="tec-tc-gateway-paystack-payment-logos">
+			<img 
+				src="<?php echo esc_html( PS_TEC_URL . 'assets/images/payment-logos.png' ); ?>"
+				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
+				style="max-height: 72px;margin: 30px auto 0;"
+				/>
+		</div>
 	</div>
 
 	<div id="tec-tc-gateway-paystack-payment-message" class="hidden"></div>
