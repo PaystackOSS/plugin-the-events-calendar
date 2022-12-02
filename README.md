@@ -5,10 +5,10 @@
 ##### Table of Contents
 - [Before you start](#before-you-start)
 - [Using Paystack for The Events Calendar](#using-paystack-for-the-events-calendar)
-  * [**Configuring the plugin**](#--configuring-the-plugin--)
-  * [**How to get your Test and Live API keys**](#--how-to-get-your-test-and-live-api-keys--)
+  * [Configuring the plugin](#configuring-the-plugin)
+  * [How to get your Test and Live API keys](#how-to-get-your-test-and-live-api-keys)
   * [Additional Settings](#additional-settings)
-- [**Paystack on Checkout**](#--paystack-on-checkout--)
+- [Paystack on Checkout](#paystack-on-checkout)
 
 
 The Events Calendar provides calendars, ticketing, and powerful WordPress tools to manage your events from start to finish, and with this plugin, you can accept payments for your ticket sales in Nigeria, Ghana, South Africa, and Kenya.
@@ -42,7 +42,7 @@ After you have installed and activated the plugin, you should go to the Event T
 
 ![Screenshot 2022-11-30 at 09.49.36.png](https://res.cloudinary.com/drps6uoe4/image/upload/v1669979254/Screenshot_2022-11-30_at_09.49.36_k5ezp3.png)
 
-### **Configuring the plugin**
+### Configuring the plugin
 
 Here we will discuss all the settings you'll find in your Paystack for Events Calendar Plugin and how they should be set to function properly for your plugin.
 
@@ -59,7 +59,7 @@ When you are ready to go live, you can select the “Live Mode” option and the
 
 ![https://support.paystack.com/hc/article_attachments/360025328420/Screenshot_2021-04-19_at_12.55.41.png](https://support.paystack.com/hc/article_attachments/360025328420/Screenshot_2021-04-19_at_12.55.41.png)
 
-### **How to get your Test and Live API keys**
+### How to get your Test and Live API keys
 
 There are 2 states on your dashboard: **Live Mode** and **Test Mode**. You'll see the **Test Mode/Live Mode toggle** on the **top right corner of your dashboard**.
 
@@ -77,7 +77,7 @@ You can either select “One Partner” which implies a single split payment or 
 
 Check out this guide on how to create [subaccounts and split codes from your Paystack dashboard](https://support.paystack.com/hc/en-us/articles/360009881460-How-do-I-split-a-payment-across-multiple-bank-accounts-).
 
-## **Paystack on Checkout**
+## Paystack on Checkout
 
 To confirm you’ve done all of the above settings correctly, go to Event Tickets **Plugin Settings** on the menu tab of your WordPress site and click on **Payments → Tickets Commerce** 
 
