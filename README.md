@@ -34,8 +34,7 @@ To get started, you can install the Paystack plugin from the plugins page of you
  Alternatively, you can [download the plugin from this page](https://wordpress.org/plugins/paystack-gateway-the-events-calendar/) and follow the instructions on the page to install the plugin. Please be sure to activate the plugin when you have installed it.
 
 <aside>
-☝🏻 E**nsure you have installed the Events tickets add-on on your WordPress site before installing the Paystack for The Events Calendar plugin. The Paystack Gateway for The Events Calendar plugin cannot work without Events Tickets.**
-
+      ** ☝🏻 Ensure you have installed the Events tickets add-on on your WordPress site before installing the Paystack for The Events Calendar plugin. The             Paystack Gateway for The Events Calendar plugin cannot work without Events Tickets.**
 </aside>
 
 After you have installed and activated the plugin, you should go to the Event Tickets **Plugin Settings** on the menu tab of your WordPress site and click the **Payments** tab. This will show a tab containing all the Payment options on your site. If you have installed the plugin correctly, you should see **Paystack** on that list. This is where you can configure the Paystack Plugin. Click *Connect to Paystack*
@@ -71,7 +70,7 @@ When you go to the Settings Page to get your API keys, please note the mode that
 
 When you are setting up a New Event, you can also specify if you want to enable split payment for the tickets
 
-![Screenshot 2022-11-30 at 11.18.52.png](https://res.cloudinary.com/drps6uoe4/image/upload/v1669979254/Screenshot_2022-11-30_at_11.18.52_udtdlc.png)
+![Screenshot 2022-11-30 at 11.18.52.png](https://res.cloudinary.com/drps6uoe4/image/upload/v1669981361/Screenshot_2022-12-02_at_12.42.19_zf4hmx.png)
 
 You can either select “One Partner” which implies a single split payment or “Multiple Partners” for multi-split payment, then you enter a valid subaccount code *e.g* *SUB_rtn5vd8e* or split code *e.g* *SPL_9wolt5nM* in the second input field. 
 
