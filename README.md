@@ -1,7 +1,3 @@
-![Email (1).jpg](https://res.cloudinary.com/drps6uoe4/image/upload/v1669979254/Email__1_tyiofm.jpg)
-
-The Events Calendar provides calendars, ticketing, and powerful WordPress tools to manage your events from start to finish, and with this plugin, you can accept payments for your ticket sales in Nigeria, Ghana, South Africa, and Kenya.
-
 ##### Table of Contents
 - [Before you start](#before-you-start)
 - [Using Paystack for The Events Calendar](#using-paystack-for-the-events-calendar)
@@ -9,6 +5,11 @@ The Events Calendar provides calendars, ticketing, and powerful WordPress tools 
   * [**How to get your Test and Live API keys**](#--how-to-get-your-test-and-live-api-keys--)
   * [Additional Settings](#additional-settings)
 - [**Paystack on Checkout**](#--paystack-on-checkout--)
+
+![Email (1).jpg](https://res.cloudinary.com/drps6uoe4/image/upload/v1669979254/Email__1_tyiofm.jpg)
+
+The Events Calendar provides calendars, ticketing, and powerful WordPress tools to manage your events from start to finish, and with this plugin, you can accept payments for your ticket sales in Nigeria, Ghana, South Africa, and Kenya.
+
 
 
 ## Before you start
