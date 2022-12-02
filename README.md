@@ -33,9 +33,9 @@ To get started, you can install the Paystack plugin from the plugins page of you
 
  Alternatively, you can [download the plugin from this page](https://wordpress.org/plugins/paystack-gateway-the-events-calendar/) and follow the instructions on the page to install the plugin. Please be sure to activate the plugin when you have installed it.
 
-<aside>
-      ** ☝🏻 Ensure you have installed the Events tickets add-on on your WordPress site before installing the Paystack for The Events Calendar plugin. The             Paystack Gateway for The Events Calendar plugin cannot work without Events Tickets.**
-</aside>
+> ☝🏻 Ensure you have installed the Events tickets add-on on your WordPress site before installing the Paystack for The Events Calendar plugin. The             Paystack Gateway for The Events Calendar plugin cannot work without Events Tickets.
+
+
 
 After you have installed and activated the plugin, you should go to the Event Tickets **Plugin Settings** on the menu tab of your WordPress site and click the **Payments** tab. This will show a tab containing all the Payment options on your site. If you have installed the plugin correctly, you should see **Paystack** on that list. This is where you can configure the Paystack Plugin. Click *Connect to Paystack*
 
