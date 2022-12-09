@@ -246,13 +246,13 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				Denied::SLUG,
 				array(
 					'gateway_transaction_id' => $transaction_id,
-					'gateway_failed_reason'  => __( 'User abandoned', 'event-tickets' ),
+					'gateway_failed_reason'  => __( 'User abandoned', 'ps-tec-gateway' ),
 				)
 			);
 			$response['success'] = true;
 
 		} else {
-			return new WP_Error( 'tec-tc-gateway-paystack-error-order-id', __( 'There was a problem updating your order.', 'event-tickets' ), $order );
+			return new WP_Error( 'tec-tc-gateway-paystack-error-order-id', __( 'There was a problem updating your order.', 'ps-tec-gateway' ), $order );
 		}
 
 		return new WP_REST_Response( $response );
@@ -349,7 +349,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	public function update_order_args() {
 		return [
 			'order_id' => [
-				'description'       => __( 'Order ID in Paystack', 'event-tickets' ),
+				'description'       => __( 'Order ID in Paystack', 'ps-tec-gateway' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => static function ( $value ) {

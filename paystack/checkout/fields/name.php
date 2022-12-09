@@ -29,7 +29,7 @@ $field_classes = [
 		name="purchaser-name"
 		autocomplete="off"
 		<?php tribe_classes( $field_classes ); ?>
-		placeholder="<?php esc_attr_e( 'Name', 'event-tickets' ); ?>"
+		placeholder="<?php esc_attr_e( 'Name', 'ps-tec-gateway' ); ?>"
 		required
 		value="<?php echo esc_attr( $first_name ); ?>"
 	/>

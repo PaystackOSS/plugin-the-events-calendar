@@ -23,7 +23,7 @@
 				'name'        => 'secret_key_test',
 				'value'       => $merchant->get_prop( 'secret_key_test' ),
 				'css_class'   => '',
-				'placeholder' => __( 'Test Secret Key', 'event-tickets' ),
+				'placeholder' => __( 'Test Secret Key', 'ps-tec-gateway' ),
 				'type'        => 'password',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $secret_test_args );
@@ -32,7 +32,7 @@
 				'name'        => 'public_key_test',
 				'value'       => $merchant->get_prop( 'public_key_test' ),
 				'css_class'   => '',
-				'placeholder' => __( 'Test Public Key', 'event-tickets' ),
+				'placeholder' => __( 'Test Public Key', 'ps-tec-gateway' ),
 				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_test_args );
@@ -51,7 +51,7 @@
 				'name'        => 'secret_key_live',
 				'value'       => $merchant->get_prop( 'secret_key_live' ),
 				'css_class'   => '',
-				'placeholder' => __( 'Live Secret Key', 'event-tickets' ),
+				'placeholder' => __( 'Live Secret Key', 'ps-tec-gateway' ),
 				'type'        => 'password',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $secret_live_args );
@@ -60,7 +60,7 @@
 				'name'        => 'public_key_live',
 				'value'       => $merchant->get_prop( 'public_key_live' ),
 				'css_class'   => '',
-				'placeholder' => __( 'Live Public Key', 'event-tickets' ),
+				'placeholder' => __( 'Live Public Key', 'ps-tec-gateway' ),
 				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_live_args );
@@ -76,7 +76,7 @@
 					class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link" 
 					type="submit" 
 					name="tribeSaveSettings" 
-					value="<?php echo wp_kses( __( 'Start transacting with Paystack', 'event-tickets' ), 'post' ); ?>"
+					value="<?php echo wp_kses( __( 'Start transacting with Paystack', 'ps-tec-gateway' ), 'post' ); ?>"
 				/>
 			</div>
 			<?php

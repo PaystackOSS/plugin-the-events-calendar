@@ -7,9 +7,9 @@
  * Version: 	1.0.0
  * Author URI: 	https://www.lsdev.biz/
  * License: 	GPL3
- * Text Domain: ps-tec-integration
+ * Text Domain: ps-tec-gateway
  * Domain Path: /languages/
- */
+*/
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

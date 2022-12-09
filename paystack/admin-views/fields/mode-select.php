@@ -1,8 +1,8 @@
 <?php
 $selected = 'test';
 $modes    = array(
-	'test' => esc_html__( 'Test Mode', 'event-tickets' ),
-	'live' => esc_html__( 'Live Mode', 'event-tickets' ),
+	'test' => esc_html__( 'Test Mode', 'ps-tec-gateway' ),
+	'live' => esc_html__( 'Live Mode', 'ps-tec-gateway' ),
 );
 if ( null !== $selected_mode && '' !== $selected_mode ) {
 	$selected = $selected_mode;

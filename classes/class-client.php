@@ -77,16 +77,16 @@ class Client {
 						$return['reference']         = $data->data->reference;
 						$return['success']           = true;
 					} else {
-						$return['message'] = __( 'Return status is not true.', 'event-tickets' );	
+						$return['message'] = __( 'Return status is not true.', 'ps-tec-gateway' );	
 					}
 				} else {
-					$return['message'] = __( 'JSON error with the transaction response.', 'event-tickets' );
+					$return['message'] = __( 'JSON error with the transaction response.', 'ps-tec-gateway' );
 				}
 			} else {
-				$return['message'] = __( 'There was an error while initilizing the transaction.', 'event-tickets' );
+				$return['message'] = __( 'There was an error while initilizing the transaction.', 'ps-tec-gateway' );
 			}
 		} else {
-			$return['message'] = __( 'Payment fields are empty.', 'event-tickets' );
+			$return['message'] = __( 'Payment fields are empty.', 'ps-tec-gateway' );
 		}
 
 		return $return;
@@ -117,16 +117,16 @@ class Client {
 						$return['reference']         = $reference;
 						$return['success']           = true;
 					} else {
-						$return['message'] = __( 'Return status is not true.', 'event-tickets' );	
+						$return['message'] = __( 'Return status is not true.', 'ps-tec-gateway' );	
 					}
 				} else {
-					$return['message'] = __( 'JSON error with the check transaction response.', 'event-tickets' );
+					$return['message'] = __( 'JSON error with the check transaction response.', 'ps-tec-gateway' );
 				}
 			} else {
-				$return['message'] = __( 'There was an error while checking the transaction.', 'event-tickets' );
+				$return['message'] = __( 'There was an error while checking the transaction.', 'ps-tec-gateway' );
 			}
 		} else {
-			$return['message'] = __( 'The reference field is empty', 'event-tickets' );
+			$return['message'] = __( 'The reference field is empty', 'ps-tec-gateway' );
 		}
 
 		return $return;

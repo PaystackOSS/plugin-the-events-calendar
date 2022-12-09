@@ -48,7 +48,7 @@ class Gateway extends Abstract_Gateway {
 		$notices = array(
 			array(
 				'slug'    => 'tc-paystack-currency-not-supported',
-				'content' => __( 'Currency not supported', 'event-tickets' ),
+				'content' => __( 'Currency not supported', 'ps-tec-gateway' ),
 				'type'    => 'error',
 			),
 		);
@@ -115,8 +115,8 @@ class Gateway extends Abstract_Gateway {
 	 * @return string
 	 */
 	public function render_unsupported_currency_notice() {
-		$notice_header = esc_html__( 'Paystack doesn\'t support your selected currency', 'event-tickets' );
-		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358;), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), or XOF (CFA)', 'event-tickets' );
+		$notice_header = esc_html__( 'Paystack doesn\'t support your selected currency', 'ps-tec-gateway' );
+		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358;), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), or XOF (CFA)', 'ps-tec-gateway' );
 
 		return sprintf(
 			'<p><strong>%1$s</strong></p><p>%2$s</p>',

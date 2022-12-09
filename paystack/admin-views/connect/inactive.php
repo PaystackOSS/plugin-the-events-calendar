@@ -39,7 +39,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				class="tec-tickets__admin-settings-tickets-commerce-gateway-help-link-url"
-			><?php esc_html_e( 'Learn more about configuring Paystack', 'event-tickets' ); ?></a>
+			><?php esc_html_e( 'Learn more about configuring Paystack', 'ps-tec-gateway' ); ?></a>
 		</div>
 	</div>
 </div>

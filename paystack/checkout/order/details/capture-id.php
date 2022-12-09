@@ -37,7 +37,7 @@ if ( empty( $capture_id ) ) {
 ?>
 <div class="tribe-tickets__commerce-order-details-row">
 	<div class="tribe-tickets__commerce-order-details-col1">
-		<?php esc_html_e( 'PayPal Capture ID:', 'event-tickets' ); ?>
+		<?php esc_html_e( 'PayPal Capture ID:', 'ps-tec-gateway' ); ?>
 	</div>
 	<div class="tribe-tickets__commerce-order-details-col2">
 		<?php echo esc_html( $capture_id ); ?>

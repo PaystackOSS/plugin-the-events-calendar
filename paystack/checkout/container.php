@@ -42,7 +42,7 @@ if ( $must_login ) {
 				<?php
 				printf(
 					// Translators: %1$s: Plural `Tickets` label.
-					esc_html__( 'Purchase %1$s', 'event-tickets' ),
+					esc_html__( 'Purchase %1$s', 'ps-tec-gateway' ),
 					tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) // phpcs:ignore
 				);
 				?>
@@ -52,7 +52,7 @@ if ( $must_login ) {
 		<div class="tec-tc-gateway-paystack-payment-logos">
 			<img 
 				src="<?php echo esc_html( PS_TEC_URL . 'assets/images/payment-logos.png' ); ?>"
-				alt="><?php echo esc_html__( 'Supported payment methods.', 'event-tickets' ); ?>"
+				alt="><?php echo esc_html__( 'Supported payment methods.', 'ps-tec-gateway' ); ?>"
 				style="max-height: 72px;margin: 30px auto 0;"
 				/>
 		</div>

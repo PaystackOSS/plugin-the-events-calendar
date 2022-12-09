@@ -108,7 +108,7 @@ class Admin {
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSubAccount' name='PaytsackSubAccount' value='<?php echo esc_attr( $subaccount ); ?>' />
 					<br />
-					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack subaccount code e.g. ACCT_8wlipczl8p', 'event-tickets' ); ?></div>
+					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack subaccount code e.g. ACCT_8wlipczl8p', 'ps-tec-gateway' ); ?></div>
 				</td>
 			</tr>
 
@@ -124,7 +124,7 @@ class Admin {
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='PaytsackSplitTransaction' name='PaytsackSplitTransaction' value='<?php echo esc_attr( $splittrans ); ?>' />
 					<br />
-					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack split code here. e.g. SPL_98WF13Eb3w', 'event-tickets' ); ?></div>
+					<div class="event-helper-text" style="color:#a3a3a3;margin-top:10px;font-style: italic;"><?php esc_html_e( 'A valid Paystack split code here. e.g. SPL_98WF13Eb3w', 'ps-tec-gateway' ); ?></div>
 				</td>
 			</tr>
 		</table>

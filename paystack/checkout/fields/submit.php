@@ -24,5 +24,5 @@ $classes = [
 
 ?>
 <button value="submit" id="submit" <?php tribe_classes( $classes ); ?>>
-	<?php esc_html_e( 'Purchase Tickets', 'event-tickets' ); ?>
+	<?php esc_html_e( 'Purchase Tickets', 'ps-tec-gateway' ); ?>
 </button>
