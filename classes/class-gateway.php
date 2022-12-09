@@ -60,7 +60,7 @@ class Gateway extends Abstract_Gateway {
 	 * @inheritDoc
 	 */
 	public function get_logo_url(): string {
-		return PS_TEC_URL . '/icon.png';
+		return PS_TEC_URL . '/assets/images/icon.png';
 	}
 
 	/**

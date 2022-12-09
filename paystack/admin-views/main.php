@@ -27,7 +27,7 @@ $classes = array(
 	</div>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-logo">
-		<?php $image_src = PS_TEC_URL . 'icon.png'; ?>
+		<?php $image_src = PS_TEC_URL . 'assets/images/icon.png'; ?>
 
 		<img
 			src="<?php echo esc_url( $image_src ); ?>"
