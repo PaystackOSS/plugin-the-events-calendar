@@ -49,7 +49,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				currency: tecTicketsPaystackCheckout.currency_code,
 			}
 			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
-				settings.subaccount = this.sub_account.val();
+				settings.subaccountCode = this.sub_account.val();
 			} else if ( 0 < this.split_trans.length && '' !== this.split_trans.val() ) {
 				settings.split_code = this.split_trans.val();
 			}
@@ -128,6 +128,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let $this = this;
 
 			let settings = this.getSettings();
+			
 			settings.ref = order.id; // Uses the Order ID
 
 			settings.onClose = function( response ){
@@ -231,8 +232,6 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let urlParams = new URLSearchParams( window.location.search );
 			let cookie = urlParams.get( 'reference' );
 			let reference = urlParams.get( 'reference' );
-
-			console.log(reference);
 
 			tribe.tickets.debug.log( 'checkForReturn', urlParams );
 
