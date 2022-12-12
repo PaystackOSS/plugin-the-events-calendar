@@ -28,6 +28,13 @@ if ( empty( $is_merchant_connected ) ) {
 		$this->template( 'paystack/admin-views/fields/checkout-mode', $checkout_mode_args );
 	?>
 
+	<?php
+		$metadata_args = array(
+			'selected' => $merchant->get_prop( 'metadata' ),
+		);
+		$this->template( 'paystack/admin-views/fields/metadata-options', $metadata_args );
+	?>
+
 <fieldset id="tribe-field-ticket-display-tickets-left-threshold" class="tribe-field tribe-field-text tribe-size-small">
 	<legend class="tribe-field-label"><?php echo esc_html_e( 'Webhooks', 'ps-tec-gateway' ); ?></legend>
 	<div class="tribe-field-wrap">
