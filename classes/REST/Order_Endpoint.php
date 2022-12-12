@@ -135,8 +135,8 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 		//generate the metadata
 		$metadata = array();
-		if ( isset( $data['cart']['metadata'] ) ) {
-			foreach ( $data['cart']['metadata'] as $datafield ) {
+		if ( isset( $data['cart']['metaData'] ) ) {
+			foreach ( $data['cart']['metaData'] as $datafield ) {
 
 				$save_field = '';
 
