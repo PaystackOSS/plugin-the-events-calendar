@@ -47,7 +47,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				email: this.email_address.val(),
 				amount: this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
-				metadata: tecTicketsPaystackCheckout.metaData
+				metaData: tecTicketsPaystackCheckout.metaData
 			}
 			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
 				settings.subaccountCode = this.sub_account.val();
@@ -88,12 +88,12 @@ tribe.tickets.commerce.gateway.paystack = {};
 			tribe.tickets.debug.log( 'handleCreateOrder', tribe.tickets.commerce.getPurchaserData( $this.container ) );
 
 			let bodyArgs = {
-				purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
+				purchaser: tribe.tickets.commerce.getPurchaserData( $this.container ),
+				cart: $this.getSettings()
 			}
 
 			if ( 'redirect' == tecTicketsPaystackCheckout.gatewayMode ) {
 				bodyArgs.redirect_url = window.location.href;
-				bodyArgs.cart         = $this.getSettings();
 			}
 
 			return fetch(

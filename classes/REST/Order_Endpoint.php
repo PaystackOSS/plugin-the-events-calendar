@@ -133,6 +133,53 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			$cart_string[] = $item['quantity'] . ' x ' . $ticket->name;
 		}
 
+		//generate the metadata
+		$metadata = array();
+		if ( isset( $data['cart']['metadata'] ) ) {
+			foreach ( $data['cart']['metadata'] as $datafield ) {
+
+				$save_field = '';
+
+				switch ( $datafield ) {
+					case 'order_id':
+						$save_field = array(
+							'display_name'  => 'Order ID',
+							'variable_name' => 'order_id',
+							'value'         => $order->ID,
+						);
+						break;
+
+					case 'plugin':
+						$save_field = array(
+							'display_name'  => 'Plugin',
+							'variable_name' => 'plugin',
+							'value'         => 'the-events-calendar',
+						);
+						break;
+
+					case 'customer_name':
+						$save_field = array(
+							'display_name'  => 'Customer Name',
+							'variable_name' => 'customer_name',
+							'value'         => $order->purchaser['first_name'],
+						);
+						break;
+
+					case 'customer_surname':
+						$save_field = array(
+							'display_name'  => 'Customer Surname',
+							'variable_name' => 'customer_surname',
+							'value'         => $order->purchaser['last_name'],
+						);
+						break;
+				}
+
+				if ( '' !== $save_field ) {
+					$metadata[] = $save_field;
+				}
+			}
+		}
+
 		// If the gate is set to redirect, then initialize the transaction.
 		if ( isset( $data['redirect_url'] ) ) {
 
@@ -143,6 +190,10 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'callback_url' => $data['redirect_url'],
 				'reference'    => $order->ID,
 			);
+
+			if ( ! empty( $metadata ) ) {
+				$redirect_data['metadata']['custom_fields'] = json_encode( $metadata );
+			}
 
 			if ( isset( $data['cart']['subaccount'] ) ) {
 				$redirect_data['subaccount'] = $data['cart']['subaccount'];
@@ -177,6 +228,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		// Respond with the ID for Paypal Usage.
 		$response['success'] = true;
 		$response['id']      = $order->ID;
+		$response['meta']    = $metadata;
 
 		return new WP_REST_Response( $response );
 	}
