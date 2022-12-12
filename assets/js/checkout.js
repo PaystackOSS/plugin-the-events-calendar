@@ -39,21 +39,25 @@ tribe.tickets.commerce.gateway.paystack = {};
 			
 			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
-		getSettings: function () {
+		getSettings: function ( leaveMeta = false ) {
 			let settings = {
 				key: tecTicketsPaystackCheckout.publicKey,
 				firstname: this.name.val(),
 				lastname: this.name.val(),
 				email: this.email_address.val(),
 				amount: this.total.val() * 100,
-				currency: tecTicketsPaystackCheckout.currency_code,
-				metaData: tecTicketsPaystackCheckout.metaData
+				currency: tecTicketsPaystackCheckout.currency_code
 			}
 			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
 				settings.subaccountCode = this.sub_account.val();
 			} else if ( 0 < this.split_trans.length && '' !== this.split_trans.val() ) {
 				settings.split_code = this.split_trans.val();
 			}
+
+			if ( false == leaveMeta ) {
+				settings.metaData = tecTicketsPaystackCheckout.metaData;
+			}
+
 			return settings;
 		},
 		watchSubmit: function( ) {
@@ -128,11 +132,12 @@ tribe.tickets.commerce.gateway.paystack = {};
 		handoverToPopup: function( order ) {
 			let $this = this;
 
-			let settings = this.getSettings();
+			let settings = this.getSettings( true );
 			
 			settings.ref = order.id; // Uses the Order ID
 			if ( undefined != order.meta ) {
-				settings.metadata = { 'customfields': JSON.parse( order.meta ) };
+				settings.metadata = {};
+				settings.metadata.customfields = order.meta;
 			} else {
 				settings.metadata = {};
 			}
@@ -160,6 +165,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				}
 			};
 
+			tribe.tickets.debug.log( 'paystackPopUpSettings', settings );
 			let handler = PaystackPop.setup( settings );
 			handler.openIframe();
 		},
