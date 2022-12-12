@@ -8,7 +8,7 @@ $options = array(
 	'order_id' => esc_html__( 'Order ID', 'ps-tec-gateway' ),
 	'plugin' => esc_html__( 'Plugin', 'ps-tec-gateway' ),
 	'customer_name' => esc_html__( 'Customer Name', 'ps-tec-gateway' ),
-	'customer_surname' => esc_html__( 'Customer Surname', 'ps-tec-gateway' ),
+	//'customer_surname' => esc_html__( 'Customer Surname', 'ps-tec-gateway' ),
 	'cart_details' => esc_html__( 'Cart Details', 'ps-tec-gateway' ),
 );
 ?>

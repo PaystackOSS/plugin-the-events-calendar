@@ -132,7 +132,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 			
 			settings.ref = order.id; // Uses the Order ID
 			if ( undefined != order.meta ) {
-				settings.metadata = { 'customfields': order.meta };
+				settings.metadata = { 'customfields': JSON.parse( order.meta ) };
 			} else {
 				settings.metadata = {};
 			}
