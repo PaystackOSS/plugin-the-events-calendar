@@ -75,6 +75,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$checkout_mode = 'popup';
 		}
 
+		$metadata = array(
+			'none',
+		);
+		$assigned_meta = $gateway->get_option( 'metadata' );
+		if ( ! empty( $assigned_meta ) ) {
+			$metadata = $assigned_meta;
+		}
+
 		tribe_asset(
 			$plugin,
 			'tec-tickets-commerce-gateway-paystack-checkout',
@@ -102,6 +110,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 						'publicKey'     => $public_key,
 						'currency_code' => $currency_code,
 						'gatewayMode'   => $checkout_mode,
+						'metaData'      => $metadata,
 						'errorMessages' => array(
 							'name'    => esc_html__( 'Name is required', 'ps-tec-gateway' ),
 							'email_address' => esc_html__( 'A valid email address is required', 'ps-tec-gateway' ),
