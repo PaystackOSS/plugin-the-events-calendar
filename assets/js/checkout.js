@@ -47,6 +47,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				email: this.email_address.val(),
 				amount: this.total.val() * 100,
 				currency: tecTicketsPaystackCheckout.currency_code,
+				metadata: tecTicketsPaystackCheckout.metaData
 			}
 			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
 				settings.subaccountCode = this.sub_account.val();

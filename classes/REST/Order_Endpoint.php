@@ -99,8 +99,9 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			'success' => false,
 		);
 
-		$data      = $request->get_json_params();
-		$purchaser = tribe( Order::class )->get_purchaser_data( $data );
+		$data        = $request->get_json_params();
+		$purchaser   = tribe( Order::class )->get_purchaser_data( $data );
+		$cart_string = array();
 
 		if ( is_wp_error( $purchaser ) ) {
 			return $purchaser;
@@ -128,6 +129,8 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'item_total'  => [ 'value' => (string) $item['sub_total'], 'currency_code' => $order->currency ],
 				'sku'         => $ticket->sku,
 			);
+
+			$cart_string[] = $item['quantity'] . ' x ' . $ticket->name;
 		}
 
 		// If the gate is set to redirect, then initialize the transaction.
