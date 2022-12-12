@@ -172,6 +172,14 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 							'value'         => $order->purchaser['last_name'],
 						);
 						break;
+
+					case 'cart_details':
+						$save_field = array(
+							'display_name'  => 'Cart Details',
+							'variable_name' => 'cart_details',
+							'value'         => implode( ',', $cart_string ),
+						);
+						break;
 				}
 
 				if ( '' !== $save_field ) {
@@ -192,7 +200,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			);
 
 			if ( ! empty( $metadata ) ) {
-				$redirect_data['metadata']['custom_fields'] = json_encode( $metadata );
+				$redirect_data['metadata']['custom_fields'] = $metadata;
 			}
 
 			if ( isset( $data['cart']['subaccount'] ) ) {

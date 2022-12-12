@@ -5,7 +5,7 @@
  *
  * @type   {Object}
  */
- tribe.tickets.commerce.gateway.paystack = tribe.tickets.commerce.gateway.paystack || {};
+tribe.tickets.commerce.gateway.paystack = tribe.tickets.commerce.gateway.paystack || {};
 
 /**
  * This script Object for public usage of the methods.
@@ -131,11 +131,12 @@ tribe.tickets.commerce.gateway.paystack = {};
 			let settings = this.getSettings();
 			
 			settings.ref = order.id; // Uses the Order ID
-
 			if ( undefined != order.meta ) {
-				settings.metadata.customfields = order.meta;
+				settings.metadata = { 'customfields': order.meta };
+			} else {
+				settings.metadata = {};
 			}
-
+			
 			settings.onClose = function( response ){
 				response = {
 					'status': 'failed',
