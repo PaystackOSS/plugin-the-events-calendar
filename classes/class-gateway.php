@@ -101,7 +101,7 @@ class Gateway extends Abstract_Gateway {
 		if ( $this->is_enabled() && ! $this->is_currency_supported( $selected_currency ) ){
 			?>
 			<div class="notice notice-error">
-				<?php echo $this->render_unsupported_currency_notice(); ?>
+				<?php echo wp_kses_post( $this->render_unsupported_currency_notice() ); ?>
 			</div>
 			<?php
 		}

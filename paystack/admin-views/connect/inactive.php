@@ -18,7 +18,7 @@
 	</p>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-links">
-		<?php echo $signup->get_link_html(); // phpcs:ignore ?>
+		<?php echo wp_kses_post( $signup->get_link_html() ); // phpcs:ignore ?>
 	</div>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-links">

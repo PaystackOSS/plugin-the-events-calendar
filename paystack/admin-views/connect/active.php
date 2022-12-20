@@ -31,7 +31,7 @@ if ( empty( $is_merchant_connected ) ) {
 <fieldset id="tribe-field-ticket-display-tickets-left-threshold" class="tribe-field tribe-field-text tribe-size-small">
 	<legend class="tribe-field-label"><?php echo esc_html_e( 'Webhooks', 'paystack-for-events-calendar' ); ?></legend>
 	<div class="tribe-field-wrap">
-		<p><strong><?php echo home_url(); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</strong></p>
+		<p><strong><?php echo wp_kses_post( home_url() ); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</strong></p>
 
 		<p class="tooltip description"><?php echo esc_html_e( 'To avoid situations where bad network makes it impossible to verify transactions, copy this URL and add it to the ', 'paystack-for-events-calendar' ); ?><a target="_blank" href="https://dashboard.paystack.com/#/settings/developer"><?php echo esc_html_e( 'developer settings', 'paystack-for-events-calendar' ); ?></a><?php echo esc_html_e( ' on your Paystack Dashboard', 'paystack-for-events-calendar' ); ?></p>
 	</div>
