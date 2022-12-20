@@ -69,8 +69,6 @@ $classes = array(
 			switchPassword : function( selector ) {
 
 				$( '.' + selector + ' span' ).on('click',function(){
-
-
 					const type = $(this).parent('p').find('input').attr('type');
 					console.log(type);
 					$(this).removeClass( 'dashicons-visibility' ).removeClass('dashicons-hidden');
@@ -85,14 +83,6 @@ $classes = array(
 					$(this).parent('p').find('input').attr( 'type', newType );
 					$(this).addClass( 'dashicons-' + classCSS );
 				});
-
-				/*togglePassword.addEventListener('click', function (e) {
-				// toggle the type attribute
-				const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-				password.setAttribute('type', type);
-				// toggle the eye slash icon
-				this.classList.toggle('fa-eye-slash');
-				});*/
 			}
 		}
 
