@@ -7,7 +7,7 @@
  * Version: 	1.0.0
  * Author URI: 	https://www.lsdev.biz/
  * License: 	GPL3
- * Text Domain: ps-tec-gateway
+ * Text Domain: paystack-for-events-calendar
  * Domain Path: /languages/
 */
 
