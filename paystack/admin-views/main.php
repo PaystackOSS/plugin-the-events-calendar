@@ -31,22 +31,22 @@ $classes = array(
 
 		<img
 			src="<?php echo esc_url( $image_src ); ?>"
-			alt="<?php esc_attr_e( 'Paystack Logo Image', 'ps-tec-gateway' ); ?>"
+			alt="<?php esc_attr_e( 'Paystack Logo Image', 'paystack-for-events-calendar' ); ?>"
 			class="tec-tickets__admin-settings-tickets-commerce-gateway-logo-image"
 		>
 
 		<ul>
 			<li>
-				<?php esc_html_e( 'Credit and debit card payments', 'ps-tec-gateway' ); ?>
+				<?php esc_html_e( 'Credit and debit card payments', 'paystack-for-events-calendar' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Alternative payment methods e.g Apple Pay, Mobile money, EFT, and more', 'ps-tec-gateway' ); ?>
+				<?php esc_html_e( 'Alternative payment methods e.g Apple Pay, Mobile money, EFT, and more', 'paystack-for-events-calendar' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Delight customers with a seamless payments experience', 'ps-tec-gateway' ); ?>
+				<?php esc_html_e( 'Delight customers with a seamless payments experience', 'paystack-for-events-calendar' ); ?>
 			</li>
 			<li>
-				<?php esc_html_e( 'Enjoy phenomenal transaction success rates', 'ps-tec-gateway' ); ?>
+				<?php esc_html_e( 'Enjoy phenomenal transaction success rates', 'paystack-for-events-calendar' ); ?>
 			</li>
 		</ul>
 	</div>

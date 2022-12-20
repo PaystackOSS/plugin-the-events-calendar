@@ -5,16 +5,16 @@ if ( null !== $selected ) {
 }
 
 $options = array(
-	'order_id' => esc_html__( 'Order ID', 'ps-tec-gateway' ),
-	'plugin' => esc_html__( 'Plugin', 'ps-tec-gateway' ),
-	'customer_name' => esc_html__( 'Customer Name', 'ps-tec-gateway' ),
-	//'customer_surname' => esc_html__( 'Customer Surname', 'ps-tec-gateway' ),
-	'cart_details' => esc_html__( 'Cart Details', 'ps-tec-gateway' ),
+	'order_id' => esc_html__( 'Order ID', 'paystack-for-events-calendar' ),
+	'plugin' => esc_html__( 'Plugin', 'paystack-for-events-calendar' ),
+	'customer_name' => esc_html__( 'Customer Name', 'paystack-for-events-calendar' ),
+	//'customer_surname' => esc_html__( 'Customer Surname', 'paystack-for-events-calendar' ),
+	'cart_details' => esc_html__( 'Cart Details', 'paystack-for-events-calendar' ),
 );
 ?>
 
 <fieldset style="width: 100%;" id="tec-tickets-commerce-gateway-paystack-merchant-metadata" class="tribe-field tribe-field-checkbox_list tribe-size-medium">
-	<legend class="tribe-field-label"><?php echo esc_html__( 'Metadata', 'ps-tec-gateway' ); ?></legend>
+	<legend class="tribe-field-label"><?php echo esc_html__( 'Metadata', 'paystack-for-events-calendar' ); ?></legend>
 	<div class="tribe-field-wrap">
 		<?php
 		foreach ( $options as $key => $label ) {

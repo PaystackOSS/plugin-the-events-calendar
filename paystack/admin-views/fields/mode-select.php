@@ -1,8 +1,8 @@
 <?php
 $selected = 'test';
 $modes    = array(
-	'test' => esc_html__( 'Test Mode', 'ps-tec-gateway' ),
-	'live' => esc_html__( 'Live Mode', 'ps-tec-gateway' ),
+	'test' => esc_html__( 'Test Mode', 'paystack-for-events-calendar' ),
+	'live' => esc_html__( 'Live Mode', 'paystack-for-events-calendar' ),
 );
 if ( null !== $selected_mode && '' !== $selected_mode ) {
 	$selected = $selected_mode;

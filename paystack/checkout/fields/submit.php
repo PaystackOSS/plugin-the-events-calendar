@@ -24,5 +24,5 @@ $classes = [
 
 ?>
 <button value="submit" id="submit" <?php tribe_classes( $classes ); ?>>
-	<?php esc_html_e( 'Purchase Tickets', 'ps-tec-gateway' ); ?>
+	<?php esc_html_e( 'Purchase Tickets', 'paystack-for-events-calendar' ); ?>
 </button>
