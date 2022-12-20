@@ -1,10 +1,5 @@
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-settings">
 	<?php
-		/*$country_vars = array(
-			'country_code' => $merchant->get_prop( 'country' ),
-		);
-		$this->template( 'paystack/admin-views/fields/country-select', $country_vars );*/
-
 		$mode_vars = array(
 			'selected_mode' => $merchant->get_prop( 'paystack_mode' ),
 		);

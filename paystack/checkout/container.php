@@ -43,7 +43,7 @@ if ( $must_login ) {
 				printf(
 					// Translators: %1$s: Plural `Tickets` label.
 					esc_html__( 'Purchase %1$s', 'paystack-for-events-calendar' ),
-					tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) // phpcs:ignore
+					esc_html( tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) ),
 				);
 				?>
 			</span>

@@ -39,4 +39,4 @@ $modal .= '<span id="' . esc_attr( 'paypal-connected-modal-target' ) . '"></span
 $modal .= $modal_content;
 $modal .= '</div>';
 
-echo wp_kses_post( $modal ); // phpcs:ignore
+echo wp_kses_post( $modal );
