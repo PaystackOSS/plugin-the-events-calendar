@@ -1,4 +1,4 @@
-# Copyright (C) 2022 LightSpeed
+# Copyright (C) 2022 Paystack
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgid "Add-on for The Event Calendar that allows you to accept payments for even
 msgstr ""
 
 #. Author of the plugin
-msgid "LightSpeed"
+msgid "Paystack"
 msgstr ""
 
 #. Author URI of the plugin

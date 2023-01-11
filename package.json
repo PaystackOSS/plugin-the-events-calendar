@@ -12,7 +12,7 @@
 		"type": "git",
 		"url": "git+https://github.com/PaystackOSS/plugin-the-events-calendar"
 	},
-	"author": "LightSpeed",
+	"author": "Paystack",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/PaystackOSS/plugin-the-events-calendarissues"
