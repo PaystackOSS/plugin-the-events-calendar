@@ -4,7 +4,7 @@
  * Plugin URI:	https://github.com/PaystackOSS/plugin-the-events-calendar
  * Description:	Add-on for The Event Calendar that allows you to accept payments for event tickets via Paystack
  * Author:		Paystack
- * Version: 	1.0.0
+ * Version: 	1.0.2
  * Author URI: 	https://www.lsdev.biz/
  * License: 	GPL3
  * Text Domain: paystack-for-events-calendar
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'PS_TEC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'PS_TEC_CORE', __FILE__ );
 define( 'PS_TEC_URL', plugin_dir_url( __FILE__ ) );
-define( 'PS_TEC_VER', '1.0.0' );
+define( 'PS_TEC_VER', '1.0.2' );
 
 /* ======================= Below is the Plugin Class init ========================= */
 require_once PS_TEC_PATH . '/classes/class-core.php';
