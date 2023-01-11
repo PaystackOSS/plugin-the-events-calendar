@@ -1,5 +1,5 @@
 === Paystack for The Events Calendar ===
-Contributors: paystack, feedmymedia, krugazul
+Contributors: paystack, feedmymedia, krugazul, lightspeed
 Tags: the events calendar, paystack, payment gateway
 Requires at least: 6.1.1
 Tested up to: 6.1.1
