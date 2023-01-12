@@ -18,7 +18,43 @@
 	</p>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-links">
-		<?php echo $signup->get_link_html(); // phpcs:ignore ?>
+		<?php
+		echo wp_kses(
+			$signup->get_link_html(),
+			array(
+				'select' => array(
+					'name'  => array(),
+					'class' => array(),
+					'data-prevent-clear' => array(),
+					'data-dropdown-css-width' => array(),
+					'style' => array(),
+				),
+				'option' => array(
+					'value' => array(),
+					'selected' => array(),
+				),
+				'div' => array(
+					'class' => array(),
+				),
+				'p' => array(
+					'class' => array(),
+				),
+				'span' => array(
+					'class' => array(),
+					'style' => array(),
+				),
+				'input' => array(
+					'name'  => array(),
+					'class' => array(),
+					'type' => array(),
+					'placeholder' => array(),
+					'style' => array(),
+					'value' => array(),
+					'onclick' => array(),
+				),
+			)
+		);
+		?>
 	</div>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-help-links">

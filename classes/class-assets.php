@@ -124,22 +124,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Define if the assets for `PayPal` should be enqueued or not.
+	 * Define if the assets for `Paystack` should be enqueued or not.
 	 *
 	 * @since 5.1.10
 	 *
-	 * @return bool If the `PayPal` assets should be enqueued or not.
+	 * @return bool If the `Paystack` assets should be enqueued or not.
 	 */
 	public function should_enqueue_assets() {
 		return tribe( Checkout::class )->is_current_page() && tribe( Gateway::class )->is_enabled() && tribe( Gateway::class )->is_active();
 	}
 
 	/**
-	 * Define if the assets for `PayPal` should be enqueued or not.
+	 * Define if the assets for `Paystack` should be enqueued or not.
 	 *
 	 * @since 5.1.10
 	 *
-	 * @return bool If the `PayPal` assets should be enqueued or not.
+	 * @return bool If the `Paystack` assets should be enqueued or not.
 	 */
 	public function should_enqueue_assets_payments_tab() {
 		return 'paystack' === tribe_get_request_var( 'tc-section' ) && 'payments' === tribe_get_request_var( 'tab' ) && \Tribe\Tickets\Admin\Settings::$settings_page_id === tribe_get_request_var( 'page' );

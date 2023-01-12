@@ -1,11 +1,11 @@
 <?php
 /**
- * The Template for displaying the Tickets Commerce PayPal Settings.
+ * The Template for displaying the Tickets Commerce Paystack Settings.
  *
  * @version 5.3.0
  *
  * @since   5.1.10
- * @since   5.3.0 Using generic CSS classes for gateway instead of PayPal.
+ * @since   5.3.0 Using generic CSS classes for gateway instead of Paystack.
  *
  * @var Tribe__Tickets__Admin__Views                  $this                  [Global] Template object.
  * @var string                                        $plugin_url            [Global] The plugin URL.
@@ -69,8 +69,6 @@ $classes = array(
 			switchPassword : function( selector ) {
 
 				$( '.' + selector + ' span' ).on('click',function(){
-
-
 					const type = $(this).parent('p').find('input').attr('type');
 					console.log(type);
 					$(this).removeClass( 'dashicons-visibility' ).removeClass('dashicons-hidden');
@@ -85,14 +83,6 @@ $classes = array(
 					$(this).parent('p').find('input').attr( 'type', newType );
 					$(this).addClass( 'dashicons-' + classCSS );
 				});
-
-				/*togglePassword.addEventListener('click', function (e) {
-				// toggle the type attribute
-				const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-				password.setAttribute('type', type);
-				// toggle the eye slash icon
-				this.classList.toggle('fa-eye-slash');
-				});*/
 			}
 		}
 

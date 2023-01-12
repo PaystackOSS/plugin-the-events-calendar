@@ -4,7 +4,7 @@ $countries = array(
 	'NG' => esc_html__( 'Nigeria', 'paystack-for-events-calendar' ),
 	'ZA' => esc_html__( 'South Africa', 'paystack-for-events-calendar' ),
 );
-$default_country_code  = \TEC\Tickets\Commerce\Gateways\PayPal\Location\Country::DEFAULT_COUNTRY_CODE;
+$default_country_code  = \TEC\Tickets\Commerce\Gateways\Paystack\Location\Country::DEFAULT_COUNTRY_CODE;
 $selected_country_code = $country_code;
 if ( empty( $selected_country_code ) ) {
 	$selected_country_code = $default_country_code;

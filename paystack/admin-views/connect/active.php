@@ -1,11 +1,11 @@
 <?php
 /**
- * The Template for displaying the Tickets Commerce PayPal Settings when connected.
+ * The Template for displaying the Tickets Commerce Paystack Settings when connected.
  *
  * @version 5.3.0
  *
  * @since   5.1.10
- * @since   5.3.0 Using generic CSS classes for gateway instead of PayPal.
+ * @since   5.3.0 Using generic CSS classes for gateway instead of Paystack.
  *
  * @var Tribe__Tickets__Admin__Views                  $this                  [Global] Template object.
  * @var string                                        $plugin_url            [Global] The plugin URL.
@@ -38,7 +38,7 @@ if ( empty( $is_merchant_connected ) ) {
 <fieldset id="tribe-field-ticket-display-tickets-left-threshold" class="tribe-field tribe-field-text tribe-size-small">
 	<legend class="tribe-field-label"><?php echo esc_html_e( 'Webhooks', 'paystack-for-events-calendar' ); ?></legend>
 	<div class="tribe-field-wrap">
-		<p><strong><?php echo home_url(); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</strong></p>
+		<p><strong><?php echo wp_kses_post( home_url() ); ?>/wp-json/tribe/tickets/v1/commerce/paystack/order/webhook</strong></p>
 
 		<p class="tooltip description"><?php echo esc_html_e( 'To avoid situations where bad network makes it impossible to verify transactions, copy this URL and add it to the ', 'paystack-for-events-calendar' ); ?><a target="_blank" href="https://dashboard.paystack.com/#/settings/developer"><?php echo esc_html_e( 'developer settings', 'paystack-for-events-calendar' ); ?></a><?php echo esc_html_e( ' on your Paystack Dashboard', 'paystack-for-events-calendar' ); ?></p>
 	</div>

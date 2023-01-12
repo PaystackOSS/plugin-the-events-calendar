@@ -27,7 +27,7 @@ use WP_REST_Server;
  *
  * @since   5.1.9
  *
- * @package TEC\Tickets\Commerce\Gateways\PayPal\REST
+ * @package TEC\Tickets\Commerce\Gateways\Paystack\REST
  */
 class Order_Endpoint extends Abstract_REST_Endpoint {
 
@@ -86,7 +86,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Handles the request that creates an order with Tickets Commerce and the PayPal gateway.
+	 * Handles the request that creates an order with Tickets Commerce and the Paystack gateway.
 	 *
 	 * @since 5.1.9
 	 *
@@ -233,7 +233,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return $updated;
 		}
 
-		// Respond with the ID for Paypal Usage.
+		// Respond with the ID for Paystack Usage.
 		$response['success'] = true;
 		$response['id']      = $order->ID;
 		$response['meta']    = $metadata;
@@ -242,7 +242,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Handles the request that updates an order with Tickets Commerce and the PayPal gateway.
+	 * Handles the request that updates an order with Tickets Commerce and the Paystack gateway.
 	 *
 	 * @since 5.1.9
 	 *
@@ -403,7 +403,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Arguments used for the updating order for PayPal.
+	 * Arguments used for the updating order for Paystack.
 	 *
 	 * @since 5.1.9
 	 *

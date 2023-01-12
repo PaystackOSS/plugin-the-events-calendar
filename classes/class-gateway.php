@@ -82,7 +82,7 @@ class Gateway extends Abstract_Gateway {
 			return (bool) $option_value;
 		}
 
-		// If option is not explicitly set, the default will be if PayPal is connected.
+		// If option is not explicitly set, the default will be if Paystack is connected.
 		return static::is_connected();
 	}
 
@@ -101,7 +101,7 @@ class Gateway extends Abstract_Gateway {
 		if ( $this->is_enabled() && ! $this->is_currency_supported( $selected_currency ) ){
 			?>
 			<div class="notice notice-error">
-				<?php echo $this->render_unsupported_currency_notice(); ?>
+				<?php echo wp_kses_post( $this->render_unsupported_currency_notice() ); ?>
 			</div>
 			<?php
 		}
@@ -149,7 +149,7 @@ class Gateway extends Abstract_Gateway {
 		if ( isset( $options[ $key ] ) && '' !== $options[ $key ] ) {
 			return $options[ $key ];
 		}
-		// If option is not explicitly set, the default will be if PayPal is connected.
+		// If option is not explicitly set, the default will be if Paystack is connected.
 		return false;
 	}
 }

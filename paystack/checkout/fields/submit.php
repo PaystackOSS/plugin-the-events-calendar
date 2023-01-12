@@ -1,9 +1,9 @@
 <?php
 /**
- * Tickets Commerce: Checkout Advanced Payments for PayPal - Submit
+ * Tickets Commerce: Checkout Advanced Payments for Paystack - Submit
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/tickets/v2/commerce/gateway/paypal/advanced-payments/fields/submit.php
+ * [your-theme]/tribe/tickets/v2/commerce/gateway/paystack/advanced-payments/fields/submit.php
  *
  * See more documentation about our views templating system.
  *
@@ -19,7 +19,7 @@
 
 $classes = [
 	'tribe-common-c-btn',
-	'tribe-tickets__commerce-checkout-paypal-advanced-payments-form-submit-button',
+	'tribe-tickets__commerce-checkout-paystack-advanced-payments-form-submit-button',
 ];
 
 ?>

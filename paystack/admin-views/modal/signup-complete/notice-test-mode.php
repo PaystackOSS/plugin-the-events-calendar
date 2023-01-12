@@ -1,11 +1,11 @@
 <?php
 /**
- * The Template for displaying the Tickets Commerce PayPal modal notice when connected.
+ * The Template for displaying the Tickets Commerce Paystack modal notice when connected.
  *
  * @version 5.3.0
  *
  * @since   5.2.1
- * @since   5.3.0 Using generic CSS classes for gateway instead of PayPal.
+ * @since   5.3.0 Using generic CSS classes for gateway instead of Paystack.
  */
 
 // Bail if not in sandbox mode.

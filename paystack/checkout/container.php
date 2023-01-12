@@ -1,9 +1,9 @@
 <?php
 /**
- * Tickets Commerce: PayPal Checkout container
+ * Tickets Commerce: Paystack Checkout container
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/tickets/v2/commerce/gateway/paypal/container.php
+ * [your-theme]/tribe/tickets/v2/commerce/gateway/paystack/container.php
  *
  * See more documentation about our views templating system.
  *
@@ -43,7 +43,7 @@ if ( $must_login ) {
 				printf(
 					// Translators: %1$s: Plural `Tickets` label.
 					esc_html__( 'Purchase %1$s', 'paystack-for-events-calendar' ),
-					tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) // phpcs:ignore
+					esc_html( tribe_get_ticket_label_plural( 'tickets_commerce_checkout_title' ) ),
 				);
 				?>
 			</span>

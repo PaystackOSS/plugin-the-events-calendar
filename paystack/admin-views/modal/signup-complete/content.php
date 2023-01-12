@@ -1,23 +1,23 @@
 <?php
 /**
- * The Template for displaying the Tickets Commerce PayPal modal content when connected.
+ * The Template for displaying the Tickets Commerce Paystack modal content when connected.
  *
  * @version 5.3.0
  *
  * @since   5.2.1
- * @since   5.3.0 Using generic CSS classes for gateway instead of PayPal.
+ * @since   5.3.0 Using generic CSS classes for gateway instead of Paystack.
  */
 
 ?>
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-modal-content tec-tickets__admin-modal tribe-common-b2">
 
-	<?php $this->template( 'settings/tickets-commerce/paypal/modal/signup-complete/notice-test-mode' ); ?>
+	<?php $this->template( 'settings/tickets-commerce/paystack/modal/signup-complete/notice-test-mode' ); ?>
 
 	<p>
 		<?php
 		printf(
 			// Translators: %1$s: opening `a` tag to the knowledge base article. %2$s: closing `a` tag to the knowledge base article.
-			esc_html__( 'PayPal allows you to accept credit or debit cards directly on your website. Because of this, your site needs to maintain %1$sPCI-DSS compliance%2$s.', 'paystack-for-events-calendar' ),
+			esc_html__( 'Paystack allows you to accept credit or debit cards directly on your website. Because of this, your site needs to maintain %1$sPCI-DSS compliance%2$s.', 'paystack-for-events-calendar' ),
 			'<a href="https://theeventscalendar.com/knowledgebase/k/pci-compliance/" target="_blank" rel="noopener noreferrer" class="tribe-common-anchor-alt">',
 			'</a>'
 		);
