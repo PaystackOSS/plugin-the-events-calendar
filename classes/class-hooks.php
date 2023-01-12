@@ -47,7 +47,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Register the Endpoints from Paypal.
+	 * Register the Endpoints from Paystack.
 	 *
 	 * @since 5.1.9
 	 */

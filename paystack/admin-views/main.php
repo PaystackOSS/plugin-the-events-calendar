@@ -1,11 +1,11 @@
 <?php
 /**
- * The Template for displaying the Tickets Commerce PayPal Settings.
+ * The Template for displaying the Tickets Commerce Paystack Settings.
  *
  * @version 5.3.0
  *
  * @since   5.1.10
- * @since   5.3.0 Using generic CSS classes for gateway instead of PayPal.
+ * @since   5.3.0 Using generic CSS classes for gateway instead of Paystack.
  *
  * @var Tribe__Tickets__Admin__Views                  $this                  [Global] Template object.
  * @var string                                        $plugin_url            [Global] The plugin URL.

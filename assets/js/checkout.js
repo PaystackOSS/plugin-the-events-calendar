@@ -5,7 +5,7 @@
  *
  * @type   {Object}
  */
- tribe.tickets.commerce.gateway.paystack = tribe.tickets.commerce.gateway.paystack || {};
+tribe.tickets.commerce.gateway.paystack = tribe.tickets.commerce.gateway.paystack || {};
 
 /**
  * This script Object for public usage of the methods.
@@ -39,20 +39,25 @@ tribe.tickets.commerce.gateway.paystack = {};
 			
 			this.container = $( tribe.tickets.commerce.selectors.checkoutContainer );
 		},
-		getSettings: function () {
+		getSettings: function ( leaveMeta = false ) {
 			let settings = {
 				key: tecTicketsPaystackCheckout.publicKey,
 				firstname: this.name.val(),
 				lastname: this.name.val(),
 				email: this.email_address.val(),
 				amount: this.total.val() * 100,
-				currency: tecTicketsPaystackCheckout.currency_code,
+				currency: tecTicketsPaystackCheckout.currency_code
 			}
 			if ( 0 < this.sub_account.length && '' !== this.sub_account.val() ) {
 				settings.subaccountCode = this.sub_account.val();
 			} else if ( 0 < this.split_trans.length && '' !== this.split_trans.val() ) {
 				settings.split_code = this.split_trans.val();
 			}
+
+			if ( false == leaveMeta ) {
+				settings.metaData = tecTicketsPaystackCheckout.metaData;
+			}
+
 			return settings;
 		},
 		watchSubmit: function( ) {
@@ -87,12 +92,12 @@ tribe.tickets.commerce.gateway.paystack = {};
 			tribe.tickets.debug.log( 'handleCreateOrder', tribe.tickets.commerce.getPurchaserData( $this.container ) );
 
 			let bodyArgs = {
-				purchaser: tribe.tickets.commerce.getPurchaserData( $this.container )
+				purchaser: tribe.tickets.commerce.getPurchaserData( $this.container ),
+				cart: $this.getSettings()
 			}
 
 			if ( 'redirect' == tecTicketsPaystackCheckout.gatewayMode ) {
 				bodyArgs.redirect_url = window.location.href;
-				bodyArgs.cart         = $this.getSettings();
 			}
 
 			return fetch(
@@ -127,10 +132,18 @@ tribe.tickets.commerce.gateway.paystack = {};
 		handoverToPopup: function( order ) {
 			let $this = this;
 
-			let settings = this.getSettings();
+			let settings = this.getSettings( true );
 			
 			settings.ref = order.id; // Uses the Order ID
-
+			if ( undefined != order.meta ) {
+				settings.metadata = {
+					plugin:'the-events-calendar'
+				};
+				settings.metadata.custom_fields = order.meta;
+			} else {
+				settings.metadata = {};
+			}
+			
 			settings.onClose = function( response ){
 				response = {
 					'status': 'failed',
@@ -154,6 +167,7 @@ tribe.tickets.commerce.gateway.paystack = {};
 				}
 			};
 
+			tribe.tickets.debug.log( 'paystackPopUpSettings', settings );
 			let handler = PaystackPop.setup( settings );
 			handler.openIframe();
 		},

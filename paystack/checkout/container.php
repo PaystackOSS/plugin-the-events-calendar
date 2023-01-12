@@ -1,9 +1,9 @@
 <?php
 /**
- * Tickets Commerce: PayPal Checkout container
+ * Tickets Commerce: Paystack Checkout container
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/tickets/v2/commerce/gateway/paypal/container.php
+ * [your-theme]/tribe/tickets/v2/commerce/gateway/paystack/container.php
  *
  * See more documentation about our views templating system.
  *

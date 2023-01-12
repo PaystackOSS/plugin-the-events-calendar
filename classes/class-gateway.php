@@ -82,7 +82,7 @@ class Gateway extends Abstract_Gateway {
 			return (bool) $option_value;
 		}
 
-		// If option is not explicitly set, the default will be if PayPal is connected.
+		// If option is not explicitly set, the default will be if Paystack is connected.
 		return static::is_connected();
 	}
 
@@ -149,7 +149,7 @@ class Gateway extends Abstract_Gateway {
 		if ( isset( $options[ $key ] ) && '' !== $options[ $key ] ) {
 			return $options[ $key ];
 		}
-		// If option is not explicitly set, the default will be if PayPal is connected.
+		// If option is not explicitly set, the default will be if Paystack is connected.
 		return false;
 	}
 }

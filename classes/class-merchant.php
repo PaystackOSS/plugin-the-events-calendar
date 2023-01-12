@@ -28,6 +28,7 @@ class Merchant extends Abstract_Merchant {
 		'public_key_live',
 		'checkout_mode',
 		'transaction_type',
+		'metadata',
 	);
 
 	/**
