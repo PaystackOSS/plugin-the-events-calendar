@@ -136,8 +136,10 @@ tribe.tickets.commerce.gateway.paystack = {};
 			
 			settings.ref = order.id; // Uses the Order ID
 			if ( undefined != order.meta ) {
-				settings.metadata = {};
-				settings.metadata.customfields = order.meta;
+				settings.metadata = {
+					plugin:'the-events-calendar'
+				};
+				settings.metadata.custom_fields = order.meta;
 			} else {
 				settings.metadata = {};
 			}

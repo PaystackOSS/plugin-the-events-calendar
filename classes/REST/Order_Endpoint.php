@@ -135,6 +135,11 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 		//generate the metadata
 		$metadata = array();
+		$metadata[] = array(
+			'display_name'  => 'Plugin',
+			'variable_name' => 'plugin',
+			'value'         => 'the-events-calendar',
+		);
 		if ( isset( $data['cart']['metaData'] ) ) {
 			foreach ( $data['cart']['metaData'] as $datafield ) {
 
@@ -146,14 +151,6 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 							'display_name'  => 'Order ID',
 							'variable_name' => 'order_id',
 							'value'         => $order->ID,
-						);
-						break;
-
-					case 'plugin':
-						$save_field = array(
-							'display_name'  => 'Plugin',
-							'variable_name' => 'plugin',
-							'value'         => 'the-events-calendar',
 						);
 						break;
 
@@ -198,7 +195,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'callback_url' => $data['redirect_url'],
 				'reference'    => $order->ID,
 			);
-
+			$redirect_data['metadata']['plugin'] =  'the-events-calendar';
 			if ( ! empty( $metadata ) ) {
 				$redirect_data['metadata']['custom_fields'] = $metadata;
 			}

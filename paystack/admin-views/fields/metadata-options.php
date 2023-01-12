@@ -6,7 +6,6 @@ if ( null !== $selected ) {
 
 $options = array(
 	'order_id' => esc_html__( 'Order ID', 'paystack-for-events-calendar' ),
-	'plugin' => esc_html__( 'Plugin', 'paystack-for-events-calendar' ),
 	'customer_name' => esc_html__( 'Customer Name', 'paystack-for-events-calendar' ),
 	//'customer_surname' => esc_html__( 'Customer Surname', 'paystack-for-events-calendar' ),
 	'cart_details' => esc_html__( 'Cart Details', 'paystack-for-events-calendar' ),
