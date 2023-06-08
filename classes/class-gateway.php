@@ -32,7 +32,7 @@ class Gateway extends Abstract_Gateway {
 	/**
 	 * @inheritDoc
 	 */
-	protected static $supported_currencies = array( 'NGN', 'GHS', 'USD', 'KES', 'CZK', 'ZAR', 'XOF' );
+	protected static $supported_currencies = array( 'NGN', 'GHS', 'USD', 'KES', 'ZAR', 'XOF', 'EGP' );
 
 	/**
 	 * @inheritDoc
@@ -116,7 +116,7 @@ class Gateway extends Abstract_Gateway {
 	 */
 	public function render_unsupported_currency_notice() {
 		$notice_header = esc_html__( 'Paystack doesn\'t support your selected currency', 'paystack-for-events-calendar' );
-		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358;), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), or XOF (CFA)', 'paystack-for-events-calendar' );
+		$notice_text = esc_html__( 'Paystack does not support your store currency. Kindly set it to either NGN (&#8358;), GHS (&#x20b5;), USD (&#36;), KES (KSh), ZAR (R), XOF (CFA), or EGP (&#163;) ', 'paystack-for-events-calendar' );
 
 		return sprintf(
 			'<p><strong>%1$s</strong></p><p>%2$s</p>',
