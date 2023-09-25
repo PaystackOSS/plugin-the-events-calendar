@@ -2,9 +2,9 @@
 Contributors: paystack, feedmymedia, krugazul, lightspeed
 Tags: the events calendar, paystack, payment gateway
 Requires at least: 5.8.6
-Tested up to: 6.1.1
-Stable tag: 1.0.3
-Requires PHP: 8.0
+Tested up to: 6.2.2
+Stable tag: 1.1.0
+Requires PHP: 8.0 or higher
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,6 +46,9 @@ When you go to the Settings Page to get your API keys, please note the mode that
 
 == Changelog ==
 
+= 1.1.0 =
+* Compatibility with WordPress 6.2.2 and PHP 8.1.17
+
 = 1.0 =
 * First Release
 
@@ -53,6 +56,7 @@ When you go to the Settings Page to get your API keys, please note the mode that
 
 == Upgrade Notice ==
 
-None
+= 1.1.0 =
+* Compatibility with WordPress 6.2.2 and PHP 8.1.17
 
 
