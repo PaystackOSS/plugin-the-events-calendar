@@ -40,6 +40,7 @@ class Settings extends Abstract_Settings {
 		'public_key_live'  => '',
 		'checkout_mode'    => 'popup',
 		'transaction_type' => '',
+		'metadata'         => array(),
 	);
 
 	/**

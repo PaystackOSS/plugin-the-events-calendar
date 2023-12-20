@@ -75,6 +75,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$checkout_mode = 'popup';
 		}
 
+		$metadata = array(
+			'none',
+		);
+		$assigned_meta = $gateway->get_option( 'metadata' );
+		if ( ! empty( $assigned_meta ) ) {
+			$metadata = $assigned_meta;
+		}
+
 		tribe_asset(
 			$plugin,
 			'tec-tickets-commerce-gateway-paystack-checkout',
@@ -102,6 +110,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 						'publicKey'     => $public_key,
 						'currency_code' => $currency_code,
 						'gatewayMode'   => $checkout_mode,
+						'metaData'      => $metadata,
 						'errorMessages' => array(
 							'name'    => esc_html__( 'Name is required', 'paystack-for-events-calendar' ),
 							'email_address' => esc_html__( 'A valid email address is required', 'paystack-for-events-calendar' ),
@@ -115,22 +124,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Define if the assets for `PayPal` should be enqueued or not.
+	 * Define if the assets for `Paystack` should be enqueued or not.
 	 *
 	 * @since 5.1.10
 	 *
-	 * @return bool If the `PayPal` assets should be enqueued or not.
+	 * @return bool If the `Paystack` assets should be enqueued or not.
 	 */
 	public function should_enqueue_assets() {
 		return tribe( Checkout::class )->is_current_page() && tribe( Gateway::class )->is_enabled() && tribe( Gateway::class )->is_active();
 	}
 
 	/**
-	 * Define if the assets for `PayPal` should be enqueued or not.
+	 * Define if the assets for `Paystack` should be enqueued or not.
 	 *
 	 * @since 5.1.10
 	 *
-	 * @return bool If the `PayPal` assets should be enqueued or not.
+	 * @return bool If the `Paystack` assets should be enqueued or not.
 	 */
 	public function should_enqueue_assets_payments_tab() {
 		return 'paystack' === tribe_get_request_var( 'tc-section' ) && 'payments' === tribe_get_request_var( 'tab' ) && \Tribe\Tickets\Admin\Settings::$settings_page_id === tribe_get_request_var( 'page' );

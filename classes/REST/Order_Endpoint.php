@@ -27,7 +27,7 @@ use WP_REST_Server;
  *
  * @since   5.1.9
  *
- * @package TEC\Tickets\Commerce\Gateways\PayPal\REST
+ * @package TEC\Tickets\Commerce\Gateways\Paystack\REST
  */
 class Order_Endpoint extends Abstract_REST_Endpoint {
 
@@ -86,7 +86,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Handles the request that creates an order with Tickets Commerce and the PayPal gateway.
+	 * Handles the request that creates an order with Tickets Commerce and the Paystack gateway.
 	 *
 	 * @since 5.1.9
 	 *
@@ -99,8 +99,9 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			'success' => false,
 		);
 
-		$data      = $request->get_json_params();
-		$purchaser = tribe( Order::class )->get_purchaser_data( $data );
+		$data        = $request->get_json_params();
+		$purchaser   = tribe( Order::class )->get_purchaser_data( $data );
+		$cart_string = array();
 
 		if ( is_wp_error( $purchaser ) ) {
 			return $purchaser;
@@ -128,6 +129,60 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'item_total'  => [ 'value' => (string) $item['sub_total'], 'currency_code' => $order->currency ],
 				'sku'         => $ticket->sku,
 			);
+
+			$cart_string[] = $item['quantity'] . ' x ' . $ticket->name;
+		}
+
+		//generate the metadata
+		$metadata = array();
+		$metadata[] = array(
+			'display_name'  => 'Plugin',
+			'variable_name' => 'plugin',
+			'value'         => 'the-events-calendar',
+		);
+		if ( isset( $data['cart']['metaData'] ) ) {
+			foreach ( $data['cart']['metaData'] as $datafield ) {
+
+				$save_field = '';
+
+				switch ( $datafield ) {
+					case 'order_id':
+						$save_field = array(
+							'display_name'  => 'Order ID',
+							'variable_name' => 'order_id',
+							'value'         => $order->ID,
+						);
+						break;
+
+					case 'customer_name':
+						$save_field = array(
+							'display_name'  => 'Customer Name',
+							'variable_name' => 'customer_name',
+							'value'         => $order->purchaser['first_name'],
+						);
+						break;
+
+					case 'customer_surname':
+						$save_field = array(
+							'display_name'  => 'Customer Surname',
+							'variable_name' => 'customer_surname',
+							'value'         => $order->purchaser['last_name'],
+						);
+						break;
+
+					case 'cart_details':
+						$save_field = array(
+							'display_name'  => 'Cart Details',
+							'variable_name' => 'cart_details',
+							'value'         => implode( ',', $cart_string ),
+						);
+						break;
+				}
+
+				if ( '' !== $save_field ) {
+					$metadata[] = $save_field;
+				}
+			}
 		}
 
 		// If the gate is set to redirect, then initialize the transaction.
@@ -140,6 +195,10 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				'callback_url' => $data['redirect_url'],
 				'reference'    => $order->ID,
 			);
+			$redirect_data['metadata']['plugin'] =  'the-events-calendar';
+			if ( ! empty( $metadata ) ) {
+				$redirect_data['metadata']['custom_fields'] = $metadata;
+			}
 
 			if ( isset( $data['cart']['subaccount'] ) ) {
 				$redirect_data['subaccount'] = $data['cart']['subaccount'];
@@ -171,15 +230,16 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 			return $updated;
 		}
 
-		// Respond with the ID for Paypal Usage.
+		// Respond with the ID for Paystack Usage.
 		$response['success'] = true;
 		$response['id']      = $order->ID;
+		$response['meta']    = $metadata;
 
 		return new WP_REST_Response( $response );
 	}
 
 	/**
-	 * Handles the request that updates an order with Tickets Commerce and the PayPal gateway.
+	 * Handles the request that updates an order with Tickets Commerce and the Paystack gateway.
 	 *
 	 * @since 5.1.9
 	 *
@@ -340,7 +400,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 	}
 
 	/**
-	 * Arguments used for the updating order for PayPal.
+	 * Arguments used for the updating order for Paystack.
 	 *
 	 * @since 5.1.9
 	 *

@@ -2,7 +2,7 @@
 namespace paystack\tec\classes;
 
 use TEC\Tickets\Commerce\Gateways\Contracts\Abstract_Signup;
-use TEC\Tickets\Commerce\Gateways\PayPal\Location\Country;
+use TEC\Tickets\Commerce\Gateways\Paystack\Location\Country;
 use TEC\Tickets\Commerce\Settings;
 use Tribe__Utils__Array as Arr;
 
