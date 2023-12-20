@@ -3,7 +3,7 @@ Contributors: paystack, feedmymedia, krugazul, lightspeed, kaneahabagale
 Tags: the events calendar, paystack, payment gateway
 Requires at least: 5.8.6
 Tested up to: 6.2.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 Requires PHP: 8.0 and higher
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -45,6 +45,9 @@ If there is no toggle and it's just Test Mode, this means that your Paystack a
 When you go to the Settings Page to get your API keys, please note the mode that your dashboard is in, as that will determine the keys that will be displayed. So if the dashboard is on **Test Mode,** you can only see the **Test API keys** and vice versa**.** To see the other Keys, switch the toggle from one mode to another.
 
 == Changelog ==
+
+= 1.0.5 =
+* Bug fixes
 
 = 1.0.4 =
 * Compatibility with WordPress 6.2.2 and PHP 8.1.17
