@@ -251,17 +251,17 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		$response = array(
 			'success' => false,
 		);
-
-		$order_id = $request->get_param( 'reference' );
-
-		$order = tec_tc_orders()->by_args( array(
-			'status'           => tribe( Pending::class )->get_wp_slug(),
-			'gateway_order_id' => $order_id,
-		) )->first();
-
-		if ( ! $order ) {
-			return new WP_Error( 'tec-tc-gateway-paystack-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
+		$path = $request->get_route();
+		
+		if($path == "/tribe/tickets/v1/commerce/paystack/order/webhook"){
+			return $this->handle_webhook( $request );
 		}
+		$order_id = $request->get_param( 'reference' );
+		$order = tec_tc_get_order($order_id);
+
+			if (!$order) {
+				return new WP_Error('tec-tc-gateway-paystack-nonexistent-order-id-d', $messages['nonexistent-order-id'], $order);
+			}
 
 		$transaction_status = $request->get_param( 'status' );
 		$transaction_id     = $request->get_param( 'transaction' );
@@ -320,17 +320,25 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 	public function handle_webhook( WP_REST_Request $request ) {
 		// only a post with paystack signature header gets our attention
-		if ( ( strtoupper( $_SERVER['REQUEST_METHOD']) != 'POST' ) || ! array_key_exists( 'x-paystack-signature', $_SERVER ) ) {
-			exit();
+		if ( ( strtoupper( $_SERVER['REQUEST_METHOD']) != 'POST' ) || ! array_key_exists( 'HTTP_X_PAYSTACK_SIGNATURE', $_SERVER ) ) {
+						return new WP_Error( 'tec-tc-gateway-paystack-unauthorized-webhookk', $messages['unauthorized-webhook'], $input );exit();
 		}
+		$response = array(
+			'success' => false,
+		);
 
 		// Retrieve the request's body
 		$input  = @file_get_contents( "php://input" );
 		$client = tribe( Client::class );
-
+		$decodedInput = json_decode($input);
+		$jsonString = json_encode($decodedInput, JSON_UNESCAPED_SLASHES);
+		$jsonString = stripslashes($jsonString);
 		// validate event do all at once to avoid timing attack
-		if( $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] !== hash_hmac( 'sha512', $input, $client->get_barer_key() ) ) {
-			exit();
+	    $secret = $client->get_barer_key(); // Replace with your actual secret key
+        $hash = hash_hmac('sha512', $jsonString, $secret);
+		$paystackSignature = $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] ?? '';
+		if( $paystackSignature !== $hash ) {
+			return new WP_Error( 'tec-tc-gateway-paystack-unauthorized-webhook', $messages['unauthorized-webhook'], 'invalid-signature' );
 		}
 
 		http_response_code( 200 );
@@ -339,14 +347,11 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		// Do something - that will not take long - with $event
 		$event = json_decode( $input );
 
-		if ( isset( $event->event ) && in_array( $event->event, array( 'transfer.success', 'charge.success' ) ) ) {
+		if ( isset( $event->event ) && in_array( $event->event, array('charge.success' ) ) ) {
 			if ( isset( $event->data ) && isset( $event->data->reference ) && isset( $event->data->status ) && '' !== $event->data->reference ) {
-
-				$order = tec_tc_orders()->by_args( array(
-					'status'           => tribe( Pending::class )->get_wp_slug(),
-					'gateway_order_id' => $event->data->reference,
-				) )->first();
-
+				$order_id = $event->data->reference;
+				$order = tec_tc_get_order($order_id);
+				$response['order_id'] = $order_id;
 				if ( ! $order ) {
 					return new WP_Error( 'tec-tc-gateway-paystack-nonexistent-order-id', $messages['nonexistent-order-id'], $order );
 				}
@@ -359,28 +364,33 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 				if ( 'success' === $event->data->status ) {
 					// Flag the order as Completed.
 					tribe( Order::class )->modify_status(
-						$order->ID,
+						$order_id,
 						Completed::SLUG,
 						array(
 							'gateway_transaction_id' => $event->data->reference,
 							'gateway_response' => $gateway_repsone,
 						)
 					);
+					$response['success']  = true;
+					$response['order_status']  = 'complete';
 				} else if ( 'failed' === $event->data->status ) {
 
 
 					// Flag the order as Completed.
 					tribe( Order::class )->modify_status(
-						$order->ID,
+						$order_id,
 						Denied::SLUG,
 						array(
 							'gateway_transaction_id' => $event->data->reference,
 							'gateway_response'  => $gateway_repsone,
 						)
 					);
+					$response['success']  = true;
+					$response['order_status']  = 'denied';
 				}
 			}
 		}
+		return new WP_REST_Response( $response );
 		exit();
 	}
 
