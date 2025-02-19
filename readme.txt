@@ -52,6 +52,9 @@ When you go to the Settings Page to get your API keys, please note the mode that
 = 1.0.6 =
 * Compatibility with WordPress 6.6.2 and PHP 8.3.8
 
+= 1.0.5 =
+* Bug fixes
+
 = 1.0.4 =
 * Compatibility with WordPress 6.2.2 and PHP 8.1.17
 
