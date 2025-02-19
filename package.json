@@ -1,6 +1,6 @@
 {
 	"name": "tec-paystack",
-	"version": "1.0.3",
+	"version": "1.0.7",
 	"description": "Paystack for The Events Calendar",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
