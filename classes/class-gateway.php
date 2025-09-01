@@ -17,22 +17,22 @@ class Gateway extends Abstract_Gateway {
 	/**
 	 * @inheritDoc
 	 */
-	protected static $key = 'paystack';
+	protected static string $key = 'paystack';
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $settings = Settings::class;
+	protected static string $settings = Settings::class;
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $merchant = Merchant::class;
+	protected static string $merchant = Merchant::class;
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $supported_currencies = array( 'NGN', 'GHS', 'USD', 'KES', 'ZAR', 'XOF', 'EGP' );
+	protected static array $supported_currencies = array( 'NGN', 'GHS', 'USD', 'KES', 'ZAR', 'XOF', 'EGP' );
 
 	/**
 	 * @inheritDoc
