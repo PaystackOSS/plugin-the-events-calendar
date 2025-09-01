@@ -328,4 +328,46 @@ class Merchant extends Abstract_Merchant {
 		 */
 		return apply_filters( 'tec_tickets_commerce_gateway_paystack_merchant_locale', $locale );
 	}
+
+	/**
+	 * Gets the client secret for merchant.
+	 *
+	 * @since 5.24.0
+	 *
+	 * @return ?string
+	 */
+	public function get_client_secret(): ?string {
+		// Paystack doesn't use client secrets in the same way as other payment gateways
+		return null;
+	}
+
+	/**
+	 * Gets the disconnect action for merchant.
+	 *
+	 * @since 5.11.0.5
+	 *
+	 * @return string
+	 */
+	public function get_disconnect_action(): string {
+		return 'tec_tickets_commerce_paystack_disconnect';
+	}
+
+	/**
+	 * Gets the disconnect url for merchant.
+	 *
+	 * @since 5.11.0.5
+	 *
+	 * @return string
+	 */
+	public function get_disconnect_url(): string {
+		return wp_nonce_url(
+			add_query_arg(
+				[
+					'action' => $this->get_disconnect_action(),
+				],
+				admin_url( 'admin-ajax.php' )
+			),
+			$this->get_disconnect_action()
+		);
+	}
 }
