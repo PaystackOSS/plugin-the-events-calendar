@@ -1,0 +1,49 @@
+#tribe-field-tickets-commerce-paystack-commerce-configure {
+    padding-left: 0;
+    width: 100%;
+}
+
+#tribe-field-tickets-commerce-paystack-commerce-configure .hidden {
+	display: none;
+}
+
+#tribe-field-tickets-commerce-paystack-commerce-configure > .tribe-field-wrap {
+    float: none;
+    max-width: none;
+}
+
+#tribe-field-tickets-commerce-paystack-commerce-configure .tec-tickets__admin-settings-tickets-commerce-gateway-signup-links {
+    flex-grow: 1;
+    margin-top: 0;
+	width: 100%;
+}
+
+#tribe-field-tickets-commerce-paystack-commerce-configure input.tec-tickets__admin-settings-tickets-commerce-gateway-connect-button-link {
+	background: #405bfb;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 18px;
+	margin-top: 25px;
+	min-width: 340px;
+	padding: 15px 0;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+	border: 0;
+}
+
+.tribe-settings-form .tribe-settings-form-wrap .tec-tickets__admin-settings-tickets-commerce-gateway-connected h3 {
+	width: calc(100% - 12px);
+}
+
+
+@media (min-width: 768px) {
+	#tribe-field-tickets-commerce-paystack-commerce-configure .tribe-input  {
+		line-height: 42px;
+		padding-left: 16px;
+	}
+}
+
