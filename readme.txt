@@ -76,6 +76,9 @@ When you go to the Settings Page to get your API keys, please note the mode that
 
 == Upgrade Notice ==
 
+= 1.1.0 =
+* Compatibility with WordPress 6.9 and PHP 8.3.8
+
 = 1.0.7 =
 * Compatibility with WordPress 6.7.2 and PHP 8.3.8
 
