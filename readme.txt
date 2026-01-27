@@ -3,7 +3,7 @@ Contributors: paystack, feedmymedia, krugazul, lightspeed, kaneahabagale
 Tags: the events calendar, paystack, payment gateway
 Requires at least: 5.8.6
 Tested up to: 6.7.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 8.0 and higher
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -46,16 +46,6 @@ When you go to the Settings Page to get your API keys, please note the mode that
 
 == Changelog ==
 
-= 1.1.0 =
-* Compatibility with WordPress 6.9 and PHP 8.3.8
-* Fix 'Undefined array key NGN' currency errors
-* Implement dual currency registration (TEC Commerce + legacy Tribe systems)
-* Fix API key saving functionality
-* Add comprehensive debug logging for troubleshooting
-* Improve admin form structure and eliminate duplicate fields
-* Add support for multiple African currencies (NGN, GHS, KES, ZAR, XOF, EGP)
-* Enhance merchant data persistence with proper WordPress hooks
-
 = 1.0.7 =
 * Compatibility with WordPress 6.7.2 and PHP 8.3.8
 
@@ -74,10 +64,6 @@ When you go to the Settings Page to get your API keys, please note the mode that
 == Screenshots ==
 
 == Upgrade Notice ==
-
-= 1.1.0 =
-* Critical fixes for currency support and API key saving
-* Compatibility with WordPress 6.9 and PHP 8.3.8
 
 = 1.0.7 =
 * Compatibility with WordPress 6.7.2 and PHP 8.3.8

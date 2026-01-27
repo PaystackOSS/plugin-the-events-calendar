@@ -17,23 +17,59 @@ class Gateway extends Abstract_Gateway {
 	/**
 	 * @inheritDoc
 	 */
-	protected static $key = 'paystack';
+	protected static string $key = 'paystack';
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $settings = Settings::class;
+	protected static string $settings = Settings::class;
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $merchant = Merchant::class;
+	protected static string $merchant = Merchant::class;
 
 	/**
 	 * @inheritDoc
 	 */
-	protected static $supported_currencies = array( 'NGN', 'GHS', 'USD', 'KES', 'ZAR', 'XOF', 'EGP' );
-
+	protected static array $supported_currencies = array( 		
+		'NGN' => array(
+			'code'   => 'NGN',
+			'symbol' => '₦',
+			'entity' => '&#8358;',
+		),
+		'GHS' => array(
+			'code'   => 'GHS',
+			'symbol' => '₵',
+			'entity' => '₵',
+		),
+		'USD' => array(
+			'code'   => 'USD',
+			'symbol' => '$',
+			'entity' => '&#36;',
+		),
+		'KES' => array(
+			'code'   => 'KES',
+			'symbol' => 'KSh',
+			'entity' => 'KSh',
+		),
+		'ZAR' => array(
+			'code'   => 'ZAR',
+			'symbol' => 'R',
+			'entity' => 'R',
+		),
+		'XOF' => array(
+			'code'   => 'XOF',
+			'symbol' => 'CFA',
+			'entity' => 'CFA',
+		),
+		'EGP' => array(
+			'code'   => 'EGP',
+			'symbol' => '£',
+			'entity' => '&#163;',
+		)
+	);
+	
 	/**
 	 * @inheritDoc
 	 */
@@ -84,6 +120,16 @@ class Gateway extends Abstract_Gateway {
 
 		// If option is not explicitly set, the default will be if Paystack is connected.
 		return static::is_connected();
+	}
+
+	/**
+	 * Check if a currency is supported by Paystack.
+	 *
+	 * @param string $currency_code The currency code to check.
+	 * @return bool True if supported, false otherwise.
+	 */
+	public static function is_currency_supported( $currency_code ) {
+		return isset( static::$supported_currencies[ $currency_code ] );
 	}
 
 	/**

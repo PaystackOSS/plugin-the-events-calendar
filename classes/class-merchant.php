@@ -262,6 +262,38 @@ class Merchant extends Abstract_Merchant {
 	}
 
 	/**
+	 * Save merchant data to database.
+	 *
+	 * @since 5.1.9
+	 *
+	 * @return bool
+	 */
+	public function save() {
+		error_log( 'Merchant Save: needs_save = ' . ( $this->needs_save() ? 'TRUE' : 'FALSE' ) );
+		
+		if ( ! $this->needs_save() ) {
+			error_log( 'Merchant Save: No changes to save, returning true' );
+			return true; // No changes to save
+		}
+
+		$data = $this->to_array();
+		$account_key = $this->get_account_key();
+		
+		error_log( 'Merchant Save: account_key = ' . $account_key );
+		error_log( 'Merchant Save: data = ' . print_r( $data, true ) );
+		
+		$result = update_option( $account_key, $data );
+		
+		error_log( 'Merchant Save: update_option result = ' . ( $result ? 'SUCCESS' : 'FAILED' ) );
+		
+		if ( $result ) {
+			$this->needs_save = false; // Reset the flag after successful save
+		}
+		
+		return $result;
+	}
+
+	/**
 	 * Disconnects the merchant completely.
 	 *
 	 * @since 5.1.9
@@ -341,26 +373,19 @@ class Merchant extends Abstract_Merchant {
 	}
 
 	/**
-	 * Save merchant data to WordPress options.
+	 * Gets the client secret for merchant.
 	 *
-	 * @since 5.1.9
+	 * @since 5.24.0
 	 *
-	 * @return bool Whether the save was successful.
+	 * @return ?string
 	 */
-	public function save() {
-		if ( ! $this->needs_save() ) {
-			return true; // No changes to save
-		}
-
-		$data = $this->to_array();
-		$account_key = $this->get_account_key();
-		
-		$result = update_option( $account_key, $data );
-		
-		if ( $result ) {
-			$this->needs_save = false; // Reset the flag after successful save
+	public function get_client_secret(): ?string {
+		if ( 'test' === $this->paystack_mode ) {
+			return $this->secret_key_test ?: null;
+		} elseif ( 'live' === $this->paystack_mode ) {
+			return $this->secret_key_live ?: null;
 		}
 		
-		return $result;
+		return null;
 	}
 }

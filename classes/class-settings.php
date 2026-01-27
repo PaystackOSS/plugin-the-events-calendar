@@ -188,15 +188,26 @@ class Settings extends Abstract_Settings {
 	 */
 	public static function update_settings() {
 		$section = tribe_get_request_var( 'tc-section', false );
+		
+		// Debug logging
+		error_log( 'Paystack Settings: tc-section = ' . $section );
+		error_log( 'Paystack Settings: POST data = ' . print_r( $_POST, true ) );
+		
 		if ( 'paystack' === $section ) {
 			$merchant = tribe( Merchant::class );
 
 			foreach ( self::$fields as $key => $value ) {
-				$to_save = tribe_get_request_var( self::$field_prefix . $key, $value );
+				$field_name = self::$field_prefix . $key;
+				$to_save = tribe_get_request_var( $field_name, $value );
+				
+				// Debug logging for each field
+				error_log( "Paystack Settings: Looking for field '{$field_name}', found: '{$to_save}'" );
+				
 				$merchant->set_prop( $key, $to_save );
 			}
 
-			$merchant->save();
+			$save_result = $merchant->save();
+			error_log( 'Paystack Settings: Save result = ' . ( $save_result ? 'SUCCESS' : 'FAILED' ) );
 		}
 	}
 }

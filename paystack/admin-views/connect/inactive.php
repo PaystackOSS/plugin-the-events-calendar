@@ -18,6 +18,10 @@
 	</p>
 
 	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-signup-links">
+
+		<!-- Hidden field to identify this as paystack section -->
+		<input type="hidden" name="tc-section" value="paystack" />
+		
 		<?php
 		echo wp_kses(
 			$signup->get_link_html(),

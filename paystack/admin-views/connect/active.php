@@ -20,6 +20,20 @@ if ( empty( $is_merchant_connected ) ) {
 }
 ?>
 <div class="tec-tickets__admin-settings-tickets-commerce-gateway-connected">
+	
+	<!-- Hidden field to identify this as paystack section -->
+	<input type="hidden" name="tc-section" value="paystack" />
+
+	<!-- Add save button for connected state -->
+	<div class="tec-tickets__admin-settings-tickets-commerce-gateway-connect-button">
+		<input 
+			type="submit" 
+			name="tribeSaveSettings" 
+			class="button button-primary"
+			value="<?php esc_attr_e( 'Save Settings', 'paystack-for-events-calendar' ); ?>"
+		/>
+	</div>
+
 	<h3><?php esc_html_e( 'Additional Settings', 'paystack-for-events-calendar' ); ?></h3>
 	<?php
 		$checkout_mode_args = array(
