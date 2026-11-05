@@ -31,6 +31,18 @@
 				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_test_args );
+
+			$webhook_secret_test_args = array(
+				'name'        => 'webhook_secret_test',
+				'value'       => $merchant->get_prop( 'webhook_secret_test' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Test Webhook Signing Secret', 'paystack-for-events-calendar' ),
+				'type'        => 'password',
+			);
+			$this->template( 'paystack/admin-views/fields/input', $webhook_secret_test_args );
+		?>
+		<p class="description"><?php esc_html_e( 'Find your webhook signing secret in your Paystack Dashboard under Settings > API Keys & Webhooks. It is required if you use a restricted key (rk_).', 'paystack-for-events-calendar' ); ?></p>
+		<?php
 		?>
 	</div>
 
@@ -59,6 +71,18 @@
 				'type'        => 'text',
 			);
 			$this->template( 'paystack/admin-views/fields/input', $public_live_args );
+
+			$webhook_secret_live_args = array(
+				'name'        => 'webhook_secret_live',
+				'value'       => $merchant->get_prop( 'webhook_secret_live' ),
+				'css_class'   => '',
+				'placeholder' => __( 'Live Webhook Signing Secret', 'paystack-for-events-calendar' ),
+				'type'        => 'password',
+			);
+			$this->template( 'paystack/admin-views/fields/input', $webhook_secret_live_args );
+		?>
+		<p class="description"><?php esc_html_e( 'Find your webhook signing secret in your Paystack Dashboard under Settings > API Keys & Webhooks. It is required if you use a restricted key (rk_).', 'paystack-for-events-calendar' ); ?></p>
+		<?php
 		?>
 	</div>
 

@@ -38,6 +38,8 @@ class Settings extends Abstract_Settings {
 		'public_key_test'  => '',
 		'secret_key_live'  => '',
 		'public_key_live'  => '',
+		'webhook_secret_test' => '',
+		'webhook_secret_live' => '',
 		'checkout_mode'    => 'popup',
 		'transaction_type' => '',
 		'metadata'         => array(),

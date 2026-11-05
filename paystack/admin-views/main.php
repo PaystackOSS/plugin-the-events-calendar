@@ -65,6 +65,8 @@ $classes = array(
 			init: function() {
 				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-secret_key_test-container' );
 				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-secret_key_live-container' );
+				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-webhook_secret_test-container' );
+				this.switchPassword( 'tec-tickets__admin-settings-tickets-commerce-gateway-merchant-webhook_secret_live-container' );
 			},
 			switchPassword : function( selector ) {
 
