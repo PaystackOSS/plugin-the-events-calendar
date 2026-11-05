@@ -320,7 +320,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 
 	public function handle_webhook( WP_REST_Request $request ) {
 		// only a post with paystack signature header gets our attention
-		if ( ( strtoupper( $_SERVER['REQUEST_METHOD']) != 'POST' ) || ! array_key_exists( 'HTTP_X_PAYSTACK_SIGNATURE', $_SERVER ) ) {
+		if ( ( strtoupper( $_SERVER['REQUEST_METHOD']) != 'POST' ) || ( ! array_key_exists( 'HTTP_X_PAYSTACK_SIGNATURE', $_SERVER ) && ! array_key_exists( 'HTTP_PAYSTACK_SIGNATURE', $_SERVER ) ) ) {
 						return new WP_Error( 'tec-tc-gateway-paystack-unauthorized-webhookk', $messages['unauthorized-webhook'], $input );exit();
 		}
 		$response = array(
@@ -330,14 +330,7 @@ class Order_Endpoint extends Abstract_REST_Endpoint {
 		// Retrieve the request's body
 		$input  = @file_get_contents( "php://input" );
 		$client = tribe( Client::class );
-		$decodedInput = json_decode($input);
-		$jsonString = json_encode($decodedInput, JSON_UNESCAPED_SLASHES);
-		$jsonString = stripslashes($jsonString);
-		// validate event do all at once to avoid timing attack
-	    $secret = $client->get_barer_key(); // Replace with your actual secret key
-        $hash = hash_hmac('sha512', $jsonString, $secret);
-		$paystackSignature = $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] ?? '';
-		if( $paystackSignature !== $hash ) {
+		if ( ! $client->is_valid_webhook( $input ) ) {
 			return new WP_Error( 'tec-tc-gateway-paystack-unauthorized-webhook', $messages['unauthorized-webhook'], 'invalid-signature' );
 		}
 

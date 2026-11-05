@@ -26,6 +26,8 @@ class Merchant extends Abstract_Merchant {
 		'public_key_test',
 		'secret_key_live',
 		'public_key_live',
+		'webhook_secret_test',
+		'webhook_secret_live',
 		'checkout_mode',
 		'transaction_type',
 		'metadata',
@@ -93,6 +95,20 @@ class Merchant extends Abstract_Merchant {
 	 * @var string
 	 */
 	protected $public_key_live;
+
+	/**
+	 * Test webhook signing secret.
+	 *
+	 * @var string
+	 */
+	protected $webhook_secret_test;
+
+	/**
+	 * Live webhook signing secret.
+	 *
+	 * @var string
+	 */
+	protected $webhook_secret_live;
 
 	/**
 	 * Whether or not an account is connected.
